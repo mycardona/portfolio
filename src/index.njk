@@ -1,0 +1,29 @@
+---
+layout: layouts/base.njk
+title: Home
+---
+<section class="hero">
+  <p class="eyebrow">Simple, zero-dollar publishing</p>
+  <h1>Update your portfolio without touching code.</h1>
+  <p>Use <code>/admin</code> to add projects with text, photos, and optional video/audio links.</p>
+  <a class="button" href="/portfolio/">Explore portfolio</a>
+</section>
+
+<section>
+  <div class="section-heading">
+    <h2>Recent Projects</h2>
+  </div>
+
+  {% if collections.projects.length %}
+    <div class="project-grid">
+      {% for project in collections.projects %}
+        {% if loop.index <= 6 %}
+          {% set headingLevel = "h3" %}
+          {% include "project-card.njk" %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No projects yet. Add one in <a href="/admin/">the CMS</a>.</p>
+  {% endif %}
+</section>

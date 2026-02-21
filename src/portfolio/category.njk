@@ -1,0 +1,39 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: collections.projectCategoryPages
+  size: 1
+  alias: categoryPage
+permalink: "/portfolio/category/{{ categoryPage.slug }}/"
+eleventyComputed:
+  title: "{{ categoryPage.name }}"
+---
+<section class="section-heading">
+  <p><a href="/portfolio/">← Back to portfolio</a></p>
+  <h1>{{ categoryPage.name }}</h1>
+  <p class="meta">{{ categoryPage.projects.length }} project{% if categoryPage.projects.length != 1 %}s{% endif %}</p>
+</section>
+
+{% if collections.projectCategories.length %}
+  <section class="category-nav">
+    <p class="meta">Other categories:</p>
+    <ul class="category-list">
+      {% for category in collections.projectCategories %}
+        {% if category.slug != categoryPage.slug %}
+          <li><a class="category-pill" href="{{ category | categoryUrl }}">{{ category.name }}</a></li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </section>
+{% endif %}
+
+{% if categoryPage.projects.length %}
+  <div class="project-grid">
+    {% for project in categoryPage.projects %}
+      {% set headingLevel = "h2" %}
+      {% include "project-card.njk" %}
+    {% endfor %}
+  </div>
+{% else %}
+  <p>No projects in this category yet.</p>
+{% endif %}

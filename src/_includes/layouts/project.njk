@@ -1,0 +1,52 @@
+---
+layout: layouts/base.njk
+---
+<article class="project-detail">
+  <p><a href="/portfolio/">← Back to portfolio</a></p>
+  <h1>{{ title }}</h1>
+  {% if summary %}
+    <p class="lead">{{ summary }}</p>
+  {% endif %}
+  <p class="meta">{{ page.date | readableDate }}</p>
+  {% set pageCategories = categories | asArray %}
+  {% if pageCategories.length %}
+    <ul class="category-list">
+      {% for category in pageCategories %}
+        <li><a class="category-pill" href="{{ category | categoryUrl }}">{{ category }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if coverImage %}
+    <figure>
+      {% optimizedImage coverImage, title %}
+    </figure>
+  {% endif %}
+
+  {% if mediaUrl %}
+    <section>
+      <h2>Video / Audio</h2>
+      {{ mediaUrl | mediaEmbed(title) | safe }}
+    </section>
+  {% endif %}
+
+  {% if gallery and gallery.length %}
+    <section>
+      <h2>Gallery</h2>
+      <div class="gallery-grid">
+        {% for item in gallery %}
+          {% set imageSrc = item | galleryItemSrc %}
+          {% if imageSrc %}
+            <figure>
+              {% optimizedImage imageSrc, title %}
+            </figure>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+
+  <section class="prose">
+    {{ content | safe }}
+  </section>
+</article>

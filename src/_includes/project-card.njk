@@ -1,0 +1,29 @@
+<article class="card">
+  {% if project.data.coverImage %}
+    <a href="{{ project.url }}" class="card-image">
+      {% optimizedImage project.data.coverImage, project.data.title %}
+    </a>
+  {% endif %}
+  <div class="card-body">
+    <p class="meta">{{ project.date | readableDate }}</p>
+
+    {% if headingLevel == "h3" %}
+      <h3><a href="{{ project.url }}">{{ project.data.title }}</a></h3>
+    {% else %}
+      <h2><a href="{{ project.url }}">{{ project.data.title }}</a></h2>
+    {% endif %}
+
+    {% set projectCategories = project.data.categories | asArray %}
+    {% if projectCategories.length %}
+      <ul class="category-list">
+        {% for category in projectCategories %}
+          <li><a class="category-pill" href="{{ category | categoryUrl }}">{{ category }}</a></li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if project.data.summary %}
+      <p>{{ project.data.summary }}</p>
+    {% endif %}
+  </div>
+</article>

@@ -1,0 +1,19 @@
+{
+  "name": "mylo-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Zero-dollar portfolio stack with Eleventy + Decap CMS",
+  "engines": {
+    "node": ">=20.5.0"
+  },
+  "scripts": {
+    "dev": "eleventy --serve",
+    "build": "eleventy",
+    "dev:cms": "decap-server"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "@11ty/eleventy-img": "^6.0.0",
+    "decap-server": "^3.2.1"
+  }
+}
