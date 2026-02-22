@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% if title %}{{ title }} | {% endif %}Portfolio</title>
     <meta name="description" content="A portfolio powered by Eleventy and Decap CMS.">
-    <link rel="stylesheet" href="/assets/site.css">
+    <link rel="stylesheet" href="{{ '/assets/site.css' | url }}">
   </head>
   <body>
     <header class="site-header">
       <div class="container header-row">
-        <a class="brand" href="/">Portfolio</a>
+        <a class="brand" href="{{ '/' | url }}">Portfolio</a>
         <nav>
-          <a href="/portfolio/">Portfolio</a>
-          <a href="/projects/">All Projects</a>
-          <a href="/admin/">Admin</a>
+          <a href="{{ '/' | url }}">Portfolio</a>
+          <a href="{{ '/projects/' | url }}">All Projects</a>
+          <a href="{{ '/admin/' | url }}">Admin</a>
         </nav>
       </div>
     </header>

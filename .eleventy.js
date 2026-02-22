@@ -1,5 +1,26 @@
 const path = require("node:path");
 const Image = require("@11ty/eleventy-img");
+const rawPathPrefix = process.env.SITE_PATH_PREFIX || "/";
+
+function normalizePathPrefix(value) {
+  const trimmed = String(value || "").trim();
+  if (!trimmed || trimmed === "/") return "/";
+  const withoutEdges = trimmed.replace(/^\/+|\/+$/g, "");
+  if (!withoutEdges) return "/";
+  return `/${withoutEdges}/`;
+}
+
+const pathPrefix = normalizePathPrefix(rawPathPrefix);
+
+function withPathPrefix(pathname) {
+  let cleanPath = String(pathname || "/").trim();
+  if (!cleanPath.startsWith("/")) {
+    cleanPath = `/${cleanPath}`;
+  }
+
+  if (pathPrefix === "/") return cleanPath;
+  return `${pathPrefix.replace(/\/$/, "")}${cleanPath}`;
+}
 
 function escapeHtml(value = "") {
   return value
@@ -37,8 +58,8 @@ function categoryUrl(category) {
   const slug = typeof category === "object" && category?.slug
     ? category.slug
     : categorySlug(category);
-  if (!slug) return "/portfolio/";
-  return `/portfolio/category/${slug}/`;
+  if (!slug) return withPathPrefix("/");
+  return withPathPrefix(`/category/${slug}/`);
 }
 
 function buildProjectCategoryPages(projects) {
@@ -192,7 +213,7 @@ module.exports = function (eleventyConfig) {
         widths: [480, 800, 1200],
         formats: ["avif", "webp", "jpeg"],
         outputDir: "_site/img/",
-        urlPath: "/img/"
+        urlPath: withPathPrefix("/img/")
       });
 
       return Image.generateHTML(metadata, {
@@ -209,6 +230,7 @@ module.exports = function (eleventyConfig) {
   });
 
   return {
+    pathPrefix,
     dir: {
       input: "src",
       includes: "_includes",

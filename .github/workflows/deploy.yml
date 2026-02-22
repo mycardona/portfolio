@@ -30,6 +30,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Set site path prefix
+        run: |
+          REPO_NAME="${GITHUB_REPOSITORY#*/}"
+          if [[ "$REPO_NAME" == *.github.io ]]; then
+            echo "SITE_PATH_PREFIX=/" >> "$GITHUB_ENV"
+          else
+            echo "SITE_PATH_PREFIX=/$REPO_NAME/" >> "$GITHUB_ENV"
+          fi
+
       - name: Build site
         run: npm run build
 

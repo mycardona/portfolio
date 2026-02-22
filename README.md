@@ -3,9 +3,11 @@
 This repo is set up so a non-technical editor can add/update projects from `/admin`.
 
 Public routes:
-- `/portfolio/` portfolio landing page
-- `/portfolio/category/<slug>/` one page per category
+- `/` portfolio landing page
+- `/category/<slug>/` one page per category
 - `/projects/` all-projects fallback index
+
+On GitHub Pages project sites, these become `/<repo>/...` automatically via `SITE_PATH_PREFIX`.
 
 ## What this includes
 
@@ -82,11 +84,17 @@ Default category options are `original`, `performance`, `facilitation`, and `dir
 2. In GitHub repo settings, enable Pages and choose **GitHub Actions** as source.
 3. The workflow at `.github/workflows/deploy.yml` builds and publishes `_site`.
 
+### Path prefix behavior
+
+The deploy workflow auto-sets `SITE_PATH_PREFIX`:
+- User/org site repo (`<user>.github.io`): `/`
+- Project site repo (example: `portfolio`): `/portfolio/`
+
 ## Project structure
 
 - `src/admin/` Decap CMS UI + config
 - `src/content/projects/` Markdown project entries
-- `src/portfolio/` portfolio landing + generated category pages
+- `src/portfolio/` generated category pages
 - `src/uploads/` uploaded images
 - `src/_includes/layouts/` site layouts
 - `.eleventy.js` collections, image optimization, media URL embeds

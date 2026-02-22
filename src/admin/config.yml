@@ -1,12 +1,12 @@
 backend:
   name: github
-  repo: YOUR_GITHUB_USERNAME/YOUR_REPO
+  repo: mylocardona/portfolio
   branch: main
 
 # Allows local CMS editing via `npm run dev:cms`
 local_backend: true
 
-site_url: https://YOUR-PAGES-URL
+site_url: https://mylocardona.github.io/portfolio/
 media_folder: src/uploads
 public_folder: /uploads
 

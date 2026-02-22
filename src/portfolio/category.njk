@@ -4,12 +4,12 @@ pagination:
   data: collections.projectCategoryPages
   size: 1
   alias: categoryPage
-permalink: "/portfolio/category/{{ categoryPage.slug }}/"
+permalink: "/category/{{ categoryPage.slug }}/"
 eleventyComputed:
   title: "{{ categoryPage.name }}"
 ---
 <section class="section-heading">
-  <p><a href="/portfolio/">← Back to portfolio</a></p>
+  <p><a href="{{ '/' | url }}">← Back to portfolio</a></p>
   <h1>{{ categoryPage.name }}</h1>
   <p class="meta">{{ categoryPage.projects.length }} project{% if categoryPage.projects.length != 1 %}s{% endif %}</p>
 </section>

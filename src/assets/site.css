@@ -175,7 +175,8 @@ main {
   background: var(--surface);
 }
 
-.category-card h2 {
+.category-card h2,
+.category-card h3 {
   margin-top: 0;
   margin-bottom: 0.45rem;
 }
