@@ -1,12 +1,12 @@
 backend:
-  name: github
-  repo: mylocardona/portfolio
+  name: git-gateway
   branch: main
 
 # Allows local CMS editing via `npm run dev:cms`
 local_backend: true
 
-site_url: https://mylocardona.github.io/portfolio/
+# Set this to your Netlify production URL once deployed
+site_url: https://YOUR-NETLIFY-SITE.netlify.app
 media_folder: src/uploads
 public_folder: /uploads
 

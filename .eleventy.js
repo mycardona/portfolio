@@ -43,6 +43,31 @@ function toArray(value) {
   return [value];
 }
 
+function stripHtml(value) {
+  return String(value || "")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function excerpt(value, maxLength = 170) {
+  const clean = stripHtml(value);
+  if (!clean) return "";
+  if (clean.length <= maxLength) return clean;
+  return `${clean.slice(0, maxLength).replace(/\s+\S*$/, "").trim()}...`;
+}
+
+function galleryItemSrc(item) {
+  if (!item) return "";
+  return typeof item === "string" ? item : item.image || "";
+}
+
+function projectPreviewImage(project) {
+  const data = project?.data || project || {};
+  if (data.coverImage) return data.coverImage;
+  return toArray(data.gallery).map(galleryItemSrc).find(Boolean) || "";
+}
+
 const categoryAliases = new Map([
   ["original", "original work"],
   ["performance", "performance work"],
@@ -193,10 +218,9 @@ module.exports = function (eleventyConfig) {
       .filter(Boolean)
       .some((category) => category.toLowerCase() === normalizedTarget);
   });
-  eleventyConfig.addFilter("galleryItemSrc", (item) => {
-    if (!item) return "";
-    return typeof item === "string" ? item : item.image || "";
-  });
+  eleventyConfig.addFilter("galleryItemSrc", galleryItemSrc);
+  eleventyConfig.addFilter("projectPreviewImage", projectPreviewImage);
+  eleventyConfig.addFilter("excerpt", (value, maxLength = 170) => excerpt(value, maxLength));
 
   eleventyConfig.addCollection("projects", (collectionApi) => {
     return collectionApi

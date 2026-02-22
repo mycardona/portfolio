@@ -1,7 +1,8 @@
 <article class="card project-card">
-  {% if project.data.coverImage %}
+  {% set previewImage = project | projectPreviewImage %}
+  {% if previewImage %}
     <a href="{{ project.url }}" class="card-image">
-      {% optimizedImage project.data.coverImage, project.data.title %}
+      {% optimizedImage previewImage, project.data.title %}
     </a>
   {% endif %}
   <div class="card-body">
@@ -22,8 +23,9 @@
       </ul>
     {% endif %}
 
-    {% if project.data.summary %}
-      <p class="card-summary">{{ project.data.summary }}</p>
+    {% set cardSummary = project.data.summary or (project.templateContent | excerpt(170)) %}
+    {% if cardSummary %}
+      <p class="card-summary">{{ cardSummary }}</p>
     {% endif %}
 
     <p class="card-footer"><a class="card-link" href="{{ project.url }}">Read project</a></p>

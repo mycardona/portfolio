@@ -209,8 +209,30 @@ h3 {
   background: linear-gradient(160deg, rgba(255, 255, 255, 0.95), rgba(245, 238, 224, 0.95));
   border: 1px solid var(--line);
   border-radius: 1rem;
-  padding: 1rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
   box-shadow: 0 7px 22px rgba(23, 23, 19, 0.06);
+}
+
+.category-card-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex: 1;
+}
+
+.category-image {
+  display: block;
+  background: #efe9db;
+  border-bottom: 1px solid var(--line);
+}
+
+.category-image img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
 }
 
 .category-card h3 {
@@ -235,8 +257,18 @@ h3 {
   font-weight: 700;
 }
 
+.category-latest {
+  margin: 0.2rem 0 0;
+  color: #3b382f;
+  font-size: 0.9rem;
+}
+
+.category-latest a {
+  color: inherit;
+}
+
 .category-preview-list {
-  margin: 0.8rem 0 0;
+  margin: 0.45rem 0 0;
   padding-left: 1rem;
   color: var(--muted);
   font-size: 0.93rem;
@@ -352,6 +384,10 @@ h3 {
 .card-summary {
   margin: 0.28rem 0 0;
   color: #343128;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .card-date {
@@ -500,6 +536,21 @@ h3 {
   .landing-hero,
   .page-intro {
     border-radius: 1rem;
+  }
+
+  .project-grid-showcase {
+    display: flex;
+    overflow-x: auto;
+    gap: 0.8rem;
+    padding-bottom: 0.3rem;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+  }
+
+  .project-grid-showcase > .project-card {
+    min-width: min(82vw, 22rem);
+    flex: 0 0 auto;
+    scroll-snap-align: start;
   }
 }
 

@@ -46,16 +46,23 @@ npm run dev:cms
 - Site: `http://localhost:8080`
 - CMS: `http://localhost:8080/admin/`
 
-## Configure Decap CMS
+## Configure Decap CMS (Netlify Git Gateway)
 
 Edit `src/admin/config.yml`:
 
-- `backend.repo`: set your real `owner/repo`
-- `site_url`: set your production URL
+- `backend.name` should be `git-gateway`
+- `site_url`: set your Netlify production URL
 
-### Important auth note
+### Set up Netlify auth
 
-`backend: github` requires OAuth for production logins. Local editing works with `local_backend: true`, but for your friend to edit on the live site you must configure a GitHub OAuth flow (Decap auth endpoint) and then add those settings in `src/admin/config.yml`.
+1. Connect this repo to Netlify and deploy.
+2. In Netlify site settings, go to `Identity` and click `Enable Identity`.
+3. Set registration to `Invite only` (recommended).
+4. In `Identity > Services`, enable `Git Gateway`.
+5. Invite editors from `Identity > Invite users`.
+6. Editors sign in at `/admin/` with Netlify Identity and can publish directly to the repo via Git Gateway.
+
+`src/admin/index.html` already includes the Netlify Identity widget script needed for invite/login flows.
 
 ## Content model (for your editor)
 
@@ -71,7 +78,7 @@ In `/admin` they fill in:
 - `Body`
 
 Each save creates/updates a Markdown file in `src/content/projects/`.
-Default category options are `original`, `performance`, `facilitation`, and `directing`, and editors can add new ones.
+Default category options are `original work`, `performance work`, `facilitation work`, and `directorship work`, and editors can add new ones.
 
 ## Media strategy
 
@@ -84,7 +91,17 @@ Default category options are `original`, `performance`, `facilitation`, and `dir
 2. In GitHub repo settings, enable Pages and choose **GitHub Actions** as source.
 3. The workflow at `.github/workflows/deploy.yml` builds and publishes `_site`.
 
+## Deploy to Netlify
+
+1. In Netlify, import this GitHub repo as a new site.
+2. Build command: `npm run build`
+3. Publish directory: `_site`
+4. Node version: `20.5+` (set in Netlify environment if needed)
+5. After first deploy, complete the Identity/Git Gateway steps above.
+
 ### Path prefix behavior
+
+This only applies to the GitHub Pages deployment path.
 
 The deploy workflow auto-sets `SITE_PATH_PREFIX`:
 - User/org site repo (`<user>.github.io`): `/`

@@ -29,7 +29,7 @@ eleventyComputed:
 {% endif %}
 
 {% if categoryPage.projects.length %}
-  <div class="project-grid">
+  <div class="project-grid project-grid-showcase">
     {% for project in categoryPage.projects %}
       {% set headingLevel = "h2" %}
       {% include "project-card.njk" %}

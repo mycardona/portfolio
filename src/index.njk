@@ -23,20 +23,39 @@ title: Portfolio
     </div>
     <section class="category-grid">
       {% for categoryPage in collections.projectCategoryPages %}
+        {% set latestProject = categoryPage.projects[0] %}
+        {% set categoryImage = latestProject | projectPreviewImage %}
+        {% set latestDescription = "" %}
+        {% if latestProject %}
+          {% set latestDescription = latestProject.data.summary or (latestProject.templateContent | excerpt(120)) %}
+        {% endif %}
         <article class="category-card">
-          <p class="category-label">Category</p>
-          <h3><a href="{{ categoryPage | categoryUrl }}">{{ categoryPage.name | categoryLabel }}</a></h3>
-          <p class="meta">{{ categoryPage.projects.length }} project{% if categoryPage.projects.length != 1 %}s{% endif %}</p>
-          {% if categoryPage.projects.length %}
-            <ul class="category-preview-list">
-              {% for project in categoryPage.projects %}
-                {% if loop.index <= 2 %}
-                  <li><a href="{{ project.url }}">{{ project.data.title }}</a></li>
-                {% endif %}
-              {% endfor %}
-            </ul>
+          {% if categoryImage %}
+            <a href="{{ categoryPage | categoryUrl }}" class="category-image">
+              {% optimizedImage categoryImage, latestProject.data.title %}
+            </a>
           {% endif %}
-          <p><a class="category-link" href="{{ categoryPage | categoryUrl }}">Open category page</a></p>
+          <div class="category-card-body">
+            <p class="category-label">Category</p>
+            <h3><a href="{{ categoryPage | categoryUrl }}">{{ categoryPage.name | categoryLabel }}</a></h3>
+            <p class="meta">{{ categoryPage.projects.length }} project{% if categoryPage.projects.length != 1 %}s{% endif %}</p>
+            {% if latestProject %}
+              <p class="category-latest">Latest: <a href="{{ latestProject.url }}">{{ latestProject.data.title }}</a></p>
+              {% if latestDescription %}
+                <p class="card-summary">{{ latestDescription }}</p>
+              {% endif %}
+            {% endif %}
+            {% if categoryPage.projects.length %}
+              <ul class="category-preview-list">
+                {% for project in categoryPage.projects %}
+                  {% if loop.index <= 3 %}
+                    <li><a href="{{ project.url }}">{{ project.data.title }}</a></li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            {% endif %}
+            <p><a class="category-link" href="{{ categoryPage | categoryUrl }}">Open category page</a></p>
+          </div>
         </article>
       {% endfor %}
     </section>
