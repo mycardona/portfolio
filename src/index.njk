@@ -2,23 +2,41 @@
 layout: layouts/base.njk
 title: Portfolio
 ---
-<section class="hero">
-  <p class="eyebrow">Simple, zero-dollar publishing</p>
-  <h1>Portfolio</h1>
-  <p>Use <code>/admin</code> to add projects with text, photos, and optional video/audio links.</p>
-  <a class="button" href="{{ '/projects/' | url }}">View all projects</a>
+<section class="landing-hero">
+  <p class="eyebrow">Portfolio directory</p>
+  <h1>Browse the work by category.</h1>
+  <p class="hero-copy">
+    Each category has its own page, so visitors can move directly into original work, directorship work,
+    performance work, and more.
+  </p>
+  <div class="hero-actions">
+    <a class="button" href="{{ '/projects/' | url }}">View all projects</a>
+    <a class="button button-secondary" href="{{ '/admin/' | url }}">Add a project</a>
+  </div>
 </section>
 
-{% if collections.projectCategories.length %}
+{% if collections.projectCategoryPages.length %}
   <section class="category-section">
     <div class="section-heading">
-      <h2>Browse by Category</h2>
+      <h2>Project Categories</h2>
+      <p class="meta">Every card below links to its own category page.</p>
     </div>
     <section class="category-grid">
-      {% for category in collections.projectCategories %}
+      {% for categoryPage in collections.projectCategoryPages %}
         <article class="category-card">
-          <h3><a href="{{ category | categoryUrl }}">{{ category.name }}</a></h3>
-          <p class="meta">{{ category.count }} project{% if category.count != 1 %}s{% endif %}</p>
+          <p class="category-label">Category</p>
+          <h3><a href="{{ categoryPage | categoryUrl }}">{{ categoryPage.name | categoryLabel }}</a></h3>
+          <p class="meta">{{ categoryPage.projects.length }} project{% if categoryPage.projects.length != 1 %}s{% endif %}</p>
+          {% if categoryPage.projects.length %}
+            <ul class="category-preview-list">
+              {% for project in categoryPage.projects %}
+                {% if loop.index <= 2 %}
+                  <li><a href="{{ project.url }}">{{ project.data.title }}</a></li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          {% endif %}
+          <p><a class="category-link" href="{{ categoryPage | categoryUrl }}">Open category page</a></p>
         </article>
       {% endfor %}
     </section>

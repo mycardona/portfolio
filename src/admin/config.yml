@@ -28,10 +28,10 @@ collections:
         multiple: true
         create: true
         options:
-          - { label: Original, value: original }
-          - { label: Performance, value: performance }
-          - { label: Facilitation, value: facilitation }
-          - { label: Directing, value: directing }
+          - { label: Original Work, value: original work }
+          - { label: Performance Work, value: performance work }
+          - { label: Facilitation Work, value: facilitation work }
+          - { label: Directorship Work, value: directorship work }
         hint: "Start with defaults or type a new category to add more."
       - { label: Summary, name: summary, widget: text, required: false }
       - { label: Cover Image, name: coverImage, widget: image, required: false }

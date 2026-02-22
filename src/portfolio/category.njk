@@ -6,21 +6,22 @@ pagination:
   alias: categoryPage
 permalink: "/category/{{ categoryPage.slug }}/"
 eleventyComputed:
-  title: "{{ categoryPage.name }}"
+  title: "{{ categoryPage.name | categoryLabel }}"
 ---
-<section class="section-heading">
-  <p><a href="{{ '/' | url }}">← Back to portfolio</a></p>
-  <h1>{{ categoryPage.name }}</h1>
+<section class="page-intro">
+  <p class="eyebrow">Category page</p>
+  <p class="back-link"><a href="{{ '/' | url }}">← Back to portfolio</a></p>
+  <h1>{{ categoryPage.name | categoryLabel }}</h1>
   <p class="meta">{{ categoryPage.projects.length }} project{% if categoryPage.projects.length != 1 %}s{% endif %}</p>
 </section>
 
-{% if collections.projectCategories.length %}
+{% if collections.projectCategoryPages.length > 1 %}
   <section class="category-nav">
     <p class="meta">Other categories:</p>
     <ul class="category-list">
-      {% for category in collections.projectCategories %}
+      {% for category in collections.projectCategoryPages %}
         {% if category.slug != categoryPage.slug %}
-          <li><a class="category-pill" href="{{ category | categoryUrl }}">{{ category.name }}</a></li>
+          <li><a class="category-pill" href="{{ category | categoryUrl }}">{{ category.name | categoryLabel }}</a></li>
         {% endif %}
       {% endfor %}
     </ul>

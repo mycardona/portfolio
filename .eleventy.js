@@ -43,8 +43,25 @@ function toArray(value) {
   return [value];
 }
 
+const categoryAliases = new Map([
+  ["original", "original work"],
+  ["performance", "performance work"],
+  ["facilitation", "facilitation work"],
+  ["directing", "directorship work"],
+  ["directorship", "directorship work"]
+]);
+
 function normalizeCategory(category) {
-  return String(category || "").trim();
+  const trimmed = String(category || "").trim();
+  if (!trimmed) return "";
+  const lowered = trimmed.toLowerCase();
+  return categoryAliases.get(lowered) || lowered;
+}
+
+function categoryLabel(category) {
+  const normalized = normalizeCategory(category);
+  if (!normalized) return "";
+  return normalized.replace(/\b[a-z]/g, (letter) => letter.toUpperCase());
 }
 
 function categorySlug(category) {
@@ -165,6 +182,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("asArray", (value) => {
     return toArray(value).map(normalizeCategory).filter(Boolean);
   });
+  eleventyConfig.addFilter("categoryLabel", categoryLabel);
   eleventyConfig.addFilter("categorySlug", categorySlug);
   eleventyConfig.addFilter("categoryUrl", categoryUrl);
   eleventyConfig.addFilter("hasCategory", (categories, targetCategory) => {
