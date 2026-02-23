@@ -220,10 +220,6 @@ function mediaEmbed(url, title = "Media") {
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
   eleventyConfig.addPassthroughCopy({ "src/admin": "admin" });
-  eleventyConfig.addPassthroughCopy({
-    "node_modules/decap-cms-widget-bulk-github-images/dist/index.js":
-      "admin/widgets/bulk-github-images.js"
-  });
   eleventyConfig.addPassthroughCopy({ "src/uploads": "uploads" });
 
   eleventyConfig.addFilter("readableDate", (value) => {

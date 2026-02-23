@@ -67,7 +67,7 @@ Edit `src/admin/config.yml`:
 5. Commit/push your `config.yml` values.
 6. Open `/admin/` on your GitHub Pages site and sign in with GitHub.
 
-`src/admin/index.html` includes the Decap CMS script plus a custom `bulkGithubImages` widget loaded from `admin/widgets/bulk-github-images.js` (copied from `node_modules` at build time).
+`src/admin/index.html` includes the Decap CMS script plus a custom `bulkGithubImages` widget loaded from the published npm package via unpkg.
 
 ## Content model (for your editor)
 
@@ -94,7 +94,7 @@ Default category options are `original work`, `performance work`, `facilitation 
   - uploads multiple files directly to `src/uploads/` in the GitHub repo
   - lets you select multiple existing files from `src/uploads/`
   - in local development, requires `npm run dev:cms` so the widget can use the local proxy API
-- The source of truth for this widget is the npm package `decap-cms-widget-bulk-github-images` (installed as a dependency in this project).
+- The source of truth for this widget is the npm package `decap-cms-widget-bulk-github-images`, loaded in `src/admin/index.html` via unpkg.
 - Video/audio files should stay on YouTube/Vimeo/SoundCloud. Paste the URL into `Video or Audio URL`.
 
 ## Deploy to GitHub Pages
