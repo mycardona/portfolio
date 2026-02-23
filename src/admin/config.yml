@@ -60,17 +60,13 @@ collections:
       - { label: Cover Image, name: coverImage, widget: image, required: false }
       - label: Gallery Images
         name: gallery
-        widget: list
+        widget: image
         required: false
-        fields:
-          - label: Image
-            name: image
-            widget: image
-            choose_url: false
-            allow_multiple: true
-            media_library:
-              config:
-                multiple: true
+        choose_url: false
+        multiple: true
+        media_library:
+          config:
+            multiple: true
       - {
           label: Video or Audio URL,
           name: mediaUrl,

@@ -23,16 +23,17 @@ permalink: /projects/
 {% if collections.projects.length %}
   <div class="project-grid">
     {% for project in collections.projects %}
+      {% set projectHref = project.url | url %}
       <article class="card project-card">
         {% set previewImage = project | projectPreviewImage %}
         {% if previewImage %}
-          <a href="{{ project.url }}" class="card-image">
+          <a href="{{ projectHref }}" class="card-image">
             {% optimizedImage previewImage, project.data.title %}
           </a>
         {% endif %}
         <div class="card-body">
           <p class="meta card-date">{{ project.date | readableDate }}</p>
-          <h2 class="card-title"><a href="{{ project.url }}">{{ project.data.title }}</a></h2>
+          <h2 class="card-title"><a href="{{ projectHref }}">{{ project.data.title }}</a></h2>
           {% set projectCategories = project.data.categories | asArray %}
           {% if projectCategories.length %}
             <ul class="category-list category-list-inline">
@@ -45,7 +46,7 @@ permalink: /projects/
           {% if cardSummary %}
             <p class="card-summary">{{ cardSummary }}</p>
           {% endif %}
-          <p class="card-footer"><a class="card-link" href="{{ project.url }}">View project</a></p>
+          <p class="card-footer"><a class="card-link" href="{{ projectHref }}">View project</a></p>
         </div>
       </article>
     {% endfor %}

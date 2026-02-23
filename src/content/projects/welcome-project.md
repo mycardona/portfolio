@@ -7,7 +7,7 @@ categories:
 coverImage: /uploads/example-cover.png
 mediaUrl: https://www.youtube.com/watch?v=dQw4w9WgXcQ
 gallery:
-  - image: /uploads/example-cover.png
+  - /uploads/example-cover.png
 ---
 Replace this with your real project description.
 

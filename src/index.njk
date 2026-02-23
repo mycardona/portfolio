@@ -15,7 +15,7 @@ showQuickNav: false
 {% set heroImage = myloHeroProject | projectPreviewImage %}
 {% set heroLearnUrl = '/projects/' | url %}
 {% if myloHeroProject %}
-  {% set heroLearnUrl = myloHeroProject.url %}
+  {% set heroLearnUrl = myloHeroProject.url | url %}
 {% endif %}
 {% set bookNowUrl = '/book/' | url %}
 
