@@ -33,7 +33,14 @@ collections:
           label: Slug,
           name: slug,
           widget: string,
-          hint: "Lowercase URL key, e.g. 'performance-work'."
+          hint: "Lowercase URL key, e.g. 'performance'."
+        }
+      - {
+          label: Description,
+          name: description,
+          widget: text,
+          required: false,
+          hint: "Short category intro shown on category pages."
         }
       - { label: Permalink, name: permalink, widget: hidden, default: false }
   - name: projects
@@ -45,7 +52,14 @@ collections:
     summary: "{{title}}"
     fields:
       - { label: Title, name: title, widget: string }
-      - { label: Date, name: date, widget: datetime }
+      - label: Date
+        name: date
+        widget: datetime
+        time_format: false
+        date_format: "MMMM YYYY"
+        format: "YYYY-MM"
+        picker_utc: true
+        hint: "Month and year only."
       - label: Categories
         name: categories
         widget: relation
@@ -57,16 +71,30 @@ collections:
         multiple: true
         hint: "Select from existing categories in the Categories collection."
       - { label: Summary, name: summary, widget: text, required: false }
+      - {
+          label: Venue,
+          name: venueName,
+          widget: string,
+          required: false,
+          hint: "Venue name, e.g. New Conservatory Theater Company."
+        }
+      - {
+          label: Venue URL,
+          name: venueUrl,
+          widget: string,
+          required: false,
+          hint: "Optional link to the venue website."
+        }
       - { label: Cover Image, name: coverImage, widget: image, required: false }
       - label: Gallery Images
         name: gallery
-        widget: image
+        widget: bulkGithubImages
         required: false
-        choose_url: false
-        multiple: true
-        media_library:
-          config:
-            multiple: true
+        repo: mylocardona/portfolio
+        branch: main
+        proxy_url: http://localhost:8081/api/v1
+        media_folder: src/uploads
+        public_folder: /uploads
       - {
           label: Video or Audio URL,
           name: mediaUrl,

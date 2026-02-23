@@ -25,7 +25,7 @@ showQuickNav: false
       <a href="{{ '/' | url }}" class="landing-mark"></a>
       <nav aria-label="Hero">
         <a href="{{ '/' | url }}">Home</a>
-        <a href="{{ '/projects/' | url }}">Work</a>
+        <a href="{{ '/projects/' | url }}">Projects</a>
         <a class="hero-pill-link" href="{{ bookNowUrl }}">Book now</a>
       </nav>
     </div>
@@ -51,7 +51,7 @@ showQuickNav: false
             <a href="{{ categoryPage | categoryUrl }}" class="category-tile-link">
               <p class="category-label">{{ categoryPage.projects.length }} project{% if categoryPage.projects.length != 1 %}s{% endif %}</p>
               <h2>{{ categoryPage.name | categoryLabel }}</h2>
-              <p class="category-link">Open works</p>
+              <p class="category-link">Open projects</p>
             </a>
           </article>
         {% endfor %}

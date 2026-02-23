@@ -215,6 +215,14 @@ h3 {
   background: #ffffff;
 }
 
+.landing-hero-nav nav a.hero-pill-link {
+  color: #161316;
+}
+
+.landing-hero-nav nav a.hero-pill-link:hover {
+  color: #0c0b0d;
+}
+
 .landing-hero-content {
   margin: auto 0;
   text-align: center;
@@ -425,6 +433,27 @@ h3 {
   max-width: 56ch;
 }
 
+.category-intro {
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(15rem, 24vw, 19rem);
+}
+
+.category-description {
+  margin: 0.3rem 0 0;
+  max-width: 62ch;
+  color: rgba(235, 221, 205, 0.9);
+}
+
+.category-intro-nav {
+  margin-top: auto;
+  padding-top: clamp(0.9rem, 1.8vw, 1.3rem);
+}
+
+.category-intro-nav .category-list {
+  margin-top: 0.65rem;
+}
+
 .category-nav {
   margin: 1.2rem 0 1.5rem;
   border: 1px solid var(--line);
@@ -531,25 +560,27 @@ h3 {
   letter-spacing: 0.09em;
 }
 
-.card-footer {
-  margin: auto 0 0;
-  padding-top: 0.42rem;
+.card-venue {
+  margin-top: -0.12rem;
+  font-size: 0.84rem;
 }
 
-.card-link {
+.card-venue a {
   color: var(--accent-strong);
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.card-link:hover {
-  text-decoration: underline;
 }
 
 .meta {
   margin: 0;
   color: var(--muted);
   font-size: 0.9rem;
+}
+
+.project-venue {
+  margin-top: 0.25rem;
+}
+
+.project-venue a {
+  color: var(--accent-strong);
 }
 
 .back-link {

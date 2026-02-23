@@ -8,6 +8,15 @@
   {% endif %}
   <div class="card-body">
     <p class="meta card-date">{{ project.date | readableDate }}</p>
+    {% if project.data.venueName %}
+      <p class="meta card-venue">
+        {% if project.data.venueUrl %}
+          <a href="{{ project.data.venueUrl }}" target="_blank" rel="noopener noreferrer">{{ project.data.venueName }}</a>
+        {% else %}
+          {{ project.data.venueName }}
+        {% endif %}
+      </p>
+    {% endif %}
 
     {% if headingLevel == "h3" %}
       <h3 class="card-title"><a href="{{ projectHref }}">{{ project.data.title }}</a></h3>
@@ -28,7 +37,5 @@
     {% if cardSummary %}
       <p class="card-summary">{{ cardSummary }}</p>
     {% endif %}
-
-    <p class="card-footer"><a class="card-link" href="{{ projectHref }}">View project</a></p>
   </div>
 </article>

@@ -9,24 +9,24 @@ eleventyComputed:
   title: "{{ categoryPage.name | categoryLabel }}"
 ---
 <section class="page-intro category-intro">
-  <p class="back-link"><a href="{{ '/' | url }}">Back to home</a></p>
-  <p class="eyebrow">Discipline</p>
   <h1>{{ categoryPage.name | categoryLabel }}</h1>
-  <p class="meta">{{ categoryPage.projects.length }} work{% if categoryPage.projects.length != 1 %}s{% endif %}</p>
+  <p class="meta">{{ categoryPage.projects.length }} project{% if categoryPage.projects.length != 1 %}s{% endif %}</p>
+  {% if categoryPage.description %}
+    <p class="category-description">{{ categoryPage.description }}</p>
+  {% endif %}
+  {% if collections.projectCategoryPages.length > 1 %}
+    <div class="category-intro-nav">
+      <p class="meta">Explore other sections:</p>
+      <ul class="category-list">
+        {% for category in collections.projectCategoryPages %}
+          {% if category.slug != categoryPage.slug %}
+            <li><a class="category-pill" href="{{ category | categoryUrl }}">{{ category.name | categoryLabel }}</a></li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
 </section>
-
-{% if collections.projectCategoryPages.length > 1 %}
-  <section class="category-nav">
-    <p class="meta">Explore other sections:</p>
-    <ul class="category-list">
-      {% for category in collections.projectCategoryPages %}
-        {% if category.slug != categoryPage.slug %}
-          <li><a class="category-pill" href="{{ category | categoryUrl }}">{{ category.name | categoryLabel }}</a></li>
-        {% endif %}
-      {% endfor %}
-    </ul>
-  </section>
-{% endif %}
 
 {% if categoryPage.projects.length %}
   <div class="project-grid project-grid-showcase">
@@ -41,6 +41,15 @@ eleventyComputed:
         {% endif %}
         <div class="card-body">
           <p class="meta card-date">{{ project.date | readableDate }}</p>
+          {% if project.data.venueName %}
+            <p class="meta card-venue">
+              {% if project.data.venueUrl %}
+                <a href="{{ project.data.venueUrl }}" target="_blank" rel="noopener noreferrer">{{ project.data.venueName }}</a>
+              {% else %}
+                {{ project.data.venueName }}
+              {% endif %}
+            </p>
+          {% endif %}
           <h2 class="card-title"><a href="{{ projectHref }}">{{ project.data.title }}</a></h2>
           {% set projectCategories = project.data.categories | asArray %}
           {% if projectCategories.length %}
@@ -54,11 +63,10 @@ eleventyComputed:
           {% if cardSummary %}
             <p class="card-summary">{{ cardSummary }}</p>
           {% endif %}
-          <p class="card-footer"><a class="card-link" href="{{ projectHref }}">View project</a></p>
         </div>
       </article>
     {% endfor %}
   </div>
 {% else %}
-  <p>No works in this section yet.</p>
+  <p>No projects in this section yet.</p>
 {% endif %}

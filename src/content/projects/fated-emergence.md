@@ -1,8 +1,8 @@
 ---
-title: fated emergence
+title: Fated Emergence
 date: 2026-02-22
 categories:
-  - facilitation
+  - directing
 summary: Six short stories covering themes of family, home, and belonging.
 coverImage: /uploads/pxl_20260202_051819188.jpg
 gallery:

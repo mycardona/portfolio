@@ -14,6 +14,16 @@ layout: layouts/base.njk
       <p class="lead">{{ summary }}</p>
     {% endif %}
     <p class="meta">{{ page.date | readableDate }}</p>
+    {% if venueName %}
+      <p class="meta project-venue">
+        Venue:
+        {% if venueUrl %}
+          <a href="{{ venueUrl }}" target="_blank" rel="noopener noreferrer">{{ venueName }}</a>
+        {% else %}
+          {{ venueName }}
+        {% endif %}
+      </p>
+    {% endif %}
   </header>
 
   {% if mediaUrl %}

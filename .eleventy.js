@@ -104,8 +104,9 @@ function configuredCategories(collectionApi) {
       const data = item?.data || {};
       const title = String(data.title || data.name || "").trim();
       const slug = categorySlug(data.slug || title);
+      const description = String(data.description || "").trim();
       if (!slug) return null;
-      return { title: title || slug, name: title || slug, slug };
+      return { title: title || slug, name: title || slug, slug, description };
     })
     .filter(Boolean)
     .sort((a, b) => a.name.localeCompare(b.name));
@@ -139,9 +140,10 @@ function buildProjectCategoryPages(projects, categories = []) {
 
         const categoryEntry = categoryBySlug.get(slug);
         const name = categoryEntry?.name || category;
+        const description = categoryEntry?.description || "";
 
         if (!categoriesBySlug.has(slug)) {
-          categoriesBySlug.set(slug, { name, slug, projects: [] });
+          categoriesBySlug.set(slug, { name, slug, description, projects: [] });
         }
         categoriesBySlug.get(slug).projects.push(item);
       });
@@ -218,15 +220,21 @@ function mediaEmbed(url, title = "Media") {
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
   eleventyConfig.addPassthroughCopy({ "src/admin": "admin" });
+  eleventyConfig.addPassthroughCopy({
+    "node_modules/decap-cms-widget-bulk-github-images/dist/index.js":
+      "admin/widgets/bulk-github-images.js"
+  });
   eleventyConfig.addPassthroughCopy({ "src/uploads": "uploads" });
 
   eleventyConfig.addFilter("readableDate", (value) => {
     if (!value) return "";
+    const parsed = value instanceof Date ? value : new Date(value);
+    if (Number.isNaN(parsed.getTime())) return "";
     return new Intl.DateTimeFormat("en-US", {
       year: "numeric",
-      month: "short",
-      day: "numeric"
-    }).format(value);
+      month: "long",
+      timeZone: "UTC"
+    }).format(parsed);
   });
 
   eleventyConfig.addFilter("mediaEmbed", mediaEmbed);
