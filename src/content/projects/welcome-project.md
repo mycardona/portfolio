@@ -3,7 +3,7 @@ title: Welcome Project
 date: 2026-02-21
 summary: This sample project shows how text, images, and external media URLs work together.
 categories:
-  - original work
+  - original-work
 coverImage: /uploads/example-cover.png
 mediaUrl: https://www.youtube.com/watch?v=dQw4w9WgXcQ
 gallery:

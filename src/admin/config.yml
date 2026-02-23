@@ -1,16 +1,41 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: mylocardona/portfolio
   branch: main
+  # Netlify site used only for OAuth provider tokens
+  site_domain: YOUR-NETLIFY-SITE.netlify.app
 
 # Allows local CMS editing via `npm run dev:cms`
 local_backend: true
 
-# Set this to your Netlify production URL once deployed
-site_url: https://YOUR-NETLIFY-SITE.netlify.app
+# Set this to your live public site URL (GitHub Pages in this setup)
+site_url: https://mylocardona.github.io/portfolio/
 media_folder: src/uploads
 public_folder: /uploads
 
 collections:
+  - name: categories
+    label: Categories
+    label_singular: Category
+    folder: src/content/categories
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    identifier_field: title
+    fields:
+      - {
+          label: Category Title,
+          name: title,
+          widget: string,
+          hint: "Display name shown across the site."
+        }
+      - {
+          label: Slug,
+          name: slug,
+          widget: string,
+          hint: "Lowercase URL key, e.g. 'performance-work'."
+        }
+      - { label: Permalink, name: permalink, widget: hidden, default: false }
   - name: projects
     label: Projects
     label_singular: Project
@@ -23,16 +48,14 @@ collections:
       - { label: Date, name: date, widget: datetime }
       - label: Categories
         name: categories
-        widget: select
+        widget: relation
+        collection: categories
+        search_fields: ["title"]
+        value_field: slug
+        display_fields: ["title"]
         required: false
         multiple: true
-        create: true
-        options:
-          - { label: Original Work, value: original work }
-          - { label: Performance Work, value: performance work }
-          - { label: Facilitation Work, value: facilitation work }
-          - { label: Directorship Work, value: directorship work }
-        hint: "Start with defaults or type a new category to add more."
+        hint: "Select from existing categories in the Categories collection."
       - { label: Summary, name: summary, widget: text, required: false }
       - { label: Cover Image, name: coverImage, widget: image, required: false }
       - label: Gallery Images
@@ -40,7 +63,14 @@ collections:
         widget: list
         required: false
         fields:
-          - { label: Image, name: image, widget: image }
+          - label: Image
+            name: image
+            widget: image
+            choose_url: false
+            allow_multiple: true
+            media_library:
+              config:
+                multiple: true
       - {
           label: Video or Audio URL,
           name: mediaUrl,

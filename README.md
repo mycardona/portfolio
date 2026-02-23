@@ -46,23 +46,28 @@ npm run dev:cms
 - Site: `http://localhost:8080`
 - CMS: `http://localhost:8080/admin/`
 
-## Configure Decap CMS (Netlify Git Gateway)
+## Configure Decap CMS (GitHub backend + Netlify OAuth)
 
 Edit `src/admin/config.yml`:
 
-- `backend.name` should be `git-gateway`
-- `site_url`: set your Netlify production URL
+- `backend.name`: `github`
+- `backend.repo`: your GitHub repo in `owner/repo` format
+- `backend.branch`: `main`
+- `backend.site_domain`: your Netlify site domain (example: `mylo-auth.netlify.app`)
+- `site_url`: your public GitHub Pages URL
 
-### Set up Netlify auth
+### Set up OAuth (one-time)
 
-1. Connect this repo to Netlify and deploy.
-2. In Netlify site settings, go to `Identity` and click `Enable Identity`.
-3. Set registration to `Invite only` (recommended).
-4. In `Identity > Services`, enable `Git Gateway`.
-5. Invite editors from `Identity > Invite users`.
-6. Editors sign in at `/admin/` with Netlify Identity and can publish directly to the repo via Git Gateway.
+1. Create a Netlify site to host OAuth provider configuration.
+2. In GitHub, create an OAuth App:
+   - Homepage URL: your public site URL
+   - Authorization callback URL: `https://api.netlify.com/auth/done`
+3. In Netlify site settings, go to `Access & security` > `OAuth` > `Authentication providers`.
+4. Add `GitHub` and paste the OAuth App client ID and client secret.
+5. Commit/push your `config.yml` values.
+6. Open `/admin/` on your GitHub Pages site and sign in with GitHub.
 
-`src/admin/index.html` already includes the Netlify Identity widget script needed for invite/login flows.
+`src/admin/index.html` only needs the Decap CMS script for this flow.
 
 ## Content model (for your editor)
 
@@ -73,7 +78,7 @@ In `/admin` they fill in:
 - `Categories` (supports defaults + custom additions)
 - `Summary` (optional)
 - `Cover Image` (optional)
-- `Gallery Images` (optional)
+- `Gallery Images` (optional, supports multi-select upload in one action)
 - `Video or Audio URL` (optional)
 - `Body`
 
@@ -83,6 +88,7 @@ Default category options are `original work`, `performance work`, `facilitation 
 ## Media strategy
 
 - Images upload to `src/uploads/` and are optimized in build output.
+- In a project entry, use `Gallery Images` to bulk upload/select multiple files at once from the media picker.
 - Video/audio files should stay on YouTube/Vimeo/SoundCloud. Paste the URL into `Video or Audio URL`.
 
 ## Deploy to GitHub Pages
@@ -91,13 +97,11 @@ Default category options are `original work`, `performance work`, `facilitation 
 2. In GitHub repo settings, enable Pages and choose **GitHub Actions** as source.
 3. The workflow at `.github/workflows/deploy.yml` builds and publishes `_site`.
 
-## Deploy to Netlify
+## Netlify usage in this setup
 
-1. In Netlify, import this GitHub repo as a new site.
-2. Build command: `npm run build`
-3. Publish directory: `_site`
-4. Node version: `20.5+` (set in Netlify environment if needed)
-5. After first deploy, complete the Identity/Git Gateway steps above.
+- Netlify is used for OAuth provider tokens only.
+- Your public site can remain fully on GitHub Pages.
+- The Netlify site can be a lightweight "auth helper" project.
 
 ### Path prefix behavior
 

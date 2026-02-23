@@ -8,16 +8,16 @@ permalink: "/category/{{ categoryPage.slug }}/"
 eleventyComputed:
   title: "{{ categoryPage.name | categoryLabel }}"
 ---
-<section class="page-intro">
-  <p class="eyebrow">Category page</p>
-  <p class="back-link"><a href="{{ '/' | url }}">← Back to portfolio</a></p>
+<section class="page-intro category-intro">
+  <p class="back-link"><a href="{{ '/' | url }}">Back to home</a></p>
+  <p class="eyebrow">Discipline</p>
   <h1>{{ categoryPage.name | categoryLabel }}</h1>
-  <p class="meta">{{ categoryPage.projects.length }} project{% if categoryPage.projects.length != 1 %}s{% endif %}</p>
+  <p class="meta">{{ categoryPage.projects.length }} work{% if categoryPage.projects.length != 1 %}s{% endif %}</p>
 </section>
 
 {% if collections.projectCategoryPages.length > 1 %}
   <section class="category-nav">
-    <p class="meta">Other categories:</p>
+    <p class="meta">Explore other sections:</p>
     <ul class="category-list">
       {% for category in collections.projectCategoryPages %}
         {% if category.slug != categoryPage.slug %}
@@ -31,10 +31,33 @@ eleventyComputed:
 {% if categoryPage.projects.length %}
   <div class="project-grid project-grid-showcase">
     {% for project in categoryPage.projects %}
-      {% set headingLevel = "h2" %}
-      {% include "project-card.njk" %}
+      <article class="card project-card">
+        {% set previewImage = project | projectPreviewImage %}
+        {% if previewImage %}
+          <a href="{{ project.url }}" class="card-image">
+            {% optimizedImage previewImage, project.data.title %}
+          </a>
+        {% endif %}
+        <div class="card-body">
+          <p class="meta card-date">{{ project.date | readableDate }}</p>
+          <h2 class="card-title"><a href="{{ project.url }}">{{ project.data.title }}</a></h2>
+          {% set projectCategories = project.data.categories | asArray %}
+          {% if projectCategories.length %}
+            <ul class="category-list category-list-inline">
+              {% for category in projectCategories %}
+                <li><a class="category-pill" href="{{ category | categoryUrl }}">{{ category | categoryLabel }}</a></li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+          {% set cardSummary = project.data.summary or (project.templateContent | excerpt(170)) %}
+          {% if cardSummary %}
+            <p class="card-summary">{{ cardSummary }}</p>
+          {% endif %}
+          <p class="card-footer"><a class="card-link" href="{{ project.url }}">View project</a></p>
+        </div>
+      </article>
     {% endfor %}
   </div>
 {% else %}
-  <p>No projects in this category yet.</p>
+  <p>No works in this section yet.</p>
 {% endif %}

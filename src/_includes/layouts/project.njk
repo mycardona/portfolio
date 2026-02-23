@@ -1,10 +1,14 @@
 ---
 layout: layouts/base.njk
 ---
+{% set pageCategories = categories | asArray %}
 <article class="project-detail">
-  <p class="back-link"><a href="{{ '/' | url }}">← Back to portfolio</a></p>
   <header class="project-detail-header">
-    <p class="eyebrow">Project</p>
+    {% if pageCategories.length %}
+      <p class="eyebrow">{{ pageCategories[0] | categoryLabel }}</p>
+    {% else %}
+      <p class="eyebrow">Project</p>
+    {% endif %}
     <h1>{{ title }}</h1>
     {% if summary %}
       <p class="lead">{{ summary }}</p>
@@ -12,31 +16,19 @@ layout: layouts/base.njk
     <p class="meta">{{ page.date | readableDate }}</p>
   </header>
 
-  {% set pageCategories = categories | asArray %}
-  {% if pageCategories.length %}
-    <ul class="category-list category-list-inline">
-      {% for category in pageCategories %}
-        <li><a class="category-pill" href="{{ category | categoryUrl }}">{{ category | categoryLabel }}</a></li>
-      {% endfor %}
-    </ul>
-  {% endif %}
-
-  {% if coverImage %}
-    <figure class="project-lead-image">
-      {% optimizedImage coverImage, title %}
-    </figure>
-  {% endif %}
-
   {% if mediaUrl %}
     <section class="detail-section">
-      <h2>Video / Audio</h2>
+      <h2>Featured Media</h2>
       {{ mediaUrl | mediaEmbed(title) | safe }}
     </section>
   {% endif %}
 
+  <section class="prose detail-section">
+    {{ content | safe }}
+  </section>
+
   {% if gallery and gallery.length %}
     <section class="detail-section">
-      <h2>Gallery</h2>
       <div class="gallery-grid">
         {% for item in gallery %}
           {% set imageSrc = item | galleryItemSrc %}
@@ -49,8 +41,4 @@ layout: layouts/base.njk
       </div>
     </section>
   {% endif %}
-
-  <section class="prose detail-section">
-    {{ content | safe }}
-  </section>
 </article>

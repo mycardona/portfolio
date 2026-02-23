@@ -1,31 +1,22 @@
 <!doctype html>
-<html lang="en">
+<html lang="en"{% if showQuickNav == false %} class="no-quick-nav"{% endif %}>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% if title %}{{ title }} | {% endif %}Portfolio</title>
-    <meta name="description" content="A portfolio powered by Eleventy and Decap CMS.">
+    <meta name="description" content="A portfolio of performance, production, and facilitation work by Mylo Cardona.">
     <link rel="stylesheet" href="{{ '/assets/site.css' | url }}">
   </head>
-  <body>
-    <header class="site-header">
-      <div class="container header-row">
-        <a class="brand" href="{{ '/' | url }}">Mylo Portfolio</a>
-        <nav class="site-nav" aria-label="Primary">
-          <a href="{{ '/' | url }}">Portfolio</a>
-          <a href="{{ '/projects/' | url }}">All Projects</a>
-          <a href="{{ '/admin/' | url }}">Admin</a>
-        </nav>
-      </div>
-    </header>
-
-    <main class="container">
+  <body{% if showQuickNav == false %} class="no-quick-nav"{% endif %}>
+    {% if showQuickNav != false %}
+      <nav class="quick-nav" aria-label="Site">
+        <a href="{{ '/' | url }}" {% if page.url == "/" %}aria-current="page"{% endif %}>Home</a>
+        <a href="{{ '/projects/' | url }}" {% if page.url == "/projects/" or page.url.startsWith("/projects/") or page.url.startsWith("/category/") %}aria-current="page"{% endif %}>Projects</a>
+        <a href="{{ '/book/' | url }}" {% if page.url == "/book/" %}aria-current="page"{% endif %}>Book</a>
+      </nav>
+    {% endif %}
+    <main class="{% if showQuickNav == false %}page-main{% else %}container{% endif %}">
       {{ content | safe }}
     </main>
-
-    <footer class="site-footer">
-      <div class="container">Built with Eleventy + Decap CMS</div>
-    </footer>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </body>
 </html>

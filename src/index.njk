@@ -1,82 +1,128 @@
 ---
 layout: layouts/base.njk
 title: Portfolio
+showQuickNav: false
 ---
-<section class="landing-hero">
-  <p class="eyebrow">Portfolio directory</p>
-  <h1>Browse the work by category.</h1>
-  <p class="hero-copy">
-    Each category has its own page, so visitors can move directly into original work, directorship work,
-    performance work, and more.
-  </p>
-  <div class="hero-actions">
-    <a class="button" href="{{ '/projects/' | url }}">View all projects</a>
-    <a class="button button-secondary" href="{{ '/admin/' | url }}">Add a project</a>
+{% set myloHeroProject = null %}
+{% for project in collections.projects %}
+  {% if project.fileSlug == "mylo" %}
+    {% set myloHeroProject = project %}
+  {% endif %}
+{% endfor %}
+{% if not myloHeroProject and collections.projects.length %}
+  {% set myloHeroProject = collections.projects[0] %}
+{% endif %}
+{% set heroImage = myloHeroProject | projectPreviewImage %}
+{% set heroLearnUrl = '/projects/' | url %}
+{% if myloHeroProject %}
+  {% set heroLearnUrl = myloHeroProject.url %}
+{% endif %}
+{% set bookNowUrl = '/book/' | url %}
+
+<section class="landing-hero"{% if heroImage %} style="--landing-hero-image: url('{{ heroImage }}');"{% endif %}>
+  <div class="landing-hero-inner">
+    <div class="landing-hero-nav">
+      <a href="{{ '/' | url }}" class="landing-mark"></a>
+      <nav aria-label="Hero">
+        <a href="{{ '/' | url }}">Home</a>
+        <a href="{{ '/projects/' | url }}">Work</a>
+        <a class="hero-pill-link" href="{{ bookNowUrl }}">Book now</a>
+      </nav>
+    </div>
+    <div class="landing-hero-content">
+      <h1>MYLO CARDONA</h1>
+      <p class="landing-hero-role">Producer, performer and facilitator</p>
+      <div class="hero-actions">
+        <a class="button" href="{{ heroLearnUrl }}">Learn more</a>
+      </div>
+    </div>
   </div>
 </section>
 
 {% if collections.projectCategoryPages.length %}
-  <section class="category-section">
-    <div class="section-heading">
-      <h2>Project Categories</h2>
-      <p class="meta">Every card below links to its own category page.</p>
-    </div>
-    <section class="category-grid">
-      {% for categoryPage in collections.projectCategoryPages %}
-        {% set latestProject = categoryPage.projects[0] %}
-        {% set categoryImage = latestProject | projectPreviewImage %}
-        {% set latestDescription = "" %}
-        {% if latestProject %}
-          {% set latestDescription = latestProject.data.summary or (latestProject.templateContent | excerpt(120)) %}
-        {% endif %}
-        <article class="category-card">
-          {% if categoryImage %}
-            <a href="{{ categoryPage | categoryUrl }}" class="category-image">
-              {% optimizedImage categoryImage, latestProject.data.title %}
+  <section class="category-section" aria-label="Project categories">
+    <div class="category-carousel-shell" data-category-carousel>
+      <button class="category-carousel-control category-carousel-control-prev" type="button" aria-label="Scroll categories left" data-carousel-prev hidden>&larr;</button>
+      <div class="category-carousel" aria-label="Scrollable project categories" tabindex="0" data-carousel-track>
+        {% for categoryPage in collections.projectCategoryPages %}
+          {% set latestProject = categoryPage.projects[0] %}
+          {% set categoryImage = latestProject | projectPreviewImage %}
+          <article class="category-card category-tile"{% if categoryImage %} style="--category-image: url('{{ categoryImage }}');"{% endif %}>
+            <a href="{{ categoryPage | categoryUrl }}" class="category-tile-link">
+              <p class="category-label">{{ categoryPage.projects.length }} project{% if categoryPage.projects.length != 1 %}s{% endif %}</p>
+              <h2>{{ categoryPage.name | categoryLabel }}</h2>
+              <p class="category-link">Open works</p>
             </a>
-          {% endif %}
-          <div class="category-card-body">
-            <p class="category-label">Category</p>
-            <h3><a href="{{ categoryPage | categoryUrl }}">{{ categoryPage.name | categoryLabel }}</a></h3>
-            <p class="meta">{{ categoryPage.projects.length }} project{% if categoryPage.projects.length != 1 %}s{% endif %}</p>
-            {% if latestProject %}
-              <p class="category-latest">Latest: <a href="{{ latestProject.url }}">{{ latestProject.data.title }}</a></p>
-              {% if latestDescription %}
-                <p class="card-summary">{{ latestDescription }}</p>
-              {% endif %}
-            {% endif %}
-            {% if categoryPage.projects.length %}
-              <ul class="category-preview-list">
-                {% for project in categoryPage.projects %}
-                  {% if loop.index <= 3 %}
-                    <li><a href="{{ project.url }}">{{ project.data.title }}</a></li>
-                  {% endif %}
-                {% endfor %}
-              </ul>
-            {% endif %}
-            <p><a class="category-link" href="{{ categoryPage | categoryUrl }}">Open category page</a></p>
-          </div>
-        </article>
-      {% endfor %}
-    </section>
-  </section>
-{% endif %}
-
-<section>
-  <div class="section-heading">
-    <h2>Recent Projects</h2>
-  </div>
-
-  {% if collections.projects.length %}
-    <div class="project-grid">
-      {% for project in collections.projects %}
-        {% if loop.index <= 6 %}
-          {% set headingLevel = "h3" %}
-          {% include "project-card.njk" %}
-        {% endif %}
-      {% endfor %}
+          </article>
+        {% endfor %}
+      </div>
+      <button class="category-carousel-control category-carousel-control-next" type="button" aria-label="Scroll categories right" data-carousel-next hidden>&rarr;</button>
     </div>
-  {% else %}
-    <p>No projects yet. Add one in <a href="{{ '/admin/' | url }}">the CMS</a>.</p>
-  {% endif %}
-</section>
+  </section>
+
+  <script>
+    document.querySelectorAll("[data-category-carousel]").forEach(function (shell) {
+      var track = shell.querySelector("[data-carousel-track]");
+      var prevButton = shell.querySelector("[data-carousel-prev]");
+      var nextButton = shell.querySelector("[data-carousel-next]");
+
+      if (!track || !prevButton || !nextButton) {
+        return;
+      }
+
+      var reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+      function getStep() {
+        var firstCard = track.querySelector(".category-card");
+        if (!firstCard) {
+          return Math.max(track.clientWidth * 0.9, 240);
+        }
+
+        var cardWidth = firstCard.getBoundingClientRect().width;
+        var gap = parseFloat(window.getComputedStyle(track).gap || "0");
+        return cardWidth + gap;
+      }
+
+      function syncButtons() {
+        var hasOverflow = track.scrollWidth > track.clientWidth + 2;
+        prevButton.hidden = !hasOverflow;
+        nextButton.hidden = !hasOverflow;
+        shell.classList.toggle("is-overflowing", hasOverflow);
+
+        if (!hasOverflow) {
+          prevButton.disabled = true;
+          nextButton.disabled = true;
+          return;
+        }
+
+        prevButton.disabled = track.scrollLeft <= 2;
+        nextButton.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+      }
+
+      function scrollTrack(direction) {
+        track.scrollBy({
+          left: direction * getStep(),
+          behavior: reducedMotionQuery.matches ? "auto" : "smooth"
+        });
+      }
+
+      prevButton.addEventListener("click", function () {
+        scrollTrack(-1);
+      });
+
+      nextButton.addEventListener("click", function () {
+        scrollTrack(1);
+      });
+
+      track.addEventListener("scroll", syncButtons, { passive: true });
+      window.addEventListener("resize", syncButtons);
+
+      if (typeof ResizeObserver !== "undefined") {
+        var resizeObserver = new ResizeObserver(syncButtons);
+        resizeObserver.observe(track);
+      }
+
+      syncButtons();
+    });
+  </script>
+{% endif %}

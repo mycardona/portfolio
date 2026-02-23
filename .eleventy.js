@@ -68,32 +68,51 @@ function projectPreviewImage(project) {
   return toArray(data.gallery).map(galleryItemSrc).find(Boolean) || "";
 }
 
-const categoryAliases = new Map([
-  ["original", "original work"],
-  ["performance", "performance work"],
-  ["facilitation", "facilitation work"],
-  ["directing", "directorship work"],
-  ["directorship", "directorship work"]
-]);
+let categoryLabelsBySlug = new Map();
 
-function normalizeCategory(category) {
-  const trimmed = String(category || "").trim();
-  if (!trimmed) return "";
-  const lowered = trimmed.toLowerCase();
-  return categoryAliases.get(lowered) || lowered;
-}
-
-function categoryLabel(category) {
-  const normalized = normalizeCategory(category);
-  if (!normalized) return "";
-  return normalized.replace(/\b[a-z]/g, (letter) => letter.toUpperCase());
+function categoryKey(category) {
+  if (typeof category === "object" && category) {
+    return String(category.slug || category.title || category.name || "").trim();
+  }
+  return String(category || "").trim();
 }
 
 function categorySlug(category) {
-  return normalizeCategory(category)
+  return categoryKey(category)
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
+}
+
+function categoryLabel(category) {
+  if (typeof category === "object" && category) {
+    const explicitLabel = String(category.title || category.name || "").trim();
+    if (explicitLabel) return explicitLabel;
+  }
+
+  const key = categoryKey(category);
+  if (!key) return "";
+
+  const slug = categorySlug(key);
+  return categoryLabelsBySlug.get(slug) || key;
+}
+
+function configuredCategories(collectionApi) {
+  return collectionApi
+    .getFilteredByGlob("src/content/categories/*.md")
+    .map((item) => {
+      const data = item?.data || {};
+      const title = String(data.title || data.name || "").trim();
+      const slug = categorySlug(data.slug || title);
+      if (!slug) return null;
+      return { title: title || slug, name: title || slug, slug };
+    })
+    .filter(Boolean)
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+function updateCategoryLabelMap(categories) {
+  categoryLabelsBySlug = new Map(categories.map((category) => [category.slug, category.name]));
 }
 
 function categoryUrl(category) {
@@ -104,18 +123,25 @@ function categoryUrl(category) {
   return withPathPrefix(`/category/${slug}/`);
 }
 
-function buildProjectCategoryPages(projects) {
+function buildProjectCategoryPages(projects, categories = []) {
   const categoriesBySlug = new Map();
+  const categoryBySlug = new Map(categories.map((entry) => [entry.slug, entry]));
 
   projects.forEach((item) => {
+    const seen = new Set();
     toArray(item.data.categories)
-      .map(normalizeCategory)
+      .map(categoryKey)
       .filter(Boolean)
       .forEach((category) => {
         const slug = categorySlug(category);
-        if (!slug) return;
+        if (!slug || seen.has(slug)) return;
+        seen.add(slug);
+
+        const categoryEntry = categoryBySlug.get(slug);
+        const name = categoryEntry?.name || category;
+
         if (!categoriesBySlug.has(slug)) {
-          categoriesBySlug.set(slug, { name: category, slug, projects: [] });
+          categoriesBySlug.set(slug, { name, slug, projects: [] });
         }
         categoriesBySlug.get(slug).projects.push(item);
       });
@@ -205,18 +231,18 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addFilter("mediaEmbed", mediaEmbed);
   eleventyConfig.addFilter("asArray", (value) => {
-    return toArray(value).map(normalizeCategory).filter(Boolean);
+    return toArray(value).map(categoryKey).filter(Boolean);
   });
   eleventyConfig.addFilter("categoryLabel", categoryLabel);
   eleventyConfig.addFilter("categorySlug", categorySlug);
   eleventyConfig.addFilter("categoryUrl", categoryUrl);
   eleventyConfig.addFilter("hasCategory", (categories, targetCategory) => {
-    const normalizedTarget = normalizeCategory(targetCategory).toLowerCase();
-    if (!normalizedTarget) return false;
+    const targetSlug = categorySlug(targetCategory);
+    if (!targetSlug) return false;
     return toArray(categories)
-      .map(normalizeCategory)
+      .map(categorySlug)
       .filter(Boolean)
-      .some((category) => category.toLowerCase() === normalizedTarget);
+      .some((category) => category === targetSlug);
   });
   eleventyConfig.addFilter("galleryItemSrc", galleryItemSrc);
   eleventyConfig.addFilter("projectPreviewImage", projectPreviewImage);
@@ -228,19 +254,29 @@ module.exports = function (eleventyConfig) {
       .sort((a, b) => b.date - a.date);
   });
 
+  eleventyConfig.addCollection("categories", (collectionApi) => {
+    const categories = configuredCategories(collectionApi);
+    updateCategoryLabelMap(categories);
+    return categories;
+  });
+
   eleventyConfig.addCollection("projectCategoryPages", (collectionApi) => {
     const projects = collectionApi
       .getFilteredByTag("projects")
       .sort((a, b) => b.date - a.date);
-    return buildProjectCategoryPages(projects);
+    const categories = configuredCategories(collectionApi);
+    updateCategoryLabelMap(categories);
+    return buildProjectCategoryPages(projects, categories);
   });
 
   eleventyConfig.addCollection("projectCategories", (collectionApi) => {
     const projects = collectionApi
       .getFilteredByTag("projects")
       .sort((a, b) => b.date - a.date);
+    const categories = configuredCategories(collectionApi);
+    updateCategoryLabelMap(categories);
 
-    return buildProjectCategoryPages(projects).map((entry) => {
+    return buildProjectCategoryPages(projects, categories).map((entry) => {
       return { name: entry.name, slug: entry.slug, count: entry.projects.length };
     });
   });

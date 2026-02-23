@@ -3,15 +3,15 @@ layout: layouts/base.njk
 title: Projects
 permalink: /projects/
 ---
-<section class="page-intro">
-  <p class="eyebrow">Portfolio index</p>
-  <h1>All Projects</h1>
-  <p>Prefer browsing by category? Visit the <a href="{{ '/' | url }}">portfolio landing page</a>.</p>
+<section class="page-intro archive-intro">
+  <p class="eyebrow">Selected works</p>
+  <h1>Project Archive</h1>
+  <p>A curated view of performance, original, and collaborative work.</p>
 </section>
 
 {% if collections.projectCategories.length %}
   <section class="category-nav">
-    <p class="meta">Jump to a category page:</p>
+    <p class="meta">Explore by discipline:</p>
     <ul class="category-list">
       {% for category in collections.projectCategories %}
         <li><a class="category-pill" href="{{ category | categoryUrl }}">{{ category.name | categoryLabel }}</a></li>
@@ -23,10 +23,33 @@ permalink: /projects/
 {% if collections.projects.length %}
   <div class="project-grid">
     {% for project in collections.projects %}
-      {% set headingLevel = "h2" %}
-      {% include "project-card.njk" %}
+      <article class="card project-card">
+        {% set previewImage = project | projectPreviewImage %}
+        {% if previewImage %}
+          <a href="{{ project.url }}" class="card-image">
+            {% optimizedImage previewImage, project.data.title %}
+          </a>
+        {% endif %}
+        <div class="card-body">
+          <p class="meta card-date">{{ project.date | readableDate }}</p>
+          <h2 class="card-title"><a href="{{ project.url }}">{{ project.data.title }}</a></h2>
+          {% set projectCategories = project.data.categories | asArray %}
+          {% if projectCategories.length %}
+            <ul class="category-list category-list-inline">
+              {% for category in projectCategories %}
+                <li><a class="category-pill" href="{{ category | categoryUrl }}">{{ category | categoryLabel }}</a></li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+          {% set cardSummary = project.data.summary or (project.templateContent | excerpt(170)) %}
+          {% if cardSummary %}
+            <p class="card-summary">{{ cardSummary }}</p>
+          {% endif %}
+          <p class="card-footer"><a class="card-link" href="{{ project.url }}">View project</a></p>
+        </div>
+      </article>
     {% endfor %}
   </div>
 {% else %}
-  <p>No projects yet. Add the first one in <a href="{{ '/admin/' | url }}">the CMS</a>.</p>
+  <p>No public projects available yet.</p>
 {% endif %}
