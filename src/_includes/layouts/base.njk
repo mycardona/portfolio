@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% if title %}{{ title }} | {% endif %}Portfolio</title>
     <meta name="description" content="A portfolio of performance, production, and facilitation projects by Mylo Cardona.">
-    <link rel="stylesheet" href="{{ '/assets/site.css' | url }}">
+    <link rel="stylesheet" href="{{ ('/assets/site.css?v=' + build.assetVersion) | url }}">
   </head>
   <body{% if showQuickNav == false %} class="no-quick-nav"{% endif %}>
     {% if showQuickNav != false %}
