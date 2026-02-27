@@ -105,6 +105,23 @@ function categoryLabel(category) {
   return categoryLabelsBySlug.get(slug) || key;
 }
 
+function parseCategoryOrder(value) {
+  if (value === null || value === undefined) return null;
+  const normalized = String(value).trim();
+  if (!normalized) return null;
+
+  const parsed = Number(normalized);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function compareCategoryEntries(a, b) {
+  const aOrder = a?.order ?? Number.POSITIVE_INFINITY;
+  const bOrder = b?.order ?? Number.POSITIVE_INFINITY;
+
+  if (aOrder !== bOrder) return aOrder - bOrder;
+  return String(a?.name || "").localeCompare(String(b?.name || ""));
+}
+
 function configuredCategories(collectionApi) {
   return collectionApi
     .getFilteredByGlob("src/content/categories/*.md")
@@ -113,11 +130,12 @@ function configuredCategories(collectionApi) {
       const title = String(data.title || data.name || "").trim();
       const slug = categorySlug(data.slug || title);
       const description = String(data.description || "").trim();
+      const order = parseCategoryOrder(data.order);
       if (!slug) return null;
-      return { title: title || slug, name: title || slug, slug, description };
+      return { title: title || slug, name: title || slug, slug, description, order };
     })
     .filter(Boolean)
-    .sort((a, b) => a.name.localeCompare(b.name));
+    .sort(compareCategoryEntries);
 }
 
 function updateCategoryLabelMap(categories) {
@@ -136,6 +154,16 @@ function buildProjectCategoryPages(projects, categories = []) {
   const categoriesBySlug = new Map();
   const categoryBySlug = new Map(categories.map((entry) => [entry.slug, entry]));
 
+  categories.forEach((entry) => {
+    categoriesBySlug.set(entry.slug, {
+      name: entry.name,
+      slug: entry.slug,
+      description: entry.description || "",
+      order: entry.order ?? null,
+      projects: []
+    });
+  });
+
   projects.forEach((item) => {
     const seen = new Set();
     toArray(item.data.categories)
@@ -149,15 +177,61 @@ function buildProjectCategoryPages(projects, categories = []) {
         const categoryEntry = categoryBySlug.get(slug);
         const name = categoryEntry?.name || category;
         const description = categoryEntry?.description || "";
+        const order = categoryEntry?.order ?? null;
 
         if (!categoriesBySlug.has(slug)) {
-          categoriesBySlug.set(slug, { name, slug, description, projects: [] });
+          categoriesBySlug.set(slug, { name, slug, description, order, projects: [] });
         }
         categoriesBySlug.get(slug).projects.push(item);
       });
   });
 
-  return Array.from(categoriesBySlug.values()).sort((a, b) => a.name.localeCompare(b.name));
+  return Array.from(categoriesBySlug.values()).sort(compareCategoryEntries);
+}
+
+function buildReelGroups(videos = []) {
+  const groupsByKey = new Map();
+
+  videos.forEach((item) => {
+    const data = item?.data || {};
+    const mediaUrl = String(data.mediaUrl || "").trim();
+    if (!mediaUrl) return;
+
+    const label = String(data.reelTag || data.title || "Video").trim() || "Video";
+    const key = categorySlug(label) || `group-${groupsByKey.size + 1}`;
+
+    if (!groupsByKey.has(key)) {
+      groupsByKey.set(key, { key, label, videos: [] });
+    }
+
+    groupsByKey.get(key).videos.push(item);
+  });
+
+  return Array.from(groupsByKey.values());
+}
+
+function buildPressQuotes(collectionApi) {
+  return collectionApi
+    .getFilteredByTag("pressQuotes")
+    .map((item) => {
+      const data = item?.data || {};
+      const quote = String(data.quote || "").trim();
+      const source = String(data.source || "").trim();
+      const sourceUrl = String(data.sourceUrl || "").trim();
+      const order = parseCategoryOrder(data.order);
+
+      if (!quote) return null;
+
+      return { quote, source, sourceUrl, order };
+    })
+    .filter(Boolean)
+    .sort((a, b) => {
+      const aOrder = a?.order ?? Number.POSITIVE_INFINITY;
+      const bOrder = b?.order ?? Number.POSITIVE_INFINITY;
+
+      if (aOrder !== bOrder) return aOrder - bOrder;
+      return String(a?.source || a?.quote || "").localeCompare(String(b?.source || b?.quote || ""));
+    });
 }
 
 function toYouTubeEmbed(parsedUrl) {
@@ -194,8 +268,45 @@ function toVimeoEmbed(parsedUrl) {
   return `https://player.vimeo.com/video/${id}`;
 }
 
+const directVideoExtensions = new Set([".mp4", ".webm", ".ogg", ".mov", ".m4v"]);
+const directAudioExtensions = new Set([".mp3", ".wav", ".ogg", ".m4a", ".aac", ".flac"]);
+
+function mediaFileExtension(value) {
+  if (!value) return "";
+
+  const cleaned = String(value).split("#")[0].split("?")[0].trim();
+  if (!cleaned) return "";
+
+  const extension = path.extname(cleaned).toLowerCase();
+  return extension || "";
+}
+
+function directMediaSource(value) {
+  const input = String(value || "").trim();
+  if (!input) return "";
+
+  if (/^(?:https?:)?\/\//i.test(input)) return input;
+  if (input.startsWith("/")) return assetUrl(input);
+
+  return "";
+}
+
 function mediaEmbed(url, title = "Media") {
   if (!url) return "";
+
+  const source = directMediaSource(url);
+  const extension = mediaFileExtension(source || url);
+  const safeTitle = escapeHtml(title);
+
+  if (source && directVideoExtensions.has(extension)) {
+    const safeSource = escapeHtml(source);
+    return `<div class="embed embed-video"><video src="${safeSource}" title="${safeTitle}" controls preload="metadata" playsinline></video></div>`;
+  }
+
+  if (source && directAudioExtensions.has(extension)) {
+    const safeSource = escapeHtml(source);
+    return `<div class="embed embed-audio embed-native-audio"><audio src="${safeSource}" title="${safeTitle}" controls preload="metadata"></audio></div>`;
+  }
 
   let parsed;
   try {
@@ -207,18 +318,18 @@ function mediaEmbed(url, title = "Media") {
 
   const youtubeUrl = toYouTubeEmbed(parsed);
   if (youtubeUrl) {
-    return `<div class="embed embed-video"><iframe src="${youtubeUrl}" title="${escapeHtml(title)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>`;
+    return `<div class="embed embed-video"><iframe src="${youtubeUrl}" title="${safeTitle}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>`;
   }
 
   const vimeoUrl = toVimeoEmbed(parsed);
   if (vimeoUrl) {
-    return `<div class="embed embed-video"><iframe src="${vimeoUrl}" title="${escapeHtml(title)}" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>`;
+    return `<div class="embed embed-video"><iframe src="${vimeoUrl}" title="${safeTitle}" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>`;
   }
 
   const host = parsed.hostname.replace(/^www\./, "");
   if (host.includes("soundcloud.com")) {
     const src = `https://w.soundcloud.com/player/?url=${encodeURIComponent(url)}`;
-    return `<div class="embed embed-audio"><iframe src="${src}" title="${escapeHtml(title)}" loading="lazy" allow="autoplay"></iframe></div>`;
+    return `<div class="embed embed-audio"><iframe src="${src}" title="${safeTitle}" loading="lazy" allow="autoplay"></iframe></div>`;
   }
 
   const safeUrl = escapeHtml(url);
@@ -267,6 +378,14 @@ module.exports = function (eleventyConfig) {
       .sort((a, b) => b.date - a.date);
   });
 
+  eleventyConfig.addCollection("reelGroups", (collectionApi) => {
+    return buildReelGroups(collectionApi.getFilteredByTag("videos"));
+  });
+
+  eleventyConfig.addCollection("pressQuotes", (collectionApi) => {
+    return buildPressQuotes(collectionApi);
+  });
+
   eleventyConfig.addCollection("categories", (collectionApi) => {
     const categories = configuredCategories(collectionApi);
     updateCategoryLabelMap(categories);
@@ -290,7 +409,7 @@ module.exports = function (eleventyConfig) {
     updateCategoryLabelMap(categories);
 
     return buildProjectCategoryPages(projects, categories).map((entry) => {
-      return { name: entry.name, slug: entry.slug, count: entry.projects.length };
+      return { name: entry.name, slug: entry.slug, order: entry.order ?? null, count: entry.projects.length };
     });
   });
 

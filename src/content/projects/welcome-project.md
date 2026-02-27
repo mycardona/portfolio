@@ -1,13 +1,14 @@
 ---
 title: Welcome Project
-date: 2026-02-21
-summary: This sample project shows how text, images, and external media URLs work together.
+date: 2026-01
 categories:
   - original-work
+summary: This sample project shows how text, images, and external media URLs
+  work together.
 coverImage: /uploads/IMG_9081_edited.webp
-mediaUrl: https://www.youtube.com/watch?v=dQw4w9WgXcQ
 gallery:
   - /uploads/IMG_9081_edited.webp
+mediaUrl: https://www.youtube.com/watch?v=dQw4w9WgXcQ
 ---
 Replace this with your real project description.
 

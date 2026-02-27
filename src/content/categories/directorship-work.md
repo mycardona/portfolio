@@ -1,6 +1,7 @@
 ---
 title: Directing
 slug: directing
-description: Direction and staging projects focused on narrative clarity, rhythm, and ensemble collaboration.
+description: Directing and staging projects focused on narrative clarity, rhythm, and ensemble collaboration.
+order: 2
 permalink: false
 ---

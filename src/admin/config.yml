@@ -44,6 +44,15 @@ collections:
           required: false,
           hint: "Short category intro shown on category pages."
         }
+      - {
+          label: Order,
+          name: order,
+          widget: number,
+          value_type: int,
+          required: false,
+          min: 1,
+          hint: "Optional sort order for category lists. Lower numbers appear first."
+        }
       - { label: Permalink, name: permalink, widget: hidden, default: false }
   - name: projects
     label: Projects
@@ -97,11 +106,110 @@ collections:
         proxy_url: http://localhost:8081/api/v1
         media_folder: src/uploads
         public_folder: /uploads
+      - label: Video or Audio URL
+        name: mediaUrl
+        widget: string
+        required: false
+        hint: "Use https://... for an external media URL or /uploads/... for a direct uploaded media file."
+        pattern:
+          - "^(https?:\\/\\/\\S+|\\/\\S+)$"
+          - "Use a full https:// URL or a site-relative file path like /uploads/reel.mp4"
+      - { label: Body, name: body, widget: markdown }
+  - name: videos
+    label: Videos
+    label_singular: Video
+    folder: src/content/videos
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    fields:
+      - { label: Title, name: title, widget: string }
       - {
-          label: Video or Audio URL,
-          name: mediaUrl,
+          label: Reel Tag,
+          name: reelTag,
+          widget: string,
+          hint: "Used for the homepage reel tab label, for example Dramatic or Comedic."
+        }
+      - label: Video URL
+        name: mediaUrl
+        widget: string
+        hint: "Use https://... for an external media URL or /uploads/... for a direct uploaded media file."
+        pattern:
+          - "^(https?:\\/\\/\\S+|\\/\\S+)$"
+          - "Use a full https:// URL or a site-relative file path like /uploads/reel.mp4"
+  - name: pressQuotes
+    label: Press + Testimonials
+    label_singular: Quote
+    folder: src/content/press
+    create: true
+    slug: "{{slug}}"
+    summary: "{{source}}"
+    fields:
+      - {
+          label: Order,
+          name: order,
+          widget: number,
+          value_type: int,
+          required: false,
+          min: 1,
+          hint: "Optional sort order. Lower numbers appear first."
+        }
+      - {
+          label: Quote,
+          name: quote,
+          widget: text,
+          hint: "The testimonial or press quote shown on the homepage."
+        }
+      - {
+          label: Source,
+          name: source,
           widget: string,
           required: false,
-          hint: "Paste a YouTube, Vimeo, or SoundCloud URL"
+          hint: "Who or where the quote is from."
         }
-      - { label: Body, name: body, widget: markdown }
+      - {
+          label: Source Link,
+          name: sourceUrl,
+          widget: string,
+          required: false,
+          hint: "Optional URL to the article or source."
+        }
+  - name: footer
+    label: Footer
+    files:
+      - label: Footer
+        name: footer
+        file: src/_data/footer.json
+        fields:
+          - label: Connect Methods
+            name: connect
+            widget: list
+            summary: "{{fields.type}}"
+            fields:
+              - label: Type
+                name: type
+                widget: select
+                options:
+                  - { label: Booking Inquiries, value: booking }
+                  - { label: Email, value: email }
+                  - { label: Instagram, value: instagram }
+                  - { label: LinkedIn, value: linkedin }
+                  - { label: YouTube, value: youtube }
+                  - { label: X, value: x }
+                hint: "Determines the default label and icon."
+              - label: Link
+                name: link
+                widget: string
+                hint: "Use a page path, a mailto: link, or a full https:// URL."
+              - label: SVG Override
+                name: svg
+                widget: image
+                required: false
+                hint: "Optional SVG upload. Leave empty to use the built-in icon for the selected type."
+              - label: Order
+                name: order
+                widget: number
+                value_type: int
+                required: false
+                min: 1
+                hint: "Lower numbers appear first."

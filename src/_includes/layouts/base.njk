@@ -18,5 +18,67 @@
     <main class="{% if showQuickNav == false %}page-main{% else %}container{% endif %}">
       {{ content | safe }}
     </main>
+    <footer class="site-footer" aria-label="Site footer">
+      <div class="site-footer-inner">
+        <section class="site-footer-column" aria-labelledby="footer-location">
+          <p class="site-footer-title" id="footer-location">Based In</p>
+          <p class="site-footer-copy">
+            San Francisco Bay Area<br>
+            California, USA
+          </p>
+        </section>
+
+        <section class="site-footer-column" aria-labelledby="footer-nav">
+          <p class="site-footer-title" id="footer-nav">Explore</p>
+          <ul class="site-footer-list">
+            <li><a href="{{ '/' | url }}">Home</a></li>
+            <li><a href="{{ '/about/' | url }}">About</a></li>
+            <li><a href="{{ '/projects/' | url }}">Projects</a></li>
+            <li><a href="{{ '/book/' | url }}">Book</a></li>
+          </ul>
+        </section>
+
+        {% set footerCategories = collections.categories or [] %}
+        <section class="site-footer-column" aria-labelledby="footer-work">
+          <p class="site-footer-title" id="footer-work">Project Types</p>
+          <ul class="site-footer-list">
+            {% for category in footerCategories %}
+              <li><a href="{{ category | categoryUrl }}">{{ category | categoryLabel }}</a></li>
+            {% endfor %}
+          </ul>
+        </section>
+
+        {% set footerConnect = ((footer and footer.connect) or []) | sort(false, false, "order") %}
+        <section class="site-footer-column" aria-labelledby="footer-connect">
+          <p class="site-footer-title" id="footer-connect">Connect</p>
+          {% if footerConnect.length %}
+            <div class="site-footer-socials" aria-label="Social links">
+              {% for method in footerConnect %}
+                {% if method.type and method.link %}
+                  {% set knownMethodMeta = contactMethodMeta[method.type] %}
+                  {% set methodMeta = knownMethodMeta or contactMethodMeta.fallback %}
+                  {% set methodLabel = (knownMethodMeta and knownMethodMeta.label) or method.type %}
+                  {% set isExternal = method.link.startsWith("http://") or method.link.startsWith("https://") %}
+                  <a
+                    class="site-footer-social"
+                    href="{% if method.link.startsWith('/') %}{{ method.link | url }}{% else %}{{ method.link }}{% endif %}"
+                    {% if isExternal %}target="_blank" rel="noreferrer noopener"{% endif %}
+                    aria-label="{{ methodLabel }}"
+                  >
+                    {% if method.svg %}
+                      <img src="{{ method.svg | url }}" alt="" loading="lazy">
+                    {% else %}
+                      {{ methodMeta.svg | safe }}
+                    {% endif %}
+                  </a>
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+        </section>
+
+        <p class="site-footer-note">Mylo Cardona</p>
+      </div>
+    </footer>
   </body>
 </html>

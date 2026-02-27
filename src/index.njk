@@ -3,57 +3,239 @@ layout: layouts/base.njk
 title: Portfolio
 showQuickNav: false
 ---
-{% set myloHeroProject = null %}
-{% for project in collections.projects %}
-  {% if project.fileSlug == "mylo" %}
-    {% set myloHeroProject = project %}
-  {% endif %}
-{% endfor %}
-{% if not myloHeroProject and collections.projects.length %}
-  {% set myloHeroProject = collections.projects[0] %}
-{% endif %}
-{% set heroImage = myloHeroProject | projectPreviewImage %}
-{% set heroLearnUrl = '/projects/' | url %}
-{% if myloHeroProject %}
-  {% set heroLearnUrl = myloHeroProject.url | url %}
-{% endif %}
+{% set heroImage = "/uploads/hero_image.jpg" %}
+{% set heroImagePosition = "28% 16%" %}
 {% set bookNowUrl = '/book/' | url %}
+{% set homepageCategories = collections.categories %}
+{% set reelGroups = collections.reelGroups or [] %}
+{% set pressQuotes = collections.pressQuotes or [] %}
 
-<section class="landing-hero"{% if heroImage %} style="--landing-hero-image: url('{{ heroImage | assetUrl }}');"{% endif %}>
+<section class="landing-hero"{% if heroImage %} style="--landing-hero-image: url('{{ heroImage | assetUrl }}'); --landing-hero-position: {{ heroImagePosition }};"{% endif %}>
   <div class="landing-hero-inner">
     <div class="landing-hero-nav">
-      <a href="{{ '/' | url }}" class="landing-mark"></a>
+      <a href="{{ '/' | url }}" class="landing-mark">MYLO</a>
       <nav aria-label="Hero">
         <a href="{{ '/' | url }}">Home</a>
         <a href="{{ '/about/' | url }}">About</a>
+        <a href="#selected-work">Work</a>
         <a href="{{ '/projects/' | url }}">Projects</a>
-        <a class="hero-pill-link" href="{{ bookNowUrl }}">Book now</a>
+        <a class="hero-pill-link" href="{{ bookNowUrl }}">Book</a>
       </nav>
     </div>
     <div class="landing-hero-content">
-      <h1>MYLO CARDONA</h1>
-      <p class="landing-hero-role">Producer, performer and facilitator</p>
+      <p class="hero-kicker">Cool Guy</p>
+      <h1><span>MYLO</span><span>CARDONA</span></h1>
+      <p class="landing-hero-role">Watermelons. Drag. Theater.</p>
+      <p class="hero-positioning">A multi-disciplinary artist with cinematic magnetism. Magnetic movies. You heard it here first.</p>
       <div class="hero-actions">
-        <a class="button" href="{{ heroLearnUrl }}">Learn more</a>
+        <a class="button hero-button" href="#reel">WATCH</a>
+        <a class="button button-ghost hero-button-ghost" href="{{ bookNowUrl }}">BOOK</a>
       </div>
     </div>
   </div>
 </section>
 
-{% if collections.projectCategoryPages.length %}
-  <section class="category-section" aria-label="Project categories">
-    <div class="category-grid">
+<section id="selected-work" class="content-section selected-work" aria-label="Selected work">
+  <div class="selected-work-head">
+    <p class="eyebrow">Selected Work</p>
+    <h3 style="font-family: var(--font-body); font-weight: 600;">A curated set of real projects, definitely not test data.</h3>
+  </div>
+  <div class="selected-work-grid">
+    {% for category in homepageCategories %}
+      {% set categoryCount = 0 %}
+      {% set categoryImage = '' %}
       {% for categoryPage in collections.projectCategoryPages %}
-        {% set latestProject = categoryPage.projects[0] %}
-        {% set categoryImage = latestProject | projectPreviewImage %}
-        <article class="category-card category-tile"{% if categoryImage %} style="--category-image: url('{{ categoryImage | assetUrl }}');"{% endif %}>
-          <a href="{{ categoryPage | categoryUrl }}" class="category-tile-link">
-            <p class="category-label">{{ categoryPage.projects.length }} project{% if categoryPage.projects.length != 1 %}s{% endif %}</p>
-            <h2>{{ categoryPage.name | categoryLabel }}</h2>
-            <p class="category-link">Open projects</p>
-          </a>
-        </article>
+        {% if categoryPage.slug == category.slug %}
+          {% set categoryCount = categoryPage.projects.length %}
+          {% if categoryPage.projects.length %}
+            {% set categoryImage = categoryPage.projects[0] | projectPreviewImage %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      <article class="selected-work-card"{% if categoryImage %} style="--selected-card-image: url('{{ categoryImage | assetUrl }}');"{% endif %}>
+        <a href="{{ category | categoryUrl }}" class="selected-work-link">
+          <p class="selected-work-label">{{ category.name | categoryLabel }}</p>
+          {% if category.description %}
+            <p class="selected-work-copy">{{ category.description }}</p>
+          {% else %}
+            <p class="selected-work-copy">A focused body of work currently in development.</p>
+          {% endif %}
+          {% if categoryCount %}
+            <p class="selected-work-count">{{ categoryCount }} project{% if categoryCount != 1 %}s{% endif %}</p>
+          {% else %}
+            <p class="selected-work-count">In development</p>
+          {% endif %}
+        </a>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section id="reel" class="content-section reel-block" aria-label="Reels">
+  <div class="reel-block-head">
+    <p class="eyebrow">Reel</p>
+    <h3 style="font-family: var(--font-body); font-weight: 600;">Watch everything move exactly as if that was the plan all along.</h3>
+  </div>
+  {% if reelGroups.length %}
+    <div class="reel-tabs" role="tablist" aria-label="Reel versions">
+      {% for group in reelGroups %}
+        {% set panelId = "reel-panel-" ~ loop.index %}
+        <button class="reel-tab{% if loop.first %} is-active{% endif %}" role="tab" type="button" data-reel-target="{{ panelId }}" aria-selected="{% if loop.first %}true{% else %}false{% endif %}" aria-controls="{{ panelId }}">{{ group.label }}</button>
       {% endfor %}
     </div>
-  </section>
+    <div class="reel-panels">
+      {% for group in reelGroups %}
+        {% set panelId = "reel-panel-" ~ loop.index %}
+        <div class="reel-panel{% if loop.first %} is-active{% endif %}" id="{{ panelId }}" role="tabpanel"{% if not loop.first %} hidden{% endif %}>
+          <div class="reel-carousel" data-reel-carousel>
+            <div class="reel-carousel-stage{% if group.videos.length > 1 %} has-controls{% endif %}">
+              {% if group.videos.length > 1 %}
+                <button class="reel-carousel-arrow" type="button" data-reel-direction="prev" aria-label="Previous {{ group.label }} video">&lt;</button>
+              {% endif %}
+              <div class="reel-slides">
+                {% for video in group.videos %}
+                  <div class="reel-slide{% if loop.first %} is-active{% endif %}" data-reel-slide{% if not loop.first %} hidden{% endif %}>
+                    {{ video.data.mediaUrl | mediaEmbed(video.data.title) | safe }}
+                    {% if video.data.title %}
+                      <p class="reel-slide-label">{{ video.data.title }}</p>
+                    {% endif %}
+                  </div>
+                {% endfor %}
+              </div>
+              {% if group.videos.length > 1 %}
+                <button class="reel-carousel-arrow" type="button" data-reel-direction="next" aria-label="Next {{ group.label }} video">&gt;</button>
+              {% endif %}
+            </div>
+            {% if group.videos.length > 1 %}
+              <p class="reel-carousel-counter" data-reel-counter>1 / {{ group.videos.length }}</p>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="reel-empty">Add a video in the CMS to activate this reel block.</p>
+  {% endif %}
+</section>
+
+<section class="content-section press-strip" aria-label="Press and testimonials">
+  <p class="eyebrow">Press + Testimonials</p>
+  {% if pressQuotes.length %}
+    <div class="press-grid">
+      {% for pressQuote in pressQuotes %}
+        {% if loop.index <= 4 %}
+          <blockquote class="press-quote press-quote--placard" data-press-variant="placard">
+            {% if pressQuote.sourceUrl %}
+              <a class="press-quote-link" href="{{ pressQuote.sourceUrl | assetUrl }}">
+                <p class="press-quote-text">{{ pressQuote.quote }}</p>
+                {% if pressQuote.source or pressQuote.sourceUrl %}
+                  <footer class="press-quote-source">
+                    <cite>{{ pressQuote.source or 'Read source' }}</cite>
+                  </footer>
+                {% endif %}
+              </a>
+            {% else %}
+              <p class="press-quote-text">{{ pressQuote.quote }}</p>
+              {% if pressQuote.source %}
+                <footer class="press-quote-source">
+                  <cite>{{ pressQuote.source }}</cite>
+                </footer>
+              {% endif %}
+            {% endif %}
+          </blockquote>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="press-empty">Add a press quote in the CMS to activate this section.</p>
+  {% endif %}
+</section>
+
+<section class="content-section upcoming-block" aria-label="Current and upcoming">
+  <div class="upcoming-head">
+    <p class="eyebrow">Current + Upcoming</p>
+    <a href="{{ '/book/' | url }}" class="upcoming-link">Booking inquiries</a>
+  </div>
+  <div class="upcoming-grid">
+    {% for project in collections.projects %}
+      {% if loop.index <= 3 %}
+        {% set upcomingCardImage = project | projectPreviewImage %}
+        <article class="upcoming-card"{% if upcomingCardImage %} style="--upcoming-card-image: url('{{ upcomingCardImage | assetUrl }}');"{% endif %}>
+          <p class="upcoming-date">{{ project.date | readableDate }}</p>
+          <h3><a href="{{ project.url | url }}">{{ project.data.title }}</a></h3>
+          {% set projectSummary = project.data.summary or (project.templateContent | excerpt(120)) %}
+          {% if projectSummary %}
+            <p>{{ projectSummary }}</p>
+          {% endif %}
+        </article>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+{% if reelGroups.length %}
+  <script>
+    (() => {
+      const reelBlock = document.querySelector(".reel-block");
+      if (!reelBlock) return;
+
+      const tabs = Array.from(reelBlock.querySelectorAll(".reel-tab"));
+      const panels = Array.from(reelBlock.querySelectorAll(".reel-panel"));
+
+      if (tabs.length > 1 && panels.length) {
+        tabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            const target = tab.dataset.reelTarget;
+            const nextPanel = reelBlock.querySelector(`#${target}`);
+            if (!nextPanel) return;
+
+            tabs.forEach((button) => {
+              const active = button === tab;
+              button.classList.toggle("is-active", active);
+              button.setAttribute("aria-selected", active ? "true" : "false");
+            });
+
+            panels.forEach((panel) => {
+              const active = panel === nextPanel;
+              panel.classList.toggle("is-active", active);
+              panel.hidden = !active;
+            });
+          });
+        });
+      }
+
+      const carousels = Array.from(reelBlock.querySelectorAll("[data-reel-carousel]"));
+
+      carousels.forEach((carousel) => {
+        const slides = Array.from(carousel.querySelectorAll("[data-reel-slide]"));
+        if (slides.length <= 1) return;
+
+        let currentIndex = 0;
+        const counter = carousel.querySelector("[data-reel-counter]");
+        const controls = Array.from(carousel.querySelectorAll("[data-reel-direction]"));
+
+        const render = () => {
+          slides.forEach((slide, index) => {
+            const active = index === currentIndex;
+            slide.classList.toggle("is-active", active);
+            slide.hidden = !active;
+          });
+
+          if (counter) {
+            counter.textContent = `${currentIndex + 1} / ${slides.length}`;
+          }
+        };
+
+        controls.forEach((control) => {
+          control.addEventListener("click", () => {
+            const direction = control.dataset.reelDirection === "prev" ? -1 : 1;
+            currentIndex = (currentIndex + direction + slides.length) % slides.length;
+            render();
+          });
+        });
+
+        render();
+      });
+    })();
+  </script>
 {% endif %}

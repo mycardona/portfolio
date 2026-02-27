@@ -1,0 +1,24 @@
+{
+  "connect": [
+    {
+      "type": "booking",
+      "link": "/book/",
+      "order": 1
+    },
+    {
+      "type": "instagram",
+      "link": "https://instagram.com/your-handle",
+      "order": 3
+    },
+    {
+      "type": "linkedin",
+      "link": "https://linkedin.com/in/your-handle",
+      "order": 4
+    },
+    {
+      "type": "youtube",
+      "link": "https://youtube.com/@your-handle",
+      "order": 5
+    }
+  ]
+}
