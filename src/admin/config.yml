@@ -1,15 +1,15 @@
 backend:
   name: github
-  repo: mylocardona/portfolio
+  repo: mycardona/portfolio
   branch: main
   # Netlify site used only for OAuth provider tokens
-  site_domain: YOUR-NETLIFY-SITE.netlify.app
+  site_domain: scintillating-pegasus-27bdcb.netlify.app
 
 # Allows local CMS editing via `npm run dev:cms`
 local_backend: true
 
 # Set this to your live public site URL (GitHub Pages in this setup)
-site_url: https://mylocardona.github.io/portfolio/
+site_url: https://mycardona.github.io/portfolio/
 media_folder: src/uploads
 public_folder: /uploads
 
