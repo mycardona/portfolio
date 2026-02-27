@@ -22,6 +22,14 @@ function withPathPrefix(pathname) {
   return `${pathPrefix.replace(/\/$/, "")}${cleanPath}`;
 }
 
+function assetUrl(value) {
+  const input = String(value || "").trim();
+  if (!input) return "";
+  if (/^(?:[a-z]+:)?\/\//i.test(input)) return input;
+  if (input.startsWith("data:") || input.startsWith("#")) return input;
+  return withPathPrefix(input);
+}
+
 function escapeHtml(value = "") {
   return value
     .replace(/&/g, "&amp;")
@@ -250,6 +258,7 @@ module.exports = function (eleventyConfig) {
   });
   eleventyConfig.addFilter("galleryItemSrc", galleryItemSrc);
   eleventyConfig.addFilter("projectPreviewImage", projectPreviewImage);
+  eleventyConfig.addFilter("assetUrl", assetUrl);
   eleventyConfig.addFilter("excerpt", (value, maxLength = 170) => excerpt(value, maxLength));
 
   eleventyConfig.addCollection("projects", (collectionApi) => {

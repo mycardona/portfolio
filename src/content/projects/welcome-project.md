@@ -4,10 +4,10 @@ date: 2026-02-21
 summary: This sample project shows how text, images, and external media URLs work together.
 categories:
   - original-work
-coverImage: /uploads/example-cover.png
+coverImage: /uploads/IMG_9081_edited.webp
 mediaUrl: https://www.youtube.com/watch?v=dQw4w9WgXcQ
 gallery:
-  - /uploads/example-cover.png
+  - /uploads/IMG_9081_edited.webp
 ---
 Replace this with your real project description.
 

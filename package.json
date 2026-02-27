@@ -9,11 +9,14 @@
   "scripts": {
     "dev": "eleventy --serve",
     "build": "eleventy",
-    "dev:cms": "decap-server"
+    "dev:cms": "decap-server",
+    "sync:admin-vendor": "mkdir -p src/admin/vendor && cp node_modules/decap-cms/dist/decap-cms.js src/admin/vendor/decap-cms.js && cp node_modules/decap-cms-widget-bulk-github-images/dist/index.js src/admin/vendor/decap-cms-widget-bulk-github-images.js"
   },
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
     "@11ty/eleventy-img": "^6.0.0",
+    "decap-cms": "^3.10.1",
+    "decap-cms-widget-bulk-github-images": "^0.1.0",
     "decap-server": "^3.2.1"
   }
 }

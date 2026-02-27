@@ -19,7 +19,7 @@ showQuickNav: false
 {% endif %}
 {% set bookNowUrl = '/book/' | url %}
 
-<section class="landing-hero"{% if heroImage %} style="--landing-hero-image: url('{{ heroImage }}');"{% endif %}>
+<section class="landing-hero"{% if heroImage %} style="--landing-hero-image: url('{{ heroImage | assetUrl }}');"{% endif %}>
   <div class="landing-hero-inner">
     <div class="landing-hero-nav">
       <a href="{{ '/' | url }}" class="landing-mark"></a>
@@ -45,7 +45,7 @@ showQuickNav: false
       {% for categoryPage in collections.projectCategoryPages %}
         {% set latestProject = categoryPage.projects[0] %}
         {% set categoryImage = latestProject | projectPreviewImage %}
-        <article class="category-card category-tile"{% if categoryImage %} style="--category-image: url('{{ categoryImage }}');"{% endif %}>
+        <article class="category-card category-tile"{% if categoryImage %} style="--category-image: url('{{ categoryImage | assetUrl }}');"{% endif %}>
           <a href="{{ categoryPage | categoryUrl }}" class="category-tile-link">
             <p class="category-label">{{ categoryPage.projects.length }} project{% if categoryPage.projects.length != 1 %}s{% endif %}</p>
             <h2>{{ categoryPage.name | categoryLabel }}</h2>

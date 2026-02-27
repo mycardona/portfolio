@@ -90,7 +90,7 @@ collections:
         name: gallery
         widget: bulkGithubImages
         required: false
-        repo: mylocardona/portfolio
+        repo: mycardona/portfolio
         branch: main
         proxy_url: http://localhost:8081/api/v1
         media_folder: src/uploads

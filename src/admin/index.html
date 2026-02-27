@@ -6,7 +6,43 @@
     <title>Portfolio Admin</title>
   </head>
   <body>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-    <script src="https://unpkg.com/decap-cms-widget-bulk-github-images/dist/index.js"></script>
+    <script>
+      (async function () {
+        var host = window.location.hostname;
+        if (!host.endsWith("github.io")) return;
+
+        try {
+          var response = await fetch("./config.yml", { cache: "no-store" });
+          if (!response.ok) return;
+
+          var configText = await response.text();
+          var siteDomainMatch = configText.match(/^\s*site_domain:\s*([^\s#]+)/m);
+          var siteUrlMatch = configText.match(/^\s*site_url:\s*([^\s#]+)/m);
+          if (!siteDomainMatch || !siteUrlMatch) return;
+
+          var expectedHost = new URL(siteUrlMatch[1]).hostname;
+          if (host !== expectedHost) return;
+
+          var siteDomain = siteDomainMatch[1]
+            .trim()
+            .replace(/^https?:\/\//i, "")
+            .replace(/\/.*$/, "")
+            .toLowerCase();
+
+          if (!siteDomain) return;
+          var allowedNetlifyDomains = [siteDomain];
+          var isNetlifyAppDomain = /^[a-z0-9-]+\.netlify\.app$/.test(siteDomain);
+          if (!isNetlifyAppDomain) return;
+          if (!allowedNetlifyDomains.includes(siteDomain)) return;
+
+          var netlifyAdminUrl = "https://" + siteDomain + "/admin/";
+          window.location.replace(netlifyAdminUrl);
+        } catch (error) {
+          // If config cannot be read, continue loading local CMS.
+        }
+      })();
+    </script>
+    <script src="./vendor/decap-cms.js"></script>
+    <script src="./vendor/decap-cms-widget-bulk-github-images.js"></script>
   </body>
 </html>

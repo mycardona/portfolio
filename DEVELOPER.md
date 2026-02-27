@@ -1,127 +1,135 @@
 # Zero-Dollar Portfolio Stack (Eleventy + Decap CMS)
 
-This repo is set up so a non-technical editor can add/update projects from `/admin`.
+This project uses GitHub Pages for the public site and Decap CMS for editor updates.
+Netlify is used for GitHub OAuth provider tokens.
 
-Public routes:
-- `/` portfolio landing page
-- `/category/<slug>/` one page per category
-- `/projects/` all-projects fallback index
+## Updates
 
-On GitHub Pages project sites, these become `/<repo>/...` automatically via `SITE_PATH_PREFIX`.
+Use this section for normal day-to-day changes after initial setup.
 
-## What this includes
+### Edit content in CMS
 
-- Eleventy static site generator (free)
-- Decap CMS admin panel (free, open source)
-- GitHub Pages deployment workflow (free)
-- Project content model with:
-  - text/Markdown body
-  - cover image
-  - gallery images
-  - optional `Video or Audio URL` (YouTube, Vimeo, SoundCloud)
+1. Open `https://mycardona.github.io/portfolio/admin/`.
+2. If auth callback gets blocked in your browser, use `https://scintillating-pegasus-27bdcb.netlify.app/admin/` directly.
+3. Log in with GitHub.
+4. Update collections:
+- `Categories`: add/edit category title, slug, and description.
+- `Projects`: edit title, date, categories, venue, summary, media URL, cover image, gallery, and body.
+5. Save/publish changes in CMS. Decap commits directly to `main`.
+6. GitHub Actions deploys updated Pages output.
 
-## Quick start
+### Update code or styles locally
 
-Prerequisite: Node.js `20.5+`.
-
-1. Install dependencies:
+1. Pull latest changes.
+2. Install dependencies:
 
 ```bash
 npm install
 ```
 
-2. Run the site:
+3. Run local site:
 
 ```bash
 npm run dev
 ```
 
-3. (Optional for local CMS testing) Run Decap local backend in a second terminal:
+4. Optional local CMS backend:
 
 ```bash
 npm run dev:cms
 ```
 
-4. Open:
-- Site: `http://localhost:8080`
-- CMS: `http://localhost:8080/admin/`
+### Decap package upgrades
 
-## Configure Decap CMS (GitHub backend + Netlify OAuth)
+When upgrading `decap-cms` or the bulk image widget package:
 
-Edit `src/admin/config.yml`:
+1. Update npm packages.
+2. Refresh self-hosted admin vendor files:
 
-- `backend.name`: `github`
-- `backend.repo`: your GitHub repo in `owner/repo` format
-- `backend.branch`: `main`
-- `backend.site_domain`: your Netlify site domain (example: `mylo-auth.netlify.app`)
-- `site_url`: your public GitHub Pages URL
+```bash
+npm run sync:admin-vendor
+```
 
-### Set up OAuth (one-time)
+3. Build before deploy:
 
-1. Create a Netlify site to host OAuth provider configuration.
-2. In GitHub, create an OAuth App:
-   - Homepage URL: your public site URL
-   - Authorization callback URL: `https://api.netlify.com/auth/done`
-3. In Netlify site settings, go to `Access & security` > `OAuth` > `Authentication providers`.
-4. Add `GitHub` and paste the OAuth App client ID and client secret.
-5. Commit/push your `config.yml` values.
-6. Open `/admin/` on your GitHub Pages site and sign in with GitHub.
+```bash
+npm run build
+```
 
-`src/admin/index.html` includes the Decap CMS script plus a custom `bulkGithubImages` widget loaded from the published npm package via unpkg.
+4. For GitHub Pages path-prefix verification:
 
-## Content model (for your editor)
+```bash
+SITE_PATH_PREFIX=/portfolio npm run build
+```
 
-In `/admin` they fill in:
+### Keep auth/config values aligned
 
-- `Title`
-- `Date` (month + year)
-- `Categories` (supports defaults + custom additions)
-- `Summary` (optional)
-- `Venue` (optional)
-- `Venue URL` (optional)
-- `Cover Image` (optional)
-- `Gallery Images` (optional, custom bulk picker for upload + multi-select from existing uploads)
-- `Video or Audio URL` (optional)
-- `Body`
+Update these in `src/admin/config.yml` when domains/repos change:
 
-Each save creates/updates a Markdown file in `src/content/projects/`.
-Default category options are `original work`, `performance work`, `facilitation work`, and `directorship work`, and editors can add new ones.
+- `backend.repo`: `owner/repo`
+- `backend.branch`
+- `backend.site_domain`: Netlify site domain only (no protocol)
+- `site_url`: public GitHub Pages URL
 
-## Media strategy
+`src/admin/index.html` reads `site_domain` and `site_url` from `config.yml` for the GitHub Pages admin redirect.
 
-- Images upload to `src/uploads/` and are optimized in build output.
-- `Gallery Images` uses a custom admin widget that:
-  - uploads multiple files directly to `src/uploads/` in the GitHub repo
-  - lets you select multiple existing files from `src/uploads/`
-  - in local development, requires `npm run dev:cms` so the widget can use the local proxy API
-- The source of truth for this widget is the npm package `decap-cms-widget-bulk-github-images`, loaded in `src/admin/index.html` via unpkg.
-- Video/audio files should stay on YouTube/Vimeo/SoundCloud. Paste the URL into `Video or Audio URL`.
+## Fresh Start
 
-## Deploy to GitHub Pages
+Use this section to set up from scratch.
+
+### Prerequisites
+
+- Node.js `20.5+`
+- GitHub repo with this project
+- Netlify account
+
+### 1) Install and run locally
+
+```bash
+npm install
+npm run dev
+```
+
+Optional local CMS backend:
+
+```bash
+npm run dev:cms
+```
+
+### 2) Configure Decap CMS backend
+
+Set `src/admin/config.yml`:
+
+- `backend.name: github`
+- `backend.repo: <owner>/<repo>`
+- `backend.branch: main`
+- `backend.site_domain: <netlify-site>.netlify.app`
+- `site_url: https://<user>.github.io/<repo>/`
+
+### 3) Set up GitHub OAuth app
+
+In GitHub: `Settings -> Developer settings -> OAuth Apps -> New OAuth App`
+
+- Homepage URL: your public site URL
+- Authorization callback URL: `https://api.netlify.com/auth/done`
+
+Copy client ID and client secret.
+
+### 4) Configure Netlify OAuth provider
+
+1. In Netlify, create/import a site (same repo is fine).
+2. Open site settings: `Access & security -> OAuth -> Authentication providers`.
+3. Install `GitHub` provider.
+4. Paste OAuth app client ID + client secret.
+
+### 5) Deploy public site on GitHub Pages
 
 1. Push to `main`.
-2. In GitHub repo settings, enable Pages and choose **GitHub Actions** as source.
-3. The workflow at `.github/workflows/deploy.yml` builds and publishes `_site`.
+2. In GitHub repo settings, enable Pages with **GitHub Actions** source.
+3. Workflow deploys `_site`.
 
-## Netlify usage in this setup
+### 6) Validate CMS login and publishing
 
-- Netlify is used for OAuth provider tokens only.
-- Your public site can remain fully on GitHub Pages.
-- The Netlify site can be a lightweight "auth helper" project.
-
-### Path prefix behavior
-
-This only applies to the GitHub Pages deployment path.
-
-The deploy workflow auto-sets `SITE_PATH_PREFIX`:
-- User/org site repo (`<user>.github.io`): `/`
-- Project site repo (example: `portfolio`): `/portfolio/`
-
-## Project structure
-
-- `src/admin/` Decap CMS UI + config
-- `src/content/projects/` Markdown project entries
-- `src/portfolio/` generated category pages
-- `src/uploads/` uploaded images
-- `src/_includes/layouts/` site layouts
-- `.eleventy.js` collections, image optimization, media URL embeds
+1. Open `https://<user>.github.io/<repo>/admin/`.
+2. Confirm login works and you can create or update an entry.
+3. Confirm commit lands in GitHub and Pages redeploys.
