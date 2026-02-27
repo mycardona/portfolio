@@ -174,6 +174,47 @@ collections:
           required: false,
           hint: "Optional URL to the article or source."
         }
+  - name: homepage
+    label: Homepage
+    files:
+      - label: Hero
+        name: landing
+        file: src/_data/homepage/hero.json
+        fields:
+          - { label: Kicker, name: kicker, widget: string, required: false, hint: "Short label above the homepage hero name." }
+          - { label: First Name, name: firstName, widget: string, required: false, hint: "First line of the hero headline." }
+          - { label: Last Name, name: lastName, widget: string, required: false, hint: "Second line of the hero headline." }
+          - { label: Role Line, name: role, widget: string, required: false, hint: "Tagline shown under the hero name." }
+          - { label: Positioning Copy, name: positioning, widget: text, required: false, hint: "Supporting copy beneath the hero headline." }
+          - { label: Primary Button Label, name: primaryCtaLabel, widget: string, required: false, hint: "Text for the button that jumps to the Reel section." }
+          - { label: Secondary Button Label, name: secondaryCtaLabel, widget: string, required: false, hint: "Text for the button that links to the Book page." }
+      - label: Selected Work
+        name: selected-work
+        file: src/_data/homepage/selectedWork.json
+        fields:
+          - { label: Section Label, name: eyebrow, widget: string, required: false, hint: "Homepage heading for this section. The cards below pull from the Categories collection." }
+          - { label: Summary, name: summary, widget: text, required: false, hint: "Intro sentence shown above the Selected Work cards." }
+          - { label: Default Card Copy, name: defaultCardCopy, widget: text, required: false, hint: "Fallback text used when a category does not have its own description." }
+          - { label: Empty Card Status, name: emptyCardStatus, widget: string, required: false, hint: "Fallback status shown when a category has no associated projects yet." }
+      - label: Reel
+        name: reel
+        file: src/_data/homepage/reel.json
+        fields:
+          - { label: Section Label, name: eyebrow, widget: string, required: false, hint: "Homepage heading for this section. The tabs and videos pull from the Videos collection." }
+          - { label: Summary, name: summary, widget: text, required: false, hint: "Intro sentence shown above the reel player." }
+          - { label: Empty Message, name: emptyMessage, widget: text, required: false, hint: "Shown only when no videos exist in the Videos collection." }
+      - label: Press
+        name: press
+        file: src/_data/homepage/press.json
+        fields:
+          - { label: Section Label, name: eyebrow, widget: string, required: false, hint: "Homepage heading for this section. The quotes shown here pull from the Press + Testimonials collection." }
+          - { label: Empty Message, name: emptyMessage, widget: text, required: false, hint: "Shown only when no quotes exist in the Press + Testimonials collection." }
+      - label: Current + Upcoming
+        name: upcoming
+        file: src/_data/homepage/upcoming.json
+        fields:
+          - { label: Section Label, name: eyebrow, widget: string, required: false, hint: "Homepage heading for this section. The project cards shown here pull from the Projects collection." }
+          - { label: Booking Link Label, name: bookingLinkLabel, widget: string, required: false, hint: "Text for the link that points to the Book page." }
   - name: about
     label: About
     files:

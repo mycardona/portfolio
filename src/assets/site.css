@@ -274,7 +274,10 @@ h3 {
 }
 
 .landing-hero-content {
-  margin: auto auto clamp(2rem, 7vh, 5rem) 0;
+  margin-top: auto;
+  margin-right: auto;
+  margin-bottom: clamp(2rem, 7vh, 5rem);
+  margin-left: max(0px, calc((100% - var(--max)) / 2));
   text-align: left;
   color: #f9f2ff;
   opacity: 0;
@@ -1694,13 +1697,9 @@ h3 {
 }
 
 .site-footer-inner {
-  width: 100%;
-  max-width: 112rem;
+  width: min(calc(100% - 2.4rem), var(--max));
   margin-inline: auto;
-  padding:
-    clamp(2.2rem, 5vw, 3.6rem)
-    clamp(1.5rem, 3vw, 2.75rem)
-    clamp(1.2rem, 2.6vw, 1.7rem);
+  padding: clamp(2.2rem, 5vw, 3.6rem) 0 clamp(1.2rem, 2.6vw, 1.7rem);
   display: grid;
   gap: 1.2rem;
   grid-template-columns: minmax(18rem, 2.4fr) repeat(3, minmax(9rem, 1fr));
@@ -2038,11 +2037,10 @@ h3 {
   }
 
   .site-footer-inner {
-    width: 100%;
-    max-width: calc(var(--max) + 1.2rem);
+    width: min(calc(100% - 1.2rem), var(--max));
     grid-template-columns: 1fr;
     gap: 1rem;
-    padding: 1.7rem 0.6rem 1.2rem;
+    padding: 1.7rem 0 1.2rem;
   }
 
   .site-footer-inner > .site-footer-column:nth-of-type(1),
