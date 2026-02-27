@@ -652,6 +652,297 @@ h3 {
   padding-left: 1.1rem;
 }
 
+.about-hero {
+  border: 1px solid var(--line);
+  border-radius: 1.1rem;
+  background:
+    radial-gradient(circle at 90% 12%, rgba(180, 68, 59, 0.11), rgba(180, 68, 59, 0) 36%),
+    linear-gradient(145deg, #fbf7f1, #f2eadf),
+    repeating-linear-gradient(
+      0deg,
+      rgba(83, 63, 48, 0.01),
+      rgba(83, 63, 48, 0.01) 1px,
+      rgba(83, 63, 48, 0) 1px,
+      rgba(83, 63, 48, 0) 7px
+    );
+  padding: clamp(1.2rem, 3.2vw, 2.8rem);
+  color: #2f241d;
+}
+
+.about-hero h1 {
+  margin: 0.5rem 0 0.65rem;
+  color: #33261f;
+  font-weight: 500;
+  line-height: 1.02;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.about-lead {
+  max-width: 60ch;
+  margin: 0;
+  color: #3f3229;
+  font-size: clamp(1.04rem, 2.1vw, 1.24rem);
+  line-height: 1.46;
+}
+
+.about-layout {
+  margin-top: 1rem;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.about-panel {
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background:
+    linear-gradient(160deg, #faf6f0, #f1e9de),
+    repeating-linear-gradient(
+      0deg,
+      rgba(83, 63, 48, 0.01),
+      rgba(83, 63, 48, 0.01) 1px,
+      rgba(83, 63, 48, 0) 1px,
+      rgba(83, 63, 48, 0) 7px
+    );
+  padding: clamp(1rem, 2.4vw, 1.4rem);
+  color: #30251e;
+  box-shadow: 0 8px 20px rgba(73, 52, 38, 0.08);
+}
+
+.about-panel h2 {
+  margin-bottom: 0.45rem;
+  color: #382a22;
+  font-weight: 500;
+}
+
+.about-panel p {
+  margin: 0.72rem 0 0;
+  color: #4a3a30;
+  line-height: 1.5;
+}
+
+.resume-inline {
+  margin-top: 1.2rem;
+}
+
+.resume-header {
+  margin-bottom: 0.7rem;
+}
+
+.resume-header h2 {
+  margin: 0.42rem 0 0.24rem;
+}
+
+.resume-paper {
+  margin-top: 0.45rem;
+  border-radius: 0.35rem;
+  overflow: hidden;
+  border: 1px solid #ddd9d4;
+  background: #f7f6f4;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+  color: #1f1a17;
+  font-family: var(--font-body);
+  max-width: 52rem;
+  margin-inline: auto;
+}
+
+.resume-paper-head {
+  padding: 1.16rem 1.28rem 0.92rem;
+  border-bottom: 1px solid #dad3cb;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.8rem 1rem;
+  align-items: end;
+}
+
+.resume-name {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: clamp(1.45rem, 3vw, 2.02rem);
+  letter-spacing: 0.36em;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #cf2727;
+  line-height: 1;
+}
+
+.resume-tagline {
+  margin: 0.26rem 0 0;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  letter-spacing: 0.17em;
+  color: #26221d;
+  font-style: italic;
+  line-height: 1.15;
+}
+
+.resume-head-contact {
+  text-align: left;
+}
+
+.resume-contact-title {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-weight: 700;
+  color: #b14141;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+
+.resume-contact-note {
+  margin: 0.36rem 0 0;
+  font-size: 0.8rem;
+  line-height: 1.2;
+  color: #3a322b;
+}
+
+.resume-contact-link {
+  display: inline-block;
+  margin-top: 0.24rem;
+  font-family: var(--font-ui);
+  font-size: 0.77rem;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #b14141;
+
+}
+
+.resume-contact-title:hover {
+  color: #852d2d;
+}
+
+.resume-paper-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+}
+
+.resume-column {
+  padding: 0.88rem 1.2rem 1.05rem;
+}
+
+.resume-column-main {
+  border-right: 1px solid #dad3cb;
+}
+
+.resume-block + .resume-block {
+  margin-top: 0.84rem;
+  padding-top: 0.74rem;
+  border-top: 1px solid #e1dad2;
+}
+
+.resume-paper .resume-block h3 {
+  margin: 0 0 0.42rem;
+  font-family: var(--font-ui);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #b4443b;
+}
+
+.resume-paper .resume-list,
+.resume-paper .resume-credits {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.resume-paper .resume-list li {
+  margin: 0.28rem 0 0;
+  line-height: 1.29;
+  font-size: 0.84rem;
+  color: #27211b;
+}
+
+.resume-paper .resume-list li:first-child {
+  margin-top: 0;
+}
+
+.resume-paper .resume-credits li {
+  margin: 0.52rem 0 0;
+}
+
+.resume-paper .resume-credits li:first-child {
+  margin-top: 0;
+}
+
+.resume-paper .credit-role {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.18;
+  color: #231d17;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.resume-paper .credit-meta {
+  margin: 0.1rem 0 0;
+  font-size: 0.84rem;
+  line-height: 1.2;
+  color: #302821;
+}
+
+.resume-paper .credit-meta strong {
+  font-style: italic;
+  font-weight: 700;
+}
+
+.resume-paper .show-title {
+  font-style: italic;
+  font-weight: 600;
+}
+
+.resume-paper .credit-highlight {
+  font-style: italic;
+  font-weight: 700;
+}
+
+.resume-paper .resume-list-dated li,
+.resume-paper .resume-credits-dated li {
+  display: grid;
+  grid-template-columns: 4.7rem minmax(0, 1fr);
+  gap: 0.46rem;
+  align-items: start;
+}
+
+.resume-paper .list-date,
+.resume-paper .credit-date {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  line-height: 1.18;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #3a3128;
+  font-weight: 700;
+  margin: 0.04rem 0 0;
+}
+
+.resume-paper .list-text {
+  font-size: 0.84rem;
+  line-height: 1.25;
+}
+
+.resume-paper .resume-list-skill-columns {
+  list-style: disc;
+  columns: 2;
+  column-gap: 1.05rem;
+  padding-left: 0.9rem;
+}
+
+.resume-paper .resume-list-skill-columns li {
+  break-inside: avoid;
+  margin: 0.14rem 0;
+  padding-left: 0.05rem;
+}
+
+.resume-paper .resume-list-skill-columns li::marker {
+  font-size: 0.7em;
+  color: #302921;
+}
+
 @keyframes rise-in {
   from {
     opacity: 0;
@@ -723,6 +1014,36 @@ h3 {
 
   .category-grid {
     grid-template-columns: 1fr;
+  }
+
+  .about-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .resume-paper-body {
+    grid-template-columns: 1fr;
+  }
+
+  .resume-paper-head {
+    grid-template-columns: 1fr;
+  }
+
+  .resume-column-main {
+    border-right: 0;
+    border-bottom: 1px solid #dad3cb;
+  }
+
+  .resume-paper .resume-list-dated li,
+  .resume-paper .resume-credits-dated li {
+    grid-template-columns: 4.25rem minmax(0, 1fr);
+  }
+
+  .resume-paper .resume-list-skill-columns {
+    columns: 1;
+  }
+
+  .resume-contact-note {
+    margin-top: 0.3rem;
   }
 }
 
