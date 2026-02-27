@@ -1,0 +1,136 @@
+{
+  "eyebrow": "Resume",
+  "title": "Acting Resume",
+  "name": "MYLO CARDONA",
+  "tagline": "Stage & Film Actor",
+  "contactTitle": "Book",
+  "contactNote": "For inquiries and availability",
+  "contactUrl": "/book/",
+  "main": {
+    "stageHeading": "Stage",
+    "stageCredits": [
+      {
+        "role": "La Bandera",
+        "showTitle": "Cross y Bandera",
+        "director": "Karina Gutierrez",
+        "details": "La Lengua Theater, 2024"
+      },
+      {
+        "role": "Twit",
+        "showTitle": "Emperor's New Post",
+        "director": "Stephanie Temple",
+        "details": "New Conservatory Theater Company, 2023"
+      },
+      {
+        "role": "Veronica / Rosa Maria / Choir",
+        "showTitle": "Yerma",
+        "director": "Katja Rivera",
+        "details": "Shotgun Players, 2023"
+      },
+      {
+        "role": "Giles",
+        "showTitle": "The Crucible",
+        "director": "Michael Moran",
+        "details": "Oakland Theater Project, 2022"
+      },
+      {
+        "role": "Camera Man",
+        "showTitle": "Dream House",
+        "director": "Karina Gutierrez",
+        "details": "Shotgun Players, 2022"
+      },
+      {
+        "role": "Papa Bear",
+        "showTitle": "Goldilocks",
+        "director": "Peter Mohrmann",
+        "details": "Sacramento City College, 2021"
+      },
+      {
+        "role": "Man in Chair",
+        "showTitle": "The Drowsy Chaperone",
+        "director": "Kristen Duerr",
+        "details": "Sacramento City College, 2019"
+      }
+    ],
+    "filmHeading": "Film",
+    "filmCredits": [
+      {
+        "role": "Adrian",
+        "showTitle": "Break My Heart",
+        "director": "Ginger Chen",
+        "details": "Hello Blue Pepper Productions"
+      }
+    ],
+    "recognitionHeading": "Recognition",
+    "recognitionItems": [
+      {
+        "date": "2022",
+        "text": "Distinguished Theatrical Talent - University of California Berkeley"
+      },
+      {
+        "date": "2017",
+        "text": "Jerry Herman Best Leading Actor - Pantages Theatre"
+      }
+    ]
+  },
+  "side": {
+    "worksHeading": "Emcee & Original Works",
+    "worksItems": [
+      {
+        "date": "June 2024",
+        "role": "Watermelon Cabaret",
+        "highlight": "Raised $10,000 for Gazan evacuations",
+        "details": "Magic Theater, San Francisco"
+      },
+      {
+        "date": "Oct 2023",
+        "role": "Cuba Cabaret",
+        "highlight": "Raised $5k to send medical supplies to Cuba",
+        "details": "510 Firehouse, Oakland"
+      },
+      {
+        "date": "Oct 2022",
+        "role": "The F*ggots and Their Friends Between Revolutions",
+        "highlight": "Co-playwright, director, producer",
+        "details": "Oakland Theater Project"
+      }
+    ],
+    "skillsHeading": "Special Skills",
+    "skills": [
+      "Theater of the Oppressed facilitation",
+      "Devising and directing",
+      "Clowning and physical theater",
+      "Dance: modern, Latin, hip-hop, vogue, go-go",
+      "Voice acting",
+      "Drag and makeup",
+      "Yoga and Pilates",
+      "Roller skating",
+      "Intermediate Spanish, beginner Arabic",
+      "Dialects: German, Egyptian, Puerto Rican, Cockney, New Jersey, Brooklyn",
+      "Full split and cartwheeling"
+    ],
+    "trainingHeading": "Education & Training",
+    "trainingItems": [
+      {
+        "date": "2024-present",
+        "text": "Voice Acting, Character Creation - Sally Lawson - Voice One, SF"
+      },
+      {
+        "date": "2023",
+        "text": "Human Animation - Toby Moore - Circus Center, SF"
+      },
+      {
+        "date": "2022",
+        "text": "BA Theatre and Performance Studies - University of California Berkeley - 3.8 GPA"
+      },
+      {
+        "date": "2019",
+        "text": "Scene Study Intensive - Janis Stevens - Capital Stage"
+      },
+      {
+        "date": "2016-18",
+        "text": "Scene Study - Stella Adler Academy of Acting and Theatre"
+      }
+    ]
+  }
+}

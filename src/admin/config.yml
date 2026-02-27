@@ -174,6 +174,112 @@ collections:
           required: false,
           hint: "Optional URL to the article or source."
         }
+  - name: about
+    label: About
+    files:
+      - label: Hero
+        name: hero
+        file: src/_data/about/hero.json
+        fields:
+          - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+          - { label: Title, name: title, widget: string, required: false }
+          - { label: Lead, name: lead, widget: text, required: false }
+      - label: Detail
+        name: detail
+        file: src/_data/about/detail.json
+        fields:
+          - label: Sections
+            name: sections
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Title, name: title, widget: string, required: false }
+              - label: Paragraphs
+                name: paragraphs
+                widget: list
+                field:
+                  label: Paragraph
+                  name: paragraph
+                  widget: text
+      - label: Resume
+        name: resume
+        file: src/_data/about/resume.json
+        fields:
+          - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+          - { label: Title, name: title, widget: string, required: false }
+          - { label: Name, name: name, widget: string, required: false }
+          - { label: Tagline, name: tagline, widget: string, required: false }
+          - { label: Contact Button Label, name: contactTitle, widget: string, required: false }
+          - { label: Contact Note, name: contactNote, widget: string, required: false }
+          - {
+              label: Contact URL,
+              name: contactUrl,
+              widget: string,
+              required: false,
+              hint: "Use a page path or full https:// URL."
+            }
+          - label: Main Column
+            name: main
+            widget: object
+            fields:
+              - { label: Stage Heading, name: stageHeading, widget: string, required: false }
+              - label: Stage Credits
+                name: stageCredits
+                widget: list
+                summary: "{{fields.role}}"
+                fields:
+                  - { label: Role, name: role, widget: string, required: false }
+                  - { label: Show Title, name: showTitle, widget: string, required: false }
+                  - { label: Director, name: director, widget: string, required: false }
+                  - { label: Details, name: details, widget: string, required: false }
+              - { label: Film Heading, name: filmHeading, widget: string, required: false }
+              - label: Film Credits
+                name: filmCredits
+                widget: list
+                summary: "{{fields.role}}"
+                fields:
+                  - { label: Role, name: role, widget: string, required: false }
+                  - { label: Show Title, name: showTitle, widget: string, required: false }
+                  - { label: Director, name: director, widget: string, required: false }
+                  - { label: Details, name: details, widget: string, required: false }
+              - { label: Recognition Heading, name: recognitionHeading, widget: string, required: false }
+              - label: Recognition Items
+                name: recognitionItems
+                widget: list
+                summary: "{{fields.text}}"
+                fields:
+                  - { label: Date, name: date, widget: string, required: false }
+                  - { label: Text, name: text, widget: string, required: false }
+          - label: Side Column
+            name: side
+            widget: object
+            fields:
+              - { label: Works Heading, name: worksHeading, widget: string, required: false }
+              - label: Works Items
+                name: worksItems
+                widget: list
+                summary: "{{fields.role}}"
+                fields:
+                  - { label: Date, name: date, widget: string, required: false }
+                  - { label: Role, name: role, widget: string, required: false }
+                  - { label: Highlight, name: highlight, widget: string, required: false }
+                  - { label: Details, name: details, widget: string, required: false }
+              - { label: Skills Heading, name: skillsHeading, widget: string, required: false }
+              - label: Skills
+                name: skills
+                widget: list
+                field:
+                  label: Skill
+                  name: skill
+                  widget: string
+              - { label: Training Heading, name: trainingHeading, widget: string, required: false }
+              - label: Training Items
+                name: trainingItems
+                widget: list
+                summary: "{{fields.text}}"
+                fields:
+                  - { label: Date, name: date, widget: string, required: false }
+                  - { label: Text, name: text, widget: string, required: false }
   - name: footer
     label: Footer
     files:

@@ -3,189 +3,210 @@ layout: layouts/base.njk
 title: About
 permalink: /about/
 ---
+{% set aboutHero = (about and about.hero) or {} %}
+{% set aboutDetail = (about and about.detail) or {} %}
+{% set aboutSections = aboutDetail.sections or [] %}
+{% set aboutResume = (about and about.resume) or {} %}
+{% set aboutResumeMain = aboutResume.main or {} %}
+{% set aboutResumeSide = aboutResume.side or {} %}
+{% set resumeContactUrl = aboutResume.contactUrl or '/book/' %}
+
 <section class="about-hero">
-  <p class="eyebrow">About</p>
-  <h1>Mylo Cardona</h1>
-  <p class="about-lead">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer malesuada, nunc ut gravida finibus,
-    lectus dui porta libero, non sagittis sem risus vitae erat.
-  </p>
+  {% if aboutHero.eyebrow %}
+    <p class="eyebrow">{{ aboutHero.eyebrow }}</p>
+  {% endif %}
+  {% if aboutHero.title %}
+    <h1>{{ aboutHero.title }}</h1>
+  {% endif %}
+  {% if aboutHero.lead %}
+    <p class="about-lead">{{ aboutHero.lead }}</p>
+  {% endif %}
 </section>
 
-<section class="about-layout" aria-label="About details">
-  <article class="about-panel">
-    <h2>Practice</h2>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non ligula a justo dictum
-      facilisis. Integer tempor, urna vitae blandit accumsan, nibh nunc euismod massa, sit amet luctus
-      augue arcu ac velit.
-    </p>
-    <p>
-      Cras viverra sapien in mauris pellentesque, non laoreet risus sodales. Duis sed nunc quis mauris
-      tempor suscipit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
-      curae.
-    </p>
-  </article>
-  <article class="about-panel">
-    <h2>Approach</h2>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut aliquet turpis. Maecenas blandit
-      mattis est, vel convallis metus faucibus et. Suspendisse potenti.
-    </p>
-    <p>
-      Integer eget enim id mauris condimentum efficitur. Vestibulum a malesuada magna. Pellentesque
-      habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-    </p>
-  </article>
-</section>
+{% if aboutSections.length %}
+  <section class="about-layout" aria-label="About details">
+    {% for section in aboutSections %}
+      {% set sectionParagraphs = section.paragraphs or [] %}
+      <article class="about-panel">
+        {% if section.title %}
+          <h2>{{ section.title }}</h2>
+        {% endif %}
+        {% for paragraph in sectionParagraphs %}
+          {% if paragraph %}
+            <p>{{ paragraph }}</p>
+          {% endif %}
+        {% endfor %}
+      </article>
+    {% endfor %}
+  </section>
+{% endif %}
 
 <section class="resume-inline" aria-label="Acting resume">
   <div class="resume-header">
-    <p class="eyebrow">Resume</p>
-    <h2>Acting Resume</h2>
+    {% if aboutResume.eyebrow %}
+      <p class="eyebrow">{{ aboutResume.eyebrow }}</p>
+    {% endif %}
+    {% if aboutResume.title %}
+      <h2>{{ aboutResume.title }}</h2>
+    {% endif %}
   </div>
 
   <article class="resume-paper">
     <header class="resume-paper-head">
       <div class="resume-head-main">
-        <p class="resume-name">MYLO CARDONA</p>
-        <p class="resume-tagline">Stage &amp; Film Actor</p>
+        {% if aboutResume.name %}
+          <p class="resume-name">{{ aboutResume.name }}</p>
+        {% endif %}
+        {% if aboutResume.tagline %}
+          <p class="resume-tagline">{{ aboutResume.tagline }}</p>
+        {% endif %}
       </div>
       <div class="resume-head-contact">
-        <a class="resume-contact-title" href="{{ '/book/' | url }}">Book</a>
-        <p class="resume-contact-note">For inquiries and availability</p>
+        {% if aboutResume.contactTitle %}
+          <a class="resume-contact-title" href="{{ resumeContactUrl | assetUrl }}">{{ aboutResume.contactTitle }}</a>
+        {% endif %}
+        {% if aboutResume.contactNote %}
+          <p class="resume-contact-note">{{ aboutResume.contactNote }}</p>
+        {% endif %}
       </div>
     </header>
 
     <div class="resume-paper-body">
       <div class="resume-column resume-column-main">
         <section class="resume-block">
-          <h3>Stage</h3>
+          {% if aboutResumeMain.stageHeading %}
+            <h3>{{ aboutResumeMain.stageHeading }}</h3>
+          {% endif %}
           <ul class="resume-credits">
-            <li>
-              <p class="credit-role">La Bandera</p>
-              <p class="credit-meta"><span class="show-title">"Cross y Bandera"</span> Dir: Karina Gutierrez<br>La Lengua Theater, 2024</p>
-            </li>
-            <li>
-              <p class="credit-role">Twit</p>
-              <p class="credit-meta"><span class="show-title">"Emperor's New Post"</span> Dir: Stephanie Temple<br>New Conservatory Theater Company, 2023</p>
-            </li>
-            <li>
-              <p class="credit-role">Veronica / Rosa Maria / Choir</p>
-              <p class="credit-meta"><span class="show-title">"Yerma"</span> Dir: Katja Rivera<br>Shotgun Players, 2023</p>
-            </li>
-            <li>
-              <p class="credit-role">Giles</p>
-              <p class="credit-meta"><span class="show-title">"The Crucible"</span> Dir: Michael Moran<br>Oakland Theater Project, 2022</p>
-            </li>
-            <li>
-              <p class="credit-role">Camera Man</p>
-              <p class="credit-meta"><span class="show-title">"Dream House"</span> Dir: Karina Gutierrez<br>Shotgun Players, 2022</p>
-            </li>
-            <li>
-              <p class="credit-role">Papa Bear</p>
-              <p class="credit-meta"><span class="show-title">"Goldilocks"</span> Dir: Peter Mohrmann<br>Sacramento City College, 2021</p>
-            </li>
-            <li>
-              <p class="credit-role">Man in Chair</p>
-              <p class="credit-meta"><span class="show-title">"The Drowsy Chaperone"</span> Dir: Kristen Duerr<br>Sacramento City College, 2019</p>
-            </li>
+            {% for credit in aboutResumeMain.stageCredits or [] %}
+              <li>
+                {% if credit.role %}
+                  <p class="credit-role">{{ credit.role }}</p>
+                {% endif %}
+                {% if credit.showTitle or credit.director or credit.details %}
+                  <p class="credit-meta">
+                    {% if credit.showTitle %}
+                      <span class="show-title">"{{ credit.showTitle }}"</span>
+                    {% endif %}
+                    {% if credit.director %}
+                      {% if credit.showTitle %} {% endif %}Dir: {{ credit.director }}
+                    {% endif %}
+                    {% if credit.details %}
+                      <br>{{ credit.details }}
+                    {% endif %}
+                  </p>
+                {% endif %}
+              </li>
+            {% endfor %}
           </ul>
         </section>
 
         <section class="resume-block">
-          <h3>Film</h3>
+          {% if aboutResumeMain.filmHeading %}
+            <h3>{{ aboutResumeMain.filmHeading }}</h3>
+          {% endif %}
           <ul class="resume-credits">
-            <li>
-              <p class="credit-role">Adrian</p>
-              <p class="credit-meta"><span class="show-title">"Break My Heart"</span> Dir: Ginger Chen<br>Hello Blue Pepper Productions</p>
-            </li>
+            {% for credit in aboutResumeMain.filmCredits or [] %}
+              <li>
+                {% if credit.role %}
+                  <p class="credit-role">{{ credit.role }}</p>
+                {% endif %}
+                {% if credit.showTitle or credit.director or credit.details %}
+                  <p class="credit-meta">
+                    {% if credit.showTitle %}
+                      <span class="show-title">"{{ credit.showTitle }}"</span>
+                    {% endif %}
+                    {% if credit.director %}
+                      {% if credit.showTitle %} {% endif %}Dir: {{ credit.director }}
+                    {% endif %}
+                    {% if credit.details %}
+                      <br>{{ credit.details }}
+                    {% endif %}
+                  </p>
+                {% endif %}
+              </li>
+            {% endfor %}
           </ul>
         </section>
 
         <section class="resume-block">
-          <h3>Recognition</h3>
+          {% if aboutResumeMain.recognitionHeading %}
+            <h3>{{ aboutResumeMain.recognitionHeading }}</h3>
+          {% endif %}
           <ul class="resume-list resume-list-dated">
-            <li>
-              <span class="list-date">2022</span>
-              <span class="list-text">Distinguished Theatrical Talent - University of California Berkeley</span>
-            </li>
-            <li>
-              <span class="list-date">2017</span>
-              <span class="list-text">Jerry Herman Best Leading Actor - Pantages Theatre</span>
-            </li>
+            {% for item in aboutResumeMain.recognitionItems or [] %}
+              <li>
+                {% if item.date %}
+                  <span class="list-date">{{ item.date }}</span>
+                {% endif %}
+                {% if item.text %}
+                  <span class="list-text">{{ item.text }}</span>
+                {% endif %}
+              </li>
+            {% endfor %}
           </ul>
         </section>
       </div>
 
       <aside class="resume-column resume-column-side">
         <section class="resume-block">
-          <h3>Emcee &amp; Original Works</h3>
+          {% if aboutResumeSide.worksHeading %}
+            <h3>{{ aboutResumeSide.worksHeading }}</h3>
+          {% endif %}
           <ul class="resume-credits resume-credits-dated">
-            <li>
-              <p class="credit-date">June 2024</p>
-              <div>
-                <p class="credit-role">Watermelon Cabaret</p>
-                <p class="credit-meta"><span class="credit-highlight">Raised $10,000 for Gazan evacuations</span><br>Magic Theater, San Francisco</p>
-              </div>
-            </li>
-            <li>
-              <p class="credit-date">Oct 2023</p>
-              <div>
-                <p class="credit-role">Cuba Cabaret</p>
-                <p class="credit-meta"><span class="credit-highlight">Raised $5k to send medical supplies to Cuba</span><br>510 Firehouse, Oakland</p>
-              </div>
-            </li>
-            <li>
-              <p class="credit-date">Oct 2022</p>
-              <div>
-                <p class="credit-role">The F*ggots and Their Friends Between Revolutions</p>
-                <p class="credit-meta">Co-playwright, director, producer - Oakland Theater Project</p>
-              </div>
-            </li>
+            {% for item in aboutResumeSide.worksItems or [] %}
+              <li>
+                {% if item.date %}
+                  <p class="credit-date">{{ item.date }}</p>
+                {% endif %}
+                <div>
+                  {% if item.role %}
+                    <p class="credit-role">{{ item.role }}</p>
+                  {% endif %}
+                  {% if item.highlight or item.details %}
+                    <p class="credit-meta">
+                      {% if item.highlight %}
+                        <span class="credit-highlight">{{ item.highlight }}</span>
+                      {% endif %}
+                      {% if item.details %}
+                        {% if item.highlight %}<br>{% endif %}{{ item.details }}
+                      {% endif %}
+                    </p>
+                  {% endif %}
+                </div>
+              </li>
+            {% endfor %}
           </ul>
         </section>
 
         <section class="resume-block">
-          <h3>Special Skills</h3>
+          {% if aboutResumeSide.skillsHeading %}
+            <h3>{{ aboutResumeSide.skillsHeading }}</h3>
+          {% endif %}
           <ul class="resume-list resume-list-skill-columns">
-            <li>Theater of the Oppressed facilitation</li>
-            <li>Devising and directing</li>
-            <li>Clowning and physical theater</li>
-            <li>Dance: modern, Latin, hip-hop, vogue, go-go</li>
-            <li>Voice acting</li>
-            <li>Drag and makeup</li>
-            <li>Yoga and Pilates</li>
-            <li>Roller skating</li>
-            <li>Intermediate Spanish, beginner Arabic</li>
-            <li>Dialects: German, Egyptian, Puerto Rican, Cockney, New Jersey, Brooklyn</li>
-            <li>Full split and cartwheeling</li>
+            {% for skill in aboutResumeSide.skills or [] %}
+              {% if skill %}
+                <li>{{ skill }}</li>
+              {% endif %}
+            {% endfor %}
           </ul>
         </section>
 
         <section class="resume-block">
-          <h3>Education &amp; Training</h3>
+          {% if aboutResumeSide.trainingHeading %}
+            <h3>{{ aboutResumeSide.trainingHeading }}</h3>
+          {% endif %}
           <ul class="resume-list resume-list-dated">
-            <li>
-              <span class="list-date">2024-present</span>
-              <span class="list-text">Voice Acting, Character Creation - Sally Lawson - Voice One, SF</span>
-            </li>
-            <li>
-              <span class="list-date">2023</span>
-              <span class="list-text">Human Animation - Toby Moore - Circus Center, SF</span>
-            </li>
-            <li>
-              <span class="list-date">2022</span>
-              <span class="list-text">BA Theatre and Performance Studies - University of California Berkeley - 3.8 GPA</span>
-            </li>
-            <li>
-              <span class="list-date">2019</span>
-              <span class="list-text">Scene Study Intensive - Janis Stevens - Capital Stage</span>
-            </li>
-            <li>
-              <span class="list-date">2016-18</span>
-              <span class="list-text">Scene Study - Stella Adler Academy of Acting and Theatre</span>
-            </li>
+            {% for item in aboutResumeSide.trainingItems or [] %}
+              <li>
+                {% if item.date %}
+                  <span class="list-date">{{ item.date }}</span>
+                {% endif %}
+                {% if item.text %}
+                  <span class="list-text">{{ item.text }}</span>
+                {% endif %}
+              </li>
+            {% endfor %}
           </ul>
         </section>
       </aside>

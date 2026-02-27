@@ -8,13 +8,18 @@
     <link rel="stylesheet" href="{{ ('/assets/site.css?v=' + build.assetVersion) | url }}">
   </head>
   <body{% if showQuickNav == false %} class="no-quick-nav"{% endif %}>
-    {% if showQuickNav != false %}
-      <nav class="quick-nav" aria-label="Site">
-        <a href="{{ '/' | url }}" {% if page.url == "/" %}aria-current="page"{% endif %}>Home</a>
-        <a href="{{ '/projects/' | url }}" {% if page.url == "/projects/" or page.url.startsWith("/projects/") or page.url.startsWith("/category/") %}aria-current="page"{% endif %}>Projects</a>
-        <a href="{{ '/book/' | url }}" {% if page.url == "/book/" %}aria-current="page"{% endif %}>Book</a>
-      </nav>
-    {% endif %}
+    <header class="site-header">
+      <div class="site-header-inner">
+        <a href="{{ '/' | url }}" class="landing-mark">MYLO</a>
+        <nav class="site-header-nav" aria-label="Site">
+          <a href="{{ '/' | url }}" {% if page.url == "/" %}aria-current="page"{% endif %}>Home</a>
+          <a href="{{ '/about/' | url }}" {% if page.url == "/about/" %}aria-current="page"{% endif %}>About</a>
+          <a href="{{ '/' | url }}#selected-work">Work</a>
+          <a href="{{ '/projects/' | url }}" {% if page.url == "/projects/" or page.url.startsWith("/projects/") or page.url.startsWith("/category/") %}aria-current="page"{% endif %}>Projects</a>
+          <a class="hero-pill-link" href="{{ '/book/' | url }}" {% if page.url == "/book/" %}aria-current="page"{% endif %}>Book</a>
+        </nav>
+      </div>
+    </header>
     <main class="{% if showQuickNav == false %}page-main{% else %}container{% endif %}">
       {{ content | safe }}
     </main>

@@ -12,16 +12,6 @@ showQuickNav: false
 
 <section class="landing-hero"{% if heroImage %} style="--landing-hero-image: url('{{ heroImage | assetUrl }}'); --landing-hero-position: {{ heroImagePosition }};"{% endif %}>
   <div class="landing-hero-inner">
-    <div class="landing-hero-nav">
-      <a href="{{ '/' | url }}" class="landing-mark">MYLO</a>
-      <nav aria-label="Hero">
-        <a href="{{ '/' | url }}">Home</a>
-        <a href="{{ '/about/' | url }}">About</a>
-        <a href="#selected-work">Work</a>
-        <a href="{{ '/projects/' | url }}">Projects</a>
-        <a class="hero-pill-link" href="{{ bookNowUrl }}">Book</a>
-      </nav>
-    </div>
     <div class="landing-hero-content">
       <p class="hero-kicker">Cool Guy</p>
       <h1><span>MYLO</span><span>CARDONA</span></h1>
@@ -74,7 +64,7 @@ showQuickNav: false
 <section id="reel" class="content-section reel-block" aria-label="Reels">
   <div class="reel-block-head">
     <p class="eyebrow">Reel</p>
-    <h3 style="font-family: var(--font-body); font-weight: 600;">Watch everything move exactly as if that was the plan all along.</h3>
+    <h3 style="font-family: var(--font-body); font-weight: 600;">Watch Mylo move -- not creepy at all.</h3>
   </div>
   {% if reelGroups.length %}
     <div class="reel-tabs" role="tablist" aria-label="Reel versions">
