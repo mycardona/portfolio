@@ -69,9 +69,18 @@ Update these in `src/admin/config.yml` when domains/repos change:
 - `backend.repo`: `owner/repo`
 - `backend.branch`
 - `backend.site_domain`: Netlify site domain only (no protocol)
+- `backend.auth_scope`: use `public_repo` for public repositories
 - `site_url`: public GitHub Pages URL
 
 `src/admin/index.html` reads `site_domain` and `site_url` from `config.yml` for the GitHub Pages admin redirect.
+
+### GitHub collaborator allowlist (Option 1)
+
+Allowlist enforcement is done via GitHub repository access, not Decap config.
+
+- Allowed GitHub account(s): `mycardona`
+- Remove all other direct collaborators and team grants from the repo
+- Keep this list in sync with GitHub `Settings -> Collaborators and teams`
 
 ## Fresh Start
 
@@ -104,6 +113,7 @@ Set `src/admin/config.yml`:
 - `backend.repo: <owner>/<repo>`
 - `backend.branch: main`
 - `backend.site_domain: <netlify-site>.netlify.app`
+- `backend.auth_scope: public_repo`
 - `site_url: https://<user>.github.io/<repo>/`
 
 ### 3) Set up GitHub OAuth app
