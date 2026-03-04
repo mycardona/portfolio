@@ -2,9 +2,9 @@
 title: "Twit "
 date: 2023-09
 categories:
-  - original-work
-summary: This sample project shows how text, images, and external media URLs
-  work together.
+  - performance
+summary: ""
+venueName: "New Conservatory Theater Company "
 coverImage: /uploads/IMG_9081_edited.webp
 gallery:
   - /uploads/IMG_9081_edited.webp
