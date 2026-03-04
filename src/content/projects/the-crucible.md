@@ -1,9 +1,9 @@
 ---
-title: "The Crucible "
+title: "Giles "
 date: 2022-10
 venueName: Oakland Theater Project
 coverImage: /uploads/img_0439.jpeg
 ---
-Directed by Michael Socrates Moran
+"The Crucible" directed by Michael Socrates Moran
 
 Photos by Ben Krantz
