@@ -1,5 +1,5 @@
 ---
-title: "Veronica / Rosa Maria / Chorus "
+title: "Yerma "
 date: 2023-05
 categories:
   - performance
@@ -12,6 +12,6 @@ gallery:
   - /uploads/Yerma_2023_007.webp
   - /uploads/Yerma_2023_008.webp
 ---
-"Yerma" Directed by Katja River 
+Role: "Veronica / Rosa Maria / Chorus" 
 
-Photos by ...
+Directed by Katja River
