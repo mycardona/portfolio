@@ -5,7 +5,16 @@ categories:
   - performance
 venueName: "Potrero Stage "
 venueUrl: https://potrerostage.org/
-coverImage: https://drive.google.com/drive/u/1/folders/1HuDqp_ey6B_rhjqNUnMngjvLSUgoVM-Z
+coverImage: /uploads/img_0288.jpg
+gallery:
+  - /uploads/IMG_0264.jpg
+  - /uploads/IMG_0265.jpg
+  - /uploads/IMG_0266.jpg
+  - /uploads/IMG_0275.jpg
+  - /uploads/IMG_0284.jpg
+  - /uploads/IMG_0291.jpg
+  - /uploads/IMG_0294.jpg
+  - /uploads/IMG_0295.jpg
 ---
 Role: "Beast"
 
