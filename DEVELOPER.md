@@ -50,13 +50,22 @@ When upgrading `decap-cms` or the bulk image widget package:
 npm run sync:admin-vendor
 ```
 
-3. Build before deploy:
+3. Update the pinned CDN script tags in `src/admin/index.html` to the new versions and regenerate their SRI hashes. The admin loads Decap from jsDelivr so Netlify only serves the admin page, `config.yml`, and OAuth; the `vendor/` copies are a fallback if the CDN is unreachable.
+
+```bash
+openssl dgst -sha384 -binary src/admin/vendor/decap-cms.js | openssl base64 -A
+openssl dgst -sha384 -binary src/admin/vendor/decap-cms-widget-bulk-github-images.js | openssl base64 -A
+```
+
+Prefix each hash with `sha384-` in the `integrity` attribute.
+
+4. Build before deploy:
 
 ```bash
 npm run build
 ```
 
-4. For GitHub Pages path-prefix verification:
+5. For GitHub Pages path-prefix verification:
 
 ```bash
 SITE_PATH_PREFIX=/portfolio npm run build
