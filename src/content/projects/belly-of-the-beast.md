@@ -18,4 +18,4 @@ gallery:
 ---
 Role: "Beast"
 
-Directed by Aisha River
+Directed by Aisha Rivera
