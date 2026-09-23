@@ -5,6 +5,7 @@ categories:
   - performance
 venueName: "Oakland Theater Project "
 venueUrl: oaklandtheaterproject.org
+coverImage: /uploads/cabaret_2025_078.jpg
 ---
 Role - Ditzie 
 
