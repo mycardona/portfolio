@@ -12,6 +12,4 @@ gallery:
   - /uploads/pxl_20260202_050132123.portrait.jpg
   - /uploads/pxl_20260202_052229664.jpg
 ---
-# *whoa*
-
-*more* details ~~here~~
+Potrero Stage (2026)
