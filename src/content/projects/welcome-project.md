@@ -1,10 +1,10 @@
 ---
-title: "Twit "
+title: "Emperor's New Post "
 date: 2023-09
 categories:
   - performance
-summary: ""
-venueName: "New Conservatory Theater Company "
+summary: New Conservatory Theater Company (2023)
+venueName: ""
 coverImage: /uploads/IMG_9081_edited.webp
 gallery:
   - /uploads/IMG_9081_edited.webp
