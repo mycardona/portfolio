@@ -1,8 +1,9 @@
 ---
-title: "The Fre "
+title: '"The Fre" by Taylor Mac '
 date: 2026-06
 categories:
   - directing
+venueName: "Oakland Theater Project "
 coverImage: /uploads/the-fre-13.jpg
 gallery:
   - /uploads/The-Fre-1.jpg
