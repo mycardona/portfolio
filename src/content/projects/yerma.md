@@ -16,6 +16,6 @@ gallery:
   - /uploads/Yerma_2023_007.webp
   - /uploads/Yerma_2023_008.webp
 ---
-Role: "Veronica / Rosa Maria / Chorus" 
+Mylo as "Veronica / Rosa Maria / Chorus" 
 
 Directed by Katja River
