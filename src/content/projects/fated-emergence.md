@@ -1,5 +1,5 @@
 ---
-title: Fated Emergence
+title: '"Fated Emergence" by Orion Duval '
 date: 2026-02-22
 categories:
   - directing
