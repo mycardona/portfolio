@@ -13,4 +13,4 @@ gallery:
   - /uploads/pxl_20260202_050132123.portrait.jpg
   - /uploads/pxl_20260202_052229664.jpg
 ---
-Fated Emergence is a performance of six short stories filled with grief, humor, and magic for all souls who have ever lost their way back home, following Evie, a troubled artist trying to make sense of the present while dreaming of their future after the Haitian earthquake of 2010.
+A performance of six short stories filled with grief, humor, and magic for all souls who have ever lost their way back home. We follow Evie, a troubled artist trying to make sense of the present while dreaming of their future after the Haitian earthquake of 2010.
