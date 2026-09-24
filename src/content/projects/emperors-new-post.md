@@ -8,6 +8,7 @@ venueUrl: https://nctcsf.org/
 gallery:
   - /uploads/IMG_9081_edited.webp
   - /uploads/IMG_9093.webp
+mediaUrl: https://www.youtube.com/watch?v=dQw4w9WgXcQ
 ---
 Role: "Twit" 
 
