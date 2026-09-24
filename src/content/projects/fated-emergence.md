@@ -3,7 +3,8 @@ title: '"Fated Emergence" by Orion Duval '
 date: 2026-02-22
 categories:
   - directing
-summary: Potrero Stage (2026)
+summary: ""
+venueName: "Potrero Stage "
 coverImage: /uploads/pxl_20260202_051819188.jpg
 gallery:
   - /uploads/pxl_20260202_051842360.jpg
