@@ -11,7 +11,6 @@ gallery:
   - /uploads/The_Cost_of_Living_2024_218.jpg
   - /uploads/Who-s_Afraid_of_Virginia_Wolf_2023_048.jpg
   - /uploads/The-Fre-7-1.jpg
-  - /uploads/I_Am_My_Own_Wife_2025_009.jpg
   - /uploads/Red_Red_Red_2024_049.jpg
   - /uploads/The_Ghost_of_King_2024_067.jpg
   - /uploads/Angels_In_America_Part_1_2024_0033.jpg
