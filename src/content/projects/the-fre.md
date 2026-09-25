@@ -12,7 +12,6 @@ gallery:
   - /uploads/The-Fre-4.jpg
   - /uploads/The-Fre-5.jpg
   - /uploads/The-Fre-6.jpg
-  - /uploads/The-Fre-7.jpg
   - /uploads/The-Fre-8.jpg
 ---
 Freakin fre
