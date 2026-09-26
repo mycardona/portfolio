@@ -11,6 +11,4 @@ gallery:
   - /uploads/IMG_9093.webp
 mediaUrl: https://www.youtube.com/watch?v=dQw4w9WgXcQ
 ---
-Mylo as "Twit" 
-
-Directed by Stephanie Temple
+Directed and Photographed by Stephanie Temple
