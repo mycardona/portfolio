@@ -3,6 +3,7 @@ title: "The Watermelon Cabaret "
 date: 1902-06
 categories:
   - original-work
+summary: "Written, directed, produced, and hosted by Mylo Cardona "
 venueName: "The Magic Theater "
 ---
 * Inspired by the success of the Cuba Cabaret, through clowning, bellydance, stand up comedy, a mini play, opera, drag and more, performing artists sought to answer the question: What is our power?
