@@ -20,4 +20,4 @@ Role - Ditzie
 
 Directed by Erika Chong Shuch 
 
-Photos by Ben Krantz
+Photos by Ben Krantz Studios
