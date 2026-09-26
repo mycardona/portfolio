@@ -3,7 +3,7 @@ title: "Yerma "
 date: 2023-05
 categories:
   - performance
-summary: ""
+summary: "Veronica / Rosa Maria / Chorus "
 venueName: Shotgun Players
 venueUrl: https://shotgunplayers.org
 coverImage: /uploads/yerma_2023_234.jpg
@@ -16,6 +16,4 @@ gallery:
   - /uploads/Yerma_2023_007.webp
   - /uploads/Yerma_2023_008.webp
 ---
-Veronica / Rosa Maria / Chorus 
-
 Directed by Katja River
