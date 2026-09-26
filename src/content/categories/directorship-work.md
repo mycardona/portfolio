@@ -1,7 +1,7 @@
 ---
 title: Directing
 slug: Directing
-description: ""
+description: "Leading productions from conception to completion "
 order: 2
 permalink: false
 ---
