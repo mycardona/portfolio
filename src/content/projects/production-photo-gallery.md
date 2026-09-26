@@ -1,6 +1,7 @@
 ---
 title: "Production Photo Gallery "
 date: 2026-09
+summary: Production Managed by Mylo Cardona
 venueUrl: https://oaklandtheaterproject.org/
 gallery:
   - /uploads/Hamlet_2025_023.jpg
