@@ -1,8 +1,8 @@
 ---
 title: Original Work
 slug: original-work
-description: Original pieces developed from early research through live
-  performance and iterative refinement.
+description: Sold out shows developed from international solidarity research and
+  devising with local, marginalized, and interdisciplinary artists
 order: 3
 permalink: false
 ---
