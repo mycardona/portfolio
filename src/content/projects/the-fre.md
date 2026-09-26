@@ -14,4 +14,4 @@ gallery:
   - /uploads/The-Fre-6.jpg
   - /uploads/The-Fre-8.jpg
 ---
-Freakin fre
+Photos by Ben Krantz Studios
