@@ -3,7 +3,7 @@ title: "Belly of the Beast "
 date: 2025-08
 categories:
   - performance
-summary: '"The Beast" '
+summary: The Beast
 venueName: "Potrero Stage "
 venueUrl: https://potrerostage.org/
 coverImage: /uploads/img_0288.jpg
