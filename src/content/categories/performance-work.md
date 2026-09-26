@@ -1,7 +1,7 @@
 ---
 title: Performance
 slug: performance
-description: "Recent Performance Projects "
+description: "Interdisciplinary Performance Projects "
 order: 1
 permalink: false
 ---
