@@ -3,6 +3,7 @@ title: "Belly of the Beast "
 date: 2025-08
 categories:
   - performance
+summary: '"The Beast" '
 venueName: "Potrero Stage "
 venueUrl: https://potrerostage.org/
 coverImage: /uploads/img_0288.jpg
@@ -16,6 +17,4 @@ gallery:
   - /uploads/IMG_0294.jpg
   - /uploads/IMG_0295.jpg
 ---
-The Beast played by Mylo 
-
 Directed and Photographed by Aisha Rivera
