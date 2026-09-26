@@ -1,7 +1,7 @@
 ---
 title: Directing
-slug: directing
-description: Directing and staging projects focused on narrative clarity, rhythm, and ensemble collaboration.
+slug: Directing
+description: ""
 order: 2
 permalink: false
 ---
