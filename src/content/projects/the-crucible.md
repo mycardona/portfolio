@@ -8,8 +8,6 @@ venueName: Oakland Theater Project
 venueUrl: oaklandtheaterproject.org
 coverImage: /uploads/img_0439.jpeg
 ---
-Mylo as "Giles"
-
 Directed by Michael Socrates Moran
 
 Photos by Ben Krantz Studios
