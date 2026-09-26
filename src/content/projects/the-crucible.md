@@ -11,4 +11,4 @@ Mylo as "Giles"
 
 Directed by Michael Socrates Moran
 
-Photos by Ben Krantz
+Photos by Ben Krantz Studios
