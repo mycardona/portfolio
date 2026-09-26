@@ -22,7 +22,7 @@ showQuickNav: false
       <p class="hero-kicker">{{ homepageHero.kicker }}</p>
       <h1><span>{{ homepageHero.firstName or "MYLO" }}</span><span>{{ homepageHero.lastName or "CARDONA" }}</span></h1>
       <p class="landing-hero-role">{{ homepageHero.role or "Watermelons. Drag. Theater." }}</p>
-      <p class="hero-positioning">{{ homepageHero.positioning or "A multi-disciplinary artist with cinematic magnetism. Magnetic movies. You heard it here first." }}</p>
+      <p class="hero-positioning">{{ homepageHero.positioning }}</p>
       <div class="hero-actions">
         <a class="button hero-button" href="#reel">{{ homepageHero.primaryCtaLabel or "WATCH" }}</a>
         <a class="button button-ghost hero-button-ghost" href="{{ bookNowUrl }}">{{ homepageHero.secondaryCtaLabel or "BOOK" }}</a>
