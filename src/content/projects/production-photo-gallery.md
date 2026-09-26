@@ -17,4 +17,4 @@ gallery:
   - /uploads/Angels_In_America_Part_2_2024_0379.jpg
   - /uploads/Ghost_Quartet_2024_008.jpg
 ---
-Photos by Ben Krantz
+Photos by Ben Krantz Studios
