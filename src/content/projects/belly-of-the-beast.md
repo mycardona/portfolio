@@ -16,6 +16,6 @@ gallery:
   - /uploads/IMG_0294.jpg
   - /uploads/IMG_0295.jpg
 ---
-Role: "Beast"
+Beast played by Mylo 
 
-Directed by Aisha Rivera
+Directed and Photographed by Aisha Rivera
