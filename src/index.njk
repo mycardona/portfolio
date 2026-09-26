@@ -24,8 +24,7 @@ showQuickNav: false
       <p class="landing-hero-role">{{ homepageHero.role or "Watermelons. Drag. Theater." }}</p>
       <p class="hero-positioning">{{ homepageHero.positioning }}</p>
       <div class="hero-actions">
-        <a class="button hero-button" href="#reel">{{ homepageHero.primaryCtaLabel or "WATCH" }}</a>
-        <a class="button button-ghost hero-button-ghost" href="{{ bookNowUrl }}">{{ homepageHero.secondaryCtaLabel or "BOOK" }}</a>
+        <a class="button hero-button" href="{{ bookNowUrl }}">{{ homepageHero.primaryCtaLabel }}</a>
       </div>
     </div>
   </div>
