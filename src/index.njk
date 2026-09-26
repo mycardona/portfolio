@@ -19,7 +19,7 @@ showQuickNav: false
 <section class="landing-hero"{% if heroImage %} style="--landing-hero-image: url('{{ heroImage | assetUrl }}'); --landing-hero-position: {{ heroImagePosition }};"{% endif %}>
   <div class="landing-hero-inner">
     <div class="landing-hero-content">
-      <p class="hero-kicker">{{ homepageHero.kicker or "Cool Guy" }}</p>
+      <p class="hero-kicker">{{ homepageHero.kicker }}</p>
       <h1><span>{{ homepageHero.firstName or "MYLO" }}</span><span>{{ homepageHero.lastName or "CARDONA" }}</span></h1>
       <p class="landing-hero-role">{{ homepageHero.role or "Watermelons. Drag. Theater." }}</p>
       <p class="hero-positioning">{{ homepageHero.positioning or "A multi-disciplinary artist with cinematic magnetism. Magnetic movies. You heard it here first." }}</p>
