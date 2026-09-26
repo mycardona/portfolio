@@ -3,9 +3,7 @@ title: "Cross y Bandera "
 date: 2024-10
 categories:
   - performance
-summary: |-
-  "Bandera" 
-  La Lengua Theater Company (2024)
+summary: Bandera
 venueName: ""
 venueUrl: https://www.lalengua.org/
 gallery:
