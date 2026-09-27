@@ -1,9 +1,11 @@
 ---
 title: Theater of the Oppressed
-date: 2022-03
+date: 2021-02
 categories:
   - facilitation
-summary: ""
+summary: "Mylo has the privilege of leading Theater of the Oppressed workshops
+  around the Bay Area to support personal, political and social transformation.
+  "
 coverImage: /uploads/pxl_20220806_214117302.jpg
 gallery:
   - /uploads/PXL_20220526_153009462.jpg
