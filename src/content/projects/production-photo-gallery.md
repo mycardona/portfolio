@@ -1,8 +1,8 @@
 ---
-title: "Production Photo Gallery "
+title: "OTP Production Photo Gallery "
 date: 2026-09
 categories:
-  - Producing
+  - directing
 summary: Production Managed by Mylo Cardona
 venueUrl: https://oaklandtheaterproject.org/
 gallery:
