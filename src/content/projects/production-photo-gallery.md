@@ -1,6 +1,8 @@
 ---
 title: "Production Photo Gallery "
 date: 2026-09
+categories:
+  - Producing
 summary: Production Managed by Mylo Cardona
 venueUrl: https://oaklandtheaterproject.org/
 gallery:
