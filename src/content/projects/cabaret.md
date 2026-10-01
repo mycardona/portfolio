@@ -12,7 +12,6 @@ gallery:
   - /uploads/Cabaret_2025_078.jpg
   - /uploads/Cabaret_2025_183.jpg
   - /uploads/Cabaret_2025_235.jpg
-  - /uploads/Cabaret_2025_183-1.jpg
   - /uploads/Cabaret_2025_126.jpg
   - /uploads/Cabaret_2025_156.jpg
 ---
