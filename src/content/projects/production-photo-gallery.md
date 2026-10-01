@@ -5,6 +5,7 @@ categories:
   - directing
 summary: Production Managed by Mylo Cardona
 venueUrl: https://oaklandtheaterproject.org/
+coverImage: /uploads/king_lear_2026_001.jpg
 gallery:
   - /uploads/Hamlet_2025_023.jpg
   - /uploads/Hamlet_2025_059.jpg
