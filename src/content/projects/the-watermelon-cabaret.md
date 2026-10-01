@@ -1,6 +1,6 @@
 ---
 title: "The Watermelon Cabaret "
-date: 1902-06
+date: 2024-06
 categories:
   - original-work
 summary: "Written, directed, produced, and hosted by Mylo Cardona "
