@@ -5,7 +5,7 @@ categories:
   - directing
 summary: Production Managed by Mylo Cardona
 venueUrl: https://oaklandtheaterproject.org/
-coverImage: /uploads/king_lear_2026_001.jpg
+coverImage: ""
 gallery:
   - /uploads/Hamlet_2025_023.jpg
   - /uploads/Hamlet_2025_059.jpg
@@ -20,5 +20,7 @@ gallery:
   - /uploads/Angels_In_America_Part_1_2024_0033.jpg
   - /uploads/Angels_In_America_Part_2_2024_0379.jpg
   - /uploads/Ghost_Quartet_2024_008.jpg
+  - /uploads/King_Lear_2026_001.jpg
+  - /uploads/King_Lear_2026_371.jpg
 ---
 Photos by Ben Krantz Studios
