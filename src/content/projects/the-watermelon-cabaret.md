@@ -14,5 +14,5 @@ gallery:
   - /uploads/BB49123E-C52F-46CF-8E64-3ABEF9BF630D.jpeg
   - /uploads/DSC05147.JPG
 ---
-* Inspired by the success of the Cuba Cabaret, through clowning, bellydance, stand up comedy, a mini play, opera, drag and more, performing artists sought to answer the question: What is our power?
+* Inspired by the success of the Cuba Cabaret, through clowning, bellydance, stand up comedy, a mini play, opera, drag and more, performing artists sought to answer the question: What is our power? Where do we draw our strength? And what do we do from here? 
 * Part educational storytelling in response to the genocide in Gaza, and part lively queer, multi-genre vignettes, The Watermelon Cabaret sold out at Oakland’s 510 Firehouse on May 25, 2024 and San Francisco's Magic Theater on June 1, 2024 and raised $9.7k to help families evacuate Gaza.
