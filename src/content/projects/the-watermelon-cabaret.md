@@ -7,7 +7,6 @@ summary: "Written, directed, produced, and hosted by Mylo Cardona "
 venueName: "The Magic Theater "
 coverImage: /uploads/20240601_194433.jpg
 gallery:
-  - /uploads/862BC8BF-89E6-42CB-BA1F-53A5ED59B8FD.jpeg
   - /uploads/72108388-04D4-4C88-813B-8EE1446684B8.jpeg
   - /uploads/985FFB85-1205-46B9-A555-3C8B6BCA0009.jpeg
   - /uploads/0A90DA31-8FFD-476C-9C27-1CFD024078DA.jpeg
