@@ -1,6 +1,6 @@
 ---
 title: "Cuba Cabaret "
-date: 2024-10
+date: 2023-10
 categories:
   - original-work
 summary: Written, directed, produced, and hosted by Mylo Cardona
