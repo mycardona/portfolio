@@ -7,7 +7,7 @@
   ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- src/admin netlify.toml"
 
 [build.environment]
-  NODE_VERSION = "20.5.0"
+  NODE_VERSION = "24"
 
 # Anything other than /admin/ goes to the real site.
 [[redirects]]

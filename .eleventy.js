@@ -413,6 +413,28 @@ module.exports = function (eleventyConfig) {
     });
   });
 
+  // For CSS background images (no srcset): one resized WebP, falling back to
+  // the original upload if processing fails.
+  eleventyConfig.addNunjucksAsyncFilter("backgroundImageUrl", async (src, width, callback) => {
+    if (typeof width === "function") {
+      callback = width;
+      width = 1600;
+    }
+    if (!src) return callback(null, "");
+
+    try {
+      const metadata = await Image(resolveImageInput(src), {
+        widths: [width],
+        formats: ["webp"],
+        outputDir: "_site/img/",
+        urlPath: withPathPrefix("/img/")
+      });
+      callback(null, metadata.webp[metadata.webp.length - 1].url);
+    } catch {
+      callback(null, assetUrl(src));
+    }
+  });
+
   eleventyConfig.addNunjucksAsyncShortcode("optimizedImage", async (src, alt = "", sizes = "(min-width: 56rem) 50vw, 100vw") => {
     if (!src) return "";
 

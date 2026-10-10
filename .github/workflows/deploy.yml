@@ -19,7 +19,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.ref_name }}
           # Keep the write token out of .git/config so npm install scripts and
@@ -27,9 +27,9 @@ jobs:
           persist-credentials: false
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 24
           cache: npm
 
       - name: Install dependencies
@@ -67,6 +67,21 @@ jobs:
             fi
           fi
 
+      # Reuse resized images (_site/img) and Eleventy's fetch cache from earlier
+      # deploys. eleventy-img skips any output file that already exists, so a
+      # content-only change builds in seconds instead of re-encoding every photo.
+      # Keyed on the uploads and the image settings; restore-keys fall back to
+      # the newest cache so a single new upload only processes that image.
+      - name: Restore image cache
+        uses: actions/cache@v6
+        with:
+          path: |
+            _site/img
+            .cache
+          key: eleventy-img-${{ runner.os }}-${{ hashFiles('src/uploads/**', '.eleventy.js') }}
+          restore-keys: |
+            eleventy-img-${{ runner.os }}-
+
       - name: Set site path prefix
         run: |
           REPO_NAME="${GITHUB_REPOSITORY#*/}"
@@ -80,7 +95,7 @@ jobs:
         run: npm run build
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: _site
 
@@ -93,7 +108,8 @@ jobs:
     permissions:
       pages: write
       id-token: write
+      actions: read
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

@@ -16,7 +16,7 @@ showQuickNav: false
 {% set homepagePress = homepageContent.press or {} %}
 {% set homepageUpcoming = homepageContent.upcoming or {} %}
 
-<section class="landing-hero"{% if heroImage %} style="--landing-hero-image: url('{{ heroImage | assetUrl }}'); --landing-hero-position: {{ heroImagePosition }};"{% endif %}>
+<section class="landing-hero"{% if heroImage %} style="--landing-hero-image: url('{{ heroImage | backgroundImageUrl(2000) }}'); --landing-hero-position: {{ heroImagePosition }};"{% endif %}>
   <div class="landing-hero-inner">
     <div class="landing-hero-content">
       <p class="hero-kicker">{{ homepageHero.kicker }}</p>
@@ -47,7 +47,7 @@ showQuickNav: false
           {% endif %}
         {% endif %}
       {% endfor %}
-      <article class="selected-work-card"{% if categoryImage %} style="--selected-card-image: url('{{ categoryImage | assetUrl }}');"{% endif %}>
+      <article class="selected-work-card"{% if categoryImage %} style="--selected-card-image: url('{{ categoryImage | backgroundImageUrl(1000) }}');"{% endif %}>
         <a href="{{ category | categoryUrl }}" class="selected-work-link">
           <p class="selected-work-label">{{ category.name | categoryLabel }}</p>
           {% if category.description %}
@@ -108,7 +108,7 @@ showQuickNav: false
     {% for project in collections.projects %}
       {% if loop.index <= 3 %}
         {% set upcomingCardImage = project | projectPreviewImage %}
-        <article class="upcoming-card"{% if upcomingCardImage %} style="--upcoming-card-image: url('{{ upcomingCardImage | assetUrl }}');"{% endif %}>
+        <article class="upcoming-card"{% if upcomingCardImage %} style="--upcoming-card-image: url('{{ upcomingCardImage | backgroundImageUrl(1000) }}');"{% endif %}>
           <p class="upcoming-date">{{ project.date | readableDate }}</p>
           <h3><a href="{{ project.url | url }}">{{ project.data.title }}</a></h3>
           {% set projectSummary = project.data.summary or (project.templateContent | excerpt(120)) %}
