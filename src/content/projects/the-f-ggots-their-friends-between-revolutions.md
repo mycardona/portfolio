@@ -7,10 +7,8 @@ summary: Adapted, directed, and produced by Mylo Cardona and Maxi Himpe
 venueName: "Oakland Theater Project "
 coverImage: /uploads/pxl_20221010_053515859.jpg
 gallery:
-  - /uploads/PXL_20221216_044157974.jpg
   - /uploads/PXL_20221219_043531391.jpg
   - /uploads/PXL_20221010_012507466.jpg
-  - /uploads/PXL_20221010_053155970.jpg
   - /uploads/PXL_20221010_053803326-2.jpg
   - /uploads/PXL_20221010_052602430.jpg
   - /uploads/PXL_20221216_044152106-1.jpg
