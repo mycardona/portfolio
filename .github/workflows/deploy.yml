@@ -47,17 +47,23 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          if [[ -n "$(git status --porcelain -- src/uploads)" ]]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898729+github-actions[bot]@users.noreply.github.com"
-            git add -A src/uploads
-            git commit -m "chore(uploads): compress images [skip ci]"
+          # Earlier steps ran third-party code (npm install scripts, the build).
+          # Run git so nothing they may have written into .git (hooks,
+          # fsmonitor, credential helpers) executes while the token is present.
+          rm -rf .git/hooks
+          SAFE_GIT=(git -c core.hooksPath=/dev/null -c core.fsmonitor=false -c credential.helper=)
+          if [[ -n "$("${SAFE_GIT[@]}" status --porcelain -- src/uploads)" ]]; then
+            "${SAFE_GIT[@]}" add -A src/uploads
+            "${SAFE_GIT[@]}" -c user.name="github-actions[bot]" \
+              -c user.email="41898729+github-actions[bot]@users.noreply.github.com" \
+              commit --no-verify -m "chore(uploads): compress images [skip ci]"
             REMOTE="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-            if git pull --rebase "$REMOTE" "${GITHUB_REF_NAME}" && git push "$REMOTE" "HEAD:${GITHUB_REF_NAME}"; then
+            if "${SAFE_GIT[@]}" pull --no-verify --rebase "$REMOTE" "${GITHUB_REF_NAME}" \
+              && "${SAFE_GIT[@]}" push --no-verify "$REMOTE" "HEAD:${GITHUB_REF_NAME}"; then
               echo "Pushed compressed uploads."
             else
               echo "::warning::Could not push compressed uploads; deploying anyway."
-              git rebase --abort 2>/dev/null || true
+              "${SAFE_GIT[@]}" rebase --abort 2>/dev/null || true
             fi
           fi
 
