@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "eleventy --serve",
     "build": "eleventy",
+    "compress:uploads": "node scripts/compress-uploads.mjs",
     "dev:cms": "decap-server",
     "sync:admin-vendor": "mkdir -p src/admin/vendor && cp node_modules/decap-cms/dist/decap-cms.js src/admin/vendor/decap-cms.js && cp node_modules/decap-cms-widget-bulk-github-images/dist/index.js src/admin/vendor/decap-cms-widget-bulk-github-images.js"
   },
@@ -17,6 +18,7 @@
     "@11ty/eleventy-img": "^6.0.0",
     "decap-cms": "^3.10.1",
     "decap-cms-widget-bulk-github-images": "^0.1.0",
-    "decap-server": "^3.2.1"
+    "decap-server": "^3.2.1",
+    "sharp": "^0.33.5"
   }
 }
