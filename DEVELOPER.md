@@ -51,6 +51,13 @@ npm run dev
 npm run dev:cms
 ```
 
+### Upload compression
+
+Images in `src/uploads/` are compressed automatically on every deploy: the workflow runs `npm run compress:uploads` before the build and, if anything changed, commits the result to `main` as `github-actions[bot]` (`[skip ci]`). Long edge is capped at 2400px, EXIF orientation is applied, metadata (including GPS) is stripped, and the filename and format stay the same, so existing references keep working. The script is idempotent.
+
+- Run it locally with `npm run compress:uploads` (add `-- --dry-run` to preview).
+- Originals remain in git history, and `.git` does not shrink without a history rewrite.
+
 ### Decap package upgrades
 
 When upgrading `decap-cms` or the bulk image widget package:
