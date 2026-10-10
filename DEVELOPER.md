@@ -12,7 +12,7 @@ Use this section for normal day-to-day changes after initial setup.
 ### Edit content in CMS
 
 1. Open `https://mycardona.github.io/portfolio/admin/`.
-2. If auth callback gets blocked in your browser, use `https://scintillating-pegasus-27bdcb.netlify.app/admin/` directly.
+2. Login goes through Netlify's OAuth service (`api.netlify.com`), which keeps working even when the Netlify site's credits run out. If the login popup gets blocked in your browser, try `https://scintillating-pegasus-27bdcb.netlify.app/admin/` instead.
 3. Log in with GitHub.
 4. Update collections (defined in `src/admin/config.yml`):
 - `Projects`: title, date (month/year), categories, summary, venue name + URL, cover image, gallery images (bulk upload), video/audio URL, and body.
@@ -102,7 +102,7 @@ Update these in `src/admin/config.yml` when domains/repos change:
 - `backend.auth_scope`: use `public_repo` for public repositories
 - `site_url`: public GitHub Pages URL
 
-`src/admin/index.html` reads `site_domain` and `site_url` from `config.yml` for the GitHub Pages admin redirect.
+Use the GitHub Pages admin (`https://mycardona.github.io/portfolio/admin/`); it no longer redirects to Netlify. The Netlify copy of the admin loads its `config.yml` from the Pages site (see `src/admin/index.html`).
 
 ### GitHub collaborator allowlist (Option 1)
 
