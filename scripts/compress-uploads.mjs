@@ -10,7 +10,20 @@ const MIN_SAVINGS = 0.95; // only overwrite when result is < 95% of original byt
 const dir = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "src", "uploads");
 const dryRun = process.argv.includes("--dry-run");
 
+const HEAVY_BYTES = 2 * 1024 * 1024;
+
 const mb = (n) => (n / 1024 / 1024).toFixed(2) + " MB";
+
+// Re-encoding an already-processed file is lossy and gains little, so only touch
+// files that are oversized, heavy, or still carry metadata (EXIF/GPS/XMP/IPTC).
+async function needsWork(buf, size) {
+  const m = await sharp(buf, { failOn: "none" }).metadata();
+  return (
+    Math.max(m.width ?? 0, m.height ?? 0) > MAX_EDGE ||
+    size > HEAVY_BYTES ||
+    Boolean(m.exif || m.xmp || m.iptc)
+  );
+}
 
 async function encode(buf, ext) {
   // rotate() applies EXIF orientation; output carries no metadata (EXIF/GPS dropped).
@@ -56,8 +69,9 @@ for (const file of files) {
     continue;
   }
   try {
-    const out = await encode(await readFile(file), ext);
-    if (out.length < size * MIN_SAVINGS) {
+    const buf = await readFile(file);
+    const out = (await needsWork(buf, size)) ? await encode(buf, ext) : null;
+    if (out && out.length < size * MIN_SAVINGS) {
       if (!dryRun) await writeFile(file, out);
       after += out.length;
       changed++;
