@@ -1,9 +1,10 @@
 ---
-title: Fated Emergence
+title: '"Fated Emergence" by Orion Duval '
 date: 2026-02-22
 categories:
   - directing
-summary: Six short stories covering themes of family, home, and belonging.
+summary: ""
+venueName: "Potrero Stage "
 coverImage: /uploads/pxl_20260202_051819188.jpg
 gallery:
   - /uploads/pxl_20260202_051842360.jpg
@@ -12,6 +13,4 @@ gallery:
   - /uploads/pxl_20260202_050132123.portrait.jpg
   - /uploads/pxl_20260202_052229664.jpg
 ---
-# *whoa*
-
-*more* details ~~here~~
+A performance of six short stories filled with grief, humor, and magic for all souls who have ever lost their way back home. We follow Evie, a troubled artist trying to make sense of the present while dreaming of their future after the Haitian earthquake of 2010.

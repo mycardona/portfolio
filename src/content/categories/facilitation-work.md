@@ -1,7 +1,7 @@
 ---
 title: Facilitation
 slug: facilitation
-description: Workshop and facilitation projects designed to build trust, creativity, and collective momentum.
+description: Theater of the Oppressed based work
 order: 4
 permalink: false
 ---

@@ -42,7 +42,28 @@
         }
       })();
     </script>
-    <script src="./vendor/decap-cms.js"></script>
-    <script src="./vendor/decap-cms-widget-bulk-github-images.js"></script>
+    <!--
+      Load CMS scripts from a pinned CDN so the Netlify site only serves this page,
+      config.yml, and OAuth. Netlify was truncating the 5 MB decap-cms.js, leaving
+      the admin blank. Versions and SRI hashes must match package.json and the
+      files in ./vendor/, which remain as a fallback if the CDN is unreachable.
+    -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/decap-cms@3.10.1/dist/decap-cms.js"
+      integrity="sha384-cfeDbz01Pc3d/tDdxwcLyYE9bmTuSm9oSEkaqblVTYBG0eQ3a6koW/K3wUGSd/lG"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      window.CMS || document.write('<script src="./vendor/decap-cms.js"><\/script>');
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/decap-cms-widget-bulk-github-images@0.1.0/dist/index.js"
+      integrity="sha384-6NszV3p8WrL/qDmkEi42ubRRavXcR00nB5C6TZg7mr0hQ3bdmRadSSgyxWEa4GMX"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      (window.CMS && window.CMS.getWidget("bulkGithubImages")) ||
+        document.write('<script src="./vendor/decap-cms-widget-bulk-github-images.js"><\/script>');
+    </script>
   </body>
 </html>
