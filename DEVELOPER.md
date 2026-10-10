@@ -3,6 +3,8 @@
 This project uses GitHub Pages for the public site and Decap CMS for editor updates.
 Netlify is used for GitHub OAuth provider tokens.
 
+The Netlify site only publishes `src/admin` (see `netlify.toml`) and skips builds unless `src/admin` or `netlify.toml` changes. On Netlify, the admin reads `config.yml` from the GitHub Pages site, so CMS field changes go live with the normal Pages deploy (allow up to ~10 minutes for Pages caching).
+
 ## Updates
 
 Use this section for normal day-to-day changes after initial setup.
