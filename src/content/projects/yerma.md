@@ -13,5 +13,7 @@ gallery:
   - /uploads/Yerma_2023_214.jpg
   - /uploads/Yerma_2023_005.webp
   - /uploads/Yerma_2023_007.webp
+  - /uploads/Yerma_2023_382.jpg
+  - /uploads/Yerma_2023_414-1.jpg
 ---
 Directed by Katja River
