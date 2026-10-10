@@ -225,6 +225,20 @@ collections:
           - { label: Eyebrow, name: eyebrow, widget: string, required: false }
           - { label: Title, name: title, widget: string, required: false }
           - { label: Lead, name: lead, widget: text, required: false }
+          - {
+              label: Headshot,
+              name: headshot,
+              widget: image,
+              required: false,
+              hint: "Portrait photo shown to the right of the About sections. A vertical (4:5) crop works best."
+            }
+          - {
+              label: Headshot Alt Text,
+              name: headshotAlt,
+              widget: string,
+              required: false,
+              hint: "Describe the photo for screen readers, e.g. 'Mylo Cardona smiling in a red jacket'."
+            }
       - label: Detail
         name: detail
         file: src/_data/about/detail.json
@@ -246,81 +260,118 @@ collections:
         name: resume
         file: src/_data/about/resume.json
         fields:
-          - { label: Eyebrow, name: eyebrow, widget: string, required: false }
-          - { label: Title, name: title, widget: string, required: false }
-          - { label: Name, name: name, widget: string, required: false }
-          - { label: Tagline, name: tagline, widget: string, required: false }
-          - { label: Contact Button Label, name: contactTitle, widget: string, required: false }
-          - { label: Contact Note, name: contactNote, widget: string, required: false }
+          - label: Display
+            name: display
+            widget: select
+            default: structured
+            options:
+              - { label: "Built-in resume (edit the sections below)", value: structured }
+              - { label: "Uploaded PDF", value: pdf }
+            hint: "Choose what the About page shows. If 'Uploaded PDF' is chosen but no PDF is uploaded, the built-in resume is shown instead."
           - {
-              label: Contact URL,
-              name: contactUrl,
+              label: PDF Resume,
+              name: pdf,
+              widget: file,
+              required: false,
+              hint: "Used only when Display is 'Uploaded PDF'. Upload a .pdf file; it is shown inline on the About page."
+            }
+          - {
+              label: PDF Link Label,
+              name: pdfLabel,
               widget: string,
               required: false,
-              hint: "Use a page path or full https:// URL."
+              default: "Download PDF resume",
+              hint: "Used only when Display is 'Uploaded PDF'. Text for the open/download link under the PDF."
             }
+          - { label: Eyebrow, name: eyebrow, widget: string, required: false, hint: "Small label above the resume heading (both modes)." }
+          - { label: Title, name: title, widget: string, required: false, hint: "Resume heading (both modes)." }
+          - { label: Name, name: name, widget: string, required: false, hint: "Built-in resume only." }
+          - { label: Tagline, name: tagline, widget: string, required: false, hint: "Built-in resume only." }
+          - { label: Contact Button Label, name: contactTitle, widget: string, required: false, hint: "Built-in resume only." }
+          - { label: Contact Note, name: contactNote, widget: string, required: false, hint: "Built-in resume only." }
+          - { label: Contact URL, name: contactUrl, widget: string, required: false, hint: "Built-in resume only. A page path or full https:// URL." }
           - label: Main Column
             name: main
             widget: object
+            collapsed: true
+            hint: "Built-in resume only. The wide left column."
             fields:
-              - { label: Stage Heading, name: stageHeading, widget: string, required: false }
-              - label: Stage Credits
-                name: stageCredits
+              - &resumeSections
+                label: Sections
+                name: sections
+                label_singular: Section
                 widget: list
-                summary: "{{fields.role}}"
-                fields:
-                  - { label: Role, name: role, widget: string, required: false }
-                  - { label: Show Title, name: showTitle, widget: string, required: false }
-                  - { label: Director, name: director, widget: string, required: false }
-                  - { label: Details, name: details, widget: string, required: false }
-              - { label: Film Heading, name: filmHeading, widget: string, required: false }
-              - label: Film Credits
-                name: filmCredits
-                widget: list
-                summary: "{{fields.role}}"
-                fields:
-                  - { label: Role, name: role, widget: string, required: false }
-                  - { label: Show Title, name: showTitle, widget: string, required: false }
-                  - { label: Director, name: director, widget: string, required: false }
-                  - { label: Details, name: details, widget: string, required: false }
-              - { label: Recognition Heading, name: recognitionHeading, widget: string, required: false }
-              - label: Recognition Items
-                name: recognitionItems
-                widget: list
-                summary: "{{fields.text}}"
-                fields:
-                  - { label: Date, name: date, widget: string, required: false }
-                  - { label: Text, name: text, widget: string, required: false }
+                collapsed: true
+                hint: "Add, reorder (drag), or remove sections. Each section picks a layout. Sections with no items are hidden."
+                typeKey: type
+                types:
+                  - label: Credits
+                    name: credits
+                    summary: "{{fields.heading}} (credits)"
+                    widget: object
+                    fields:
+                      - { label: Heading, name: heading, widget: string, hint: "e.g. Stage, Film, Voiceover, Directing." }
+                      - label: Credits
+                        name: items
+                        label_singular: Credit
+                        widget: list
+                        collapsed: true
+                        summary: "{{fields.role}} — {{fields.showTitle}} ({{fields.details}})"
+                        fields:
+                          - { label: Role, name: role, widget: string, required: false }
+                          - { label: Show / Project Title, name: showTitle, widget: string, required: false, hint: "Shown in quotes." }
+                          - { label: Director, name: director, widget: string, required: false, hint: "Shown as 'Dir: …'." }
+                          - { label: Details, name: details, widget: string, required: false, hint: "Company / venue and year, e.g. 'Shotgun Players, 2023'." }
+                  - label: Dated List
+                    name: dated
+                    summary: "{{fields.heading}} (dated list)"
+                    widget: object
+                    fields:
+                      - { label: Heading, name: heading, widget: string, hint: "e.g. Recognition, Education & Training." }
+                      - label: Items
+                        name: items
+                        label_singular: Item
+                        widget: list
+                        collapsed: true
+                        summary: "{{fields.date}} — {{fields.text}}"
+                        fields:
+                          - { label: Date, name: date, widget: string, required: false }
+                          - { label: Text, name: text, widget: string, required: false }
+                  - label: Works
+                    name: works
+                    summary: "{{fields.heading}} (works)"
+                    widget: object
+                    fields:
+                      - { label: Heading, name: heading, widget: string, hint: "e.g. Emcee & Original Works." }
+                      - label: Items
+                        name: items
+                        label_singular: Work
+                        widget: list
+                        collapsed: true
+                        summary: "{{fields.date}} — {{fields.role}}"
+                        fields:
+                          - { label: Date, name: date, widget: string, required: false }
+                          - { label: Title / Role, name: role, widget: string, required: false }
+                          - { label: Highlight, name: highlight, widget: string, required: false, hint: "Shown emphasized, e.g. 'Raised $10,000 for …'." }
+                          - { label: Details, name: details, widget: string, required: false }
+                  - label: Simple List
+                    name: simple
+                    summary: "{{fields.heading}} (list)"
+                    widget: object
+                    fields:
+                      - { label: Heading, name: heading, widget: string, hint: "e.g. Special Skills, Languages." }
+                      - label: Items
+                        name: items
+                        label_singular: Item
+                        widget: list
+                        field: { label: Item, name: item, widget: string }
           - label: Side Column
             name: side
             widget: object
+            collapsed: true
+            hint: "Built-in resume only. The narrow right column."
             fields:
-              - { label: Works Heading, name: worksHeading, widget: string, required: false }
-              - label: Works Items
-                name: worksItems
-                widget: list
-                summary: "{{fields.role}}"
-                fields:
-                  - { label: Date, name: date, widget: string, required: false }
-                  - { label: Role, name: role, widget: string, required: false }
-                  - { label: Highlight, name: highlight, widget: string, required: false }
-                  - { label: Details, name: details, widget: string, required: false }
-              - { label: Skills Heading, name: skillsHeading, widget: string, required: false }
-              - label: Skills
-                name: skills
-                widget: list
-                field:
-                  label: Skill
-                  name: skill
-                  widget: string
-              - { label: Training Heading, name: trainingHeading, widget: string, required: false }
-              - label: Training Items
-                name: trainingItems
-                widget: list
-                summary: "{{fields.text}}"
-                fields:
-                  - { label: Date, name: date, widget: string, required: false }
-                  - { label: Text, name: text, widget: string, required: false }
+              - *resumeSections
   - name: footer
     label: Footer
     files:

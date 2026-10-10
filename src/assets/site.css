@@ -1467,6 +1467,81 @@ h3 {
   line-height: 1.5;
 }
 
+.about-eyebrow {
+  margin: 0 0 0.6rem;
+}
+
+.about-layout.has-headshot {
+  grid-template-columns: minmax(0, 1fr) minmax(12rem, 22rem);
+  align-items: start;
+}
+
+.about-layout.has-headshot .about-headshot {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.about-panels {
+  display: contents;
+}
+
+.about-layout.has-headshot .about-panels {
+  display: grid;
+  gap: 1rem;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.about-headshot {
+  margin: 0;
+  position: sticky;
+  top: 1.5rem;
+}
+
+.about-headshot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(73, 52, 38, 0.18);
+}
+
+.resume-pdf {
+  max-width: 52rem;
+  margin: 0.45rem auto 0;
+}
+
+.resume-pdf-frame {
+  display: block;
+  width: 100%;
+  height: min(80vh, 70rem);
+  border: 1px solid #ddd9d4;
+  border-radius: 0.35rem;
+  background: #f7f6f4;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+}
+
+.resume-pdf-fallback {
+  margin: 0;
+  padding: 1.2rem;
+  color: #1f1a17;
+}
+
+.resume-pdf-actions {
+  margin: 0.8rem 0 0;
+  text-align: center;
+}
+
+.resume-pdf-link {
+  color: var(--text);
+  font-family: var(--font-ui);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
 .resume-inline {
   margin-top: 1.2rem;
 }
@@ -2008,6 +2083,25 @@ h3 {
 
   .about-layout {
     grid-template-columns: 1fr;
+  }
+
+  .about-layout.has-headshot {
+    grid-template-columns: 1fr;
+  }
+
+  .about-layout.has-headshot .about-headshot,
+  .about-layout.has-headshot .about-panels {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .about-headshot {
+    position: static;
+    max-width: 18rem;
+  }
+
+  .resume-pdf-frame {
+    height: 70vh;
   }
 
   .resume-paper-body {

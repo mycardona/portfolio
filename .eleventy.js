@@ -413,7 +413,7 @@ module.exports = function (eleventyConfig) {
     });
   });
 
-  eleventyConfig.addNunjucksAsyncShortcode("optimizedImage", async (src, alt = "") => {
+  eleventyConfig.addNunjucksAsyncShortcode("optimizedImage", async (src, alt = "", sizes = "(min-width: 56rem) 50vw, 100vw") => {
     if (!src) return "";
 
     const input = resolveImageInput(src);
@@ -428,7 +428,7 @@ module.exports = function (eleventyConfig) {
 
       return Image.generateHTML(metadata, {
         alt,
-        sizes: "(min-width: 56rem) 50vw, 100vw",
+        sizes,
         loading: "lazy",
         decoding: "async"
       });
