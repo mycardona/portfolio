@@ -2,8 +2,9 @@ backend:
   name: github
   repo: mycardona/portfolio
   branch: main
-  # Netlify site used only for OAuth provider tokens
-  site_domain: scintillating-pegasus-27bdcb.netlify.app
+  # GitHub login goes through our Cloudflare Worker (sveltia-cms-auth), which only
+  # returns tokens to origins in its ALLOWED_DOMAINS (mycardona.github.io).
+  base_url: https://sveltia-cms-auth.milaniacardona.workers.dev
   # Limit OAuth scope for public-repo editing
   auth_scope: public_repo
 

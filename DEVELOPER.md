@@ -1,9 +1,7 @@
 # Zero-Dollar Portfolio Stack (Eleventy + Decap CMS)
 
 This project uses GitHub Pages for the public site and Decap CMS for editor updates.
-Netlify is used for GitHub OAuth provider tokens.
-
-The Netlify site only publishes `src/admin` (see `netlify.toml`) and skips builds unless `src/admin` or `netlify.toml` changes. On Netlify, the admin reads `config.yml` from the GitHub Pages site, so CMS field changes go live with the normal Pages deploy (allow up to ~10 minutes for Pages caching).
+GitHub login for the CMS goes through a small Cloudflare Worker (`sveltia-cms-auth`, free plan) at `https://sveltia-cms-auth.milaniacardona.workers.dev`. Netlify is no longer used.
 
 ## Updates
 
@@ -12,7 +10,7 @@ Use this section for normal day-to-day changes after initial setup.
 ### Edit content in CMS
 
 1. Open `https://mycardona.github.io/portfolio/admin/`.
-2. If auth callback gets blocked in your browser, use `https://scintillating-pegasus-27bdcb.netlify.app/admin/` directly.
+2. If the login popup is blocked, allow popups for `mycardona.github.io` and try again.
 3. Log in with GitHub.
 4. Update collections (defined in `src/admin/config.yml`):
 - `Projects`: title, date (month/year), categories, summary, venue name + URL, cover image, gallery images (bulk upload), video/audio URL, and body.
@@ -71,7 +69,7 @@ When upgrading `decap-cms` or the bulk image widget package:
 npm run sync:admin-vendor
 ```
 
-3. Update the pinned CDN script tags in `src/admin/index.html` to the new versions and regenerate their SRI hashes. The admin loads Decap from jsDelivr so Netlify only serves the admin page, `config.yml`, and OAuth; the `vendor/` copies are a fallback if the CDN is unreachable.
+3. Update the pinned CDN script tags in `src/admin/index.html` to the new versions and regenerate their SRI hashes. The admin loads Decap from jsDelivr rather than serving the 5 MB bundle from this site; the `vendor/` copies are a fallback if the CDN is unreachable.
 
 ```bash
 openssl dgst -sha384 -binary src/admin/vendor/decap-cms.js | openssl base64 -A
@@ -98,11 +96,11 @@ Update these in `src/admin/config.yml` when domains/repos change:
 
 - `backend.repo`: `owner/repo`
 - `backend.branch`
-- `backend.site_domain`: Netlify site domain only (no protocol)
+- `backend.base_url`: the Cloudflare auth Worker URL
 - `backend.auth_scope`: use `public_repo` for public repositories
 - `site_url`: public GitHub Pages URL
 
-`src/admin/index.html` reads `site_domain` and `site_url` from `config.yml` for the GitHub Pages admin redirect.
+If the site moves to a new domain, add it to the Worker's `ALLOWED_DOMAINS` variable in Cloudflare, or login will fail.
 
 ### GitHub collaborator allowlist (Option 1)
 
@@ -120,7 +118,7 @@ Use this section to set up from scratch.
 
 - Node.js `20.5+`
 - GitHub repo with this project
-- Netlify account
+- Cloudflare account (free) for the auth Worker
 
 ### 1) Install and run locally
 
@@ -142,7 +140,7 @@ Set `src/admin/config.yml`:
 - `backend.name: github`
 - `backend.repo: <owner>/<repo>`
 - `backend.branch: main`
-- `backend.site_domain: <netlify-site>.netlify.app`
+- `backend.base_url: https://<worker>.<account>.workers.dev`
 - `backend.auth_scope: public_repo`
 - `site_url: https://<user>.github.io/<repo>/`
 
@@ -151,16 +149,15 @@ Set `src/admin/config.yml`:
 In GitHub: `Settings -> Developer settings -> OAuth Apps -> New OAuth App`
 
 - Homepage URL: your public site URL
-- Authorization callback URL: `https://api.netlify.com/auth/done`
+- Authorization callback URL: `https://<worker>.<account>.workers.dev/callback`
 
 Copy client ID and client secret.
 
-### 4) Configure Netlify OAuth provider
+### 4) Deploy the auth Worker
 
-1. In Netlify, create/import a site (same repo is fine).
-2. Open site settings: `Access & security -> OAuth -> Authentication providers`.
-3. Install `GitHub` provider.
-4. Paste OAuth app client ID + client secret.
+1. Deploy https://github.com/sveltia/sveltia-cms-auth with its "Deploy to Cloudflare Workers" button (do not enable Cloudflare Access on it; it must be public).
+2. In the Worker's `Settings -> Variables and Secrets`, set `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` (type Secret), and `ALLOWED_DOMAINS` (e.g. `<user>.github.io`).
+3. Put the Worker URL in `backend.base_url`.
 
 ### 5) Deploy public site on GitHub Pages
 

@@ -3,7 +3,7 @@
 ### Edit content in CMS
 
 1. Open `https://mycardona.github.io/portfolio/admin/`.
-2. If auth callback gets blocked in your browser, use `https://scintillating-pegasus-27bdcb.netlify.app/admin/` directly.
+2. If the login popup is blocked, allow popups for `mycardona.github.io` and try again.
 3. Log in with GitHub.
 4. Update collections (defined in `src/admin/config.yml`):
 - `Projects`: title, date (month/year), categories, summary, venue name + URL, cover image, gallery images (bulk upload), video/audio URL, and body.
