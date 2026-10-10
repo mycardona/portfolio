@@ -33,7 +33,7 @@ showQuickNav: false
 <section id="selected-work" class="content-section selected-work" aria-label="Selected work">
   <div class="selected-work-head">
     <p class="eyebrow">{{ homepageSelectedWork.eyebrow or "Selected Work" }}</p>
-    <h3 style="font-family: var(--font-body); font-weight: 600;">{{ homepageSelectedWork.summary or "A curated set of real projects, definitely not test data." }}</h3>
+    <h3 style="font-family: var(--font-body); font-weight: 600;">{{ homepageSelectedWork.summary }}</h3>
   </div>
   <div class="selected-work-grid">
     {% for category in homepageCategories %}
