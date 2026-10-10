@@ -4,6 +4,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Admin</title>
+    <script>
+      // On the Netlify OAuth host, read config.yml from the GitHub Pages site so
+      // CMS field changes go live with the normal Pages deploy and never go stale
+      // on Netlify (Netlify only rebuilds when src/admin changes). Must keep this
+      // URL in sync with site_url in config.yml. Elsewhere (Pages, local dev)
+      // Decap reads ./config.yml as usual.
+      if (window.location.hostname.endsWith(".netlify.app")) {
+        document.write(
+          '<link rel="cms-config-url" type="text/yaml" href="https://mycardona.github.io/portfolio/admin/config.yml?v=' +
+            Date.now() +
+            '">'
+        );
+      }
+    </script>
   </head>
   <body>
     <script>
