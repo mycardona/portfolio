@@ -4,62 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Admin</title>
-    <script>
-      // On the Netlify OAuth host, read config.yml from the GitHub Pages site so
-      // CMS field changes go live with the normal Pages deploy and never go stale
-      // on Netlify (Netlify only rebuilds when src/admin changes). Must keep this
-      // URL in sync with site_url in config.yml. Elsewhere (Pages, local dev)
-      // Decap reads ./config.yml as usual.
-      if (window.location.hostname.endsWith(".netlify.app")) {
-        document.write(
-          '<link rel="cms-config-url" type="text/yaml" href="https://mycardona.github.io/portfolio/admin/config.yml?v=' +
-            Date.now() +
-            '">'
-        );
-      }
-    </script>
   </head>
   <body>
-    <script>
-      (async function () {
-        var host = window.location.hostname;
-        if (!host.endsWith("github.io")) return;
-
-        try {
-          var response = await fetch("./config.yml", { cache: "no-store" });
-          if (!response.ok) return;
-
-          var configText = await response.text();
-          var siteDomainMatch = configText.match(/^\s*site_domain:\s*([^\s#]+)/m);
-          var siteUrlMatch = configText.match(/^\s*site_url:\s*([^\s#]+)/m);
-          if (!siteDomainMatch || !siteUrlMatch) return;
-
-          var expectedHost = new URL(siteUrlMatch[1]).hostname;
-          if (host !== expectedHost) return;
-
-          var siteDomain = siteDomainMatch[1]
-            .trim()
-            .replace(/^https?:\/\//i, "")
-            .replace(/\/.*$/, "")
-            .toLowerCase();
-
-          if (!siteDomain) return;
-          var allowedNetlifyDomains = [siteDomain];
-          var isNetlifyAppDomain = /^[a-z0-9-]+\.netlify\.app$/.test(siteDomain);
-          if (!isNetlifyAppDomain) return;
-          if (!allowedNetlifyDomains.includes(siteDomain)) return;
-
-          var netlifyAdminUrl = "https://" + siteDomain + "/admin/";
-          window.location.replace(netlifyAdminUrl);
-        } catch (error) {
-          // If config cannot be read, continue loading local CMS.
-        }
-      })();
-    </script>
     <!--
-      Load CMS scripts from a pinned CDN so the Netlify site only serves this page,
-      config.yml, and OAuth. Netlify was truncating the 5 MB decap-cms.js, leaving
-      the admin blank. Versions and SRI hashes must match package.json and the
+      Load CMS scripts from a pinned CDN rather than shipping the
+      5 MB decap-cms.js from this site. Versions and SRI hashes must match package.json and the
       files in ./vendor/, which remain as a fallback if the CDN is unreachable.
     -->
     <script
