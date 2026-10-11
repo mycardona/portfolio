@@ -1,5 +1,5 @@
 ---
-title: Original Work
+title: Original Works
 slug: original-work
 description: Sold out shows developed from international solidarity research and
   devised with local, marginalized, and interdisciplinary artists
