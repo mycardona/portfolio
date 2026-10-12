@@ -83,6 +83,13 @@
   "main": {
     "sections": [
       {
+        "type": "simple",
+        "items": [
+          "Promoted from Production Manager for artistic contributions (2024) Supports the Executive Artistic Director in program development and oversees the logistical, artistic, financial, and technical operations of the season, serving as the central hub between directors, designers, staff, and crews Organized teams of 30+ designers & performers per production to rehearse effectively and fulfill potential of each program Manages a $1 million season budget, secured teams of 20 - 50 artists & technicians for each production in a eight show season while coordinating weekly theater rentals Creates timelines for production schedules and coordinates space and resource usage across departments and in support of our productions, fellowship program, classes, rentals, and other events"
+        ],
+        "heading": "Assistant Executive Artistic Director & Production Manager "
+      },
+      {
         "type": "credits",
         "heading": "Stage",
         "items": [
