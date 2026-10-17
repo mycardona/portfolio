@@ -2,8 +2,8 @@
 title: '"Fated Emergence" by Orion Duval '
 date: 2026-02-22
 categories:
-  - directing
-summary: ""
+  - Directing
+summary: Directed by Mylo Cardona
 venueName: "Potrero Stage "
 coverImage: /uploads/pxl_20260202_051819188.jpg
 gallery:
