@@ -8,8 +8,7 @@ summary: "Mylo has the privilege of leading Theater of the Oppressed workshops
   University, Santa Clara University, University of California, Berkeley, San
   Quentin Prison, and as well as institutions such as FLACC (Festival of Latin
   American Contemporary Choreographers), OVRHL Studios, and now, FIPPP (Formally
-  Incarcerated People's Performance Project). Ask Mylo about how TO workshops
-  can support your classroom, office, studio, family, or community space. "
+  Incarcerated People's Performance Project). "
 coverImage: /uploads/pxl_20220806_214117302.jpg
 gallery:
   - /uploads/PXL_20220526_153009462.jpg
