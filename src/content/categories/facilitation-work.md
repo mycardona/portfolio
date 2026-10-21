@@ -1,7 +1,8 @@
 ---
 title: Facilitation
 slug: facilitation
-description: Theater of the Oppressed based work
+description: "Ask Mylo about how TO workshops can support your classroom,
+  office, studio, family, or community space. "
 order: 4
 permalink: false
 ---
