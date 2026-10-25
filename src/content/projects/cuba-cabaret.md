@@ -3,6 +3,8 @@ title: "Cuba Cabaret "
 date: 2023-10
 categories:
   - original-work
+  - performance
+  - Directing
 summary: Written, directed, produced, and hosted by Mylo Cardona
 venueName: "510 Firehouse "
 coverImage: /uploads/dscf8557.jpg
