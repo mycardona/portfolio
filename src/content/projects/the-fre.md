@@ -3,7 +3,7 @@ title: '"The Fre" by Taylor Mac '
 date: 2026-06
 categories:
   - Directing
-summary: Directed by Mylo Cardona
+summary: Directed and production managed by Mylo Cardona
 venueName: "Oakland Theater Project "
 coverImage: /uploads/the-fre-13.jpg
 gallery:
