@@ -44,11 +44,20 @@ layout: layouts/base.njk
           {% set imageSrc = item | galleryItemSrc %}
           {% if imageSrc %}
             <figure>
-              {% optimizedImage imageSrc, title %}
+              {% galleryImage imageSrc, title %}
             </figure>
           {% endif %}
         {% endfor %}
       </div>
     </section>
+
+    <dialog class="lightbox" aria-label="Photo viewer">
+      <img class="lightbox-image" alt="">
+      <button type="button" class="lightbox-btn lightbox-close" aria-label="Close">&times;</button>
+      <button type="button" class="lightbox-btn lightbox-prev" aria-label="Previous photo">&lsaquo;</button>
+      <button type="button" class="lightbox-btn lightbox-next" aria-label="Next photo">&rsaquo;</button>
+      <p class="lightbox-count" aria-live="polite"></p>
+    </dialog>
+    <script src="{{ ('/assets/lightbox.js?v=' + build.assetVersion) | url }}" defer></script>
   {% endif %}
 </article>

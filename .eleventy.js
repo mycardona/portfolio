@@ -435,7 +435,7 @@ module.exports = function (eleventyConfig) {
     }
   });
 
-  eleventyConfig.addNunjucksAsyncShortcode("optimizedImage", async (src, alt = "", sizes = "(min-width: 56rem) 50vw, 100vw") => {
+  const optimizedImage = async (src, alt = "", sizes = "(min-width: 56rem) 50vw, 100vw") => {
     if (!src) return "";
 
     const input = resolveImageInput(src);
@@ -459,6 +459,29 @@ module.exports = function (eleventyConfig) {
       const safeAlt = escapeHtml(alt || "");
       return `<img src="${safeSrc}" alt="${safeAlt}" loading="lazy" decoding="async">`;
     }
+  };
+  eleventyConfig.addNunjucksAsyncShortcode("optimizedImage", optimizedImage);
+
+  // Gallery thumbnail wrapped in a link to a large WebP. The link works on its
+  // own without JS; assets/lightbox.js turns it into the full-screen viewer.
+  eleventyConfig.addNunjucksAsyncShortcode("galleryImage", async (src, alt = "") => {
+    if (!src) return "";
+
+    let fullUrl = assetUrl(src);
+    try {
+      const metadata = await Image(resolveImageInput(src), {
+        widths: [2000],
+        formats: ["webp"],
+        outputDir: "_site/img/",
+        urlPath: withPathPrefix("/img/")
+      });
+      fullUrl = metadata.webp[metadata.webp.length - 1].url;
+    } catch {
+      // Fall back to the original upload.
+    }
+
+    const thumb = await optimizedImage(src, alt);
+    return `<a class="gallery-link" href="${escapeHtml(fullUrl)}" data-lightbox>${thumb}</a>`;
   });
 
   return {
