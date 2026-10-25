@@ -3,6 +3,8 @@ title: "The Watermelon Cabaret "
 date: 2024-06
 categories:
   - original-work
+  - Directing
+  - performance
 summary: "Written, directed, produced, and hosted by Mylo Cardona "
 venueName: "The Magic Theater "
 coverImage: /uploads/20240601_194433.jpg
