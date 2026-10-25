@@ -1,6 +1,6 @@
 ---
 title: Theater of the Oppressed
-date: 2021-02
+date: 2026-10
 categories:
   - facilitation
 summary: "Mylo has the privilege of leading Theater of the Oppressed workshops
