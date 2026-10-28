@@ -12,7 +12,7 @@ gallery:
   - /uploads/IMG_0414.JPG
   - /uploads/IMG_0408-1-.JPG
 ---
-Role - "Giles" 
+Giles 
 
 Directed by Michael Socrates Moran
 
